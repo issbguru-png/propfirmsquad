@@ -37,7 +37,8 @@ export default async function HomePage() {
   return (
     <div className="space-y-12">
       {/* Hero: direct answer for "best prop firms" */}
-      <section>
+      <section className="flex flex-wrap items-start justify-between gap-x-10 gap-y-6">
+        <div className="min-w-0 flex-1 basis-[36rem]">
         <p className="mb-2 text-xs font-bold tracking-widest text-accent uppercase">
           Updated{' '}
           {new Date().toLocaleDateString('en-US', {
@@ -96,24 +97,28 @@ export default async function HomePage() {
             </span>
             Quality over quantity — the top firms reviewed deeply, not 500 listed shallowly.
           </p>
-          <a href="#author-h" className="group flex items-center gap-2.5">
-            <img
-              src="/ayub-rana.png"
-              alt=""
-              width={52}
-              height={52}
-              className="h-13 w-13 rounded-full border-2 border-line object-cover"
-            />
-            <span className="leading-tight">
-              <span className="block font-serif text-lg italic group-hover:text-accent-dark">
-                Ayub Rana
-              </span>
-              <span className="block text-xs text-ink-3">
-                CA &amp; forex trader — every review personally verified
-              </span>
-            </span>
-          </a>
         </div>
+        </div>
+
+        {/* Author card beside the headline */}
+        <a
+          href="#author-h"
+          className="group flex shrink-0 flex-col items-center rounded-lg border border-line bg-card p-4 text-center"
+        >
+          <img
+            src="/ayub-rana.png"
+            alt="Ayub Rana, Chartered Accountant and forex trader"
+            width={132}
+            height={132}
+            className="h-33 w-33 rounded-lg bg-accent-pale object-cover"
+          />
+          <span className="mt-3 font-serif text-xl italic group-hover:text-accent-dark">
+            Ayub Rana
+          </span>
+          <span className="mt-0.5 max-w-40 text-xs leading-snug text-ink-3">
+            CA &amp; forex trader — every review personally verified
+          </span>
+        </a>
       </section>
 
       {/* Ranked data table near the top — AI-Overview / featured-snippet target */}
@@ -279,7 +284,7 @@ export default async function HomePage() {
             alt="Ayub Rana, Chartered Accountant and forex trader — PropFirmSquad reviewer"
             width={112}
             height={112}
-            className="h-28 w-28 shrink-0 rounded-lg border border-line object-cover"
+            className="h-28 w-28 shrink-0 rounded-lg bg-accent-pale object-cover"
           />
           <div>
             <h2 id="author-h" className="mb-1 text-2xl font-extrabold tracking-tight">
