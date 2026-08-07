@@ -1,9 +1,12 @@
 import type { CollectionConfig } from 'payload'
+import { enforceDataDensityGate } from '../payload/dataDensity'
+import { revalidateFirmAfterChange, revalidateFirmAfterDelete } from '../payload/revalidate'
 
 export const Firms: CollectionConfig = {
   slug: 'firms',
   admin: {
     useAsTitle: 'name',
+    group: 'Catalog',
     defaultColumns: ['name', 'listingType', 'reviewScore', 'lastVerifiedAt', '_status'],
   },
   versions: {
@@ -19,7 +22,11 @@ export const Firms: CollectionConfig = {
         data.lastVerifiedAt = new Date().toISOString()
         return data
       },
+      // noindex until data-density threshold met (CONTRACTS.md publishing gate)
+      enforceDataDensityGate,
     ],
+    afterChange: [revalidateFirmAfterChange],
+    afterDelete: [revalidateFirmAfterDelete],
   },
   fields: [
     // ── Identity ──────────────────────────────────────────────

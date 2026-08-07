@@ -4,6 +4,8 @@ export const Platforms: CollectionConfig = {
   slug: 'platforms',
   admin: {
     useAsTitle: 'name',
+    group: 'Catalog',
+    defaultColumns: ['name', 'slug'],
   },
   access: {
     read: () => true,

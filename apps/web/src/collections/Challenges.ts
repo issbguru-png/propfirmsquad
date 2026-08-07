@@ -1,14 +1,17 @@
 import type { CollectionConfig } from 'payload'
+import { firmRelatedRevalidation } from '../payload/revalidate'
 
 export const Challenges: CollectionConfig = {
   slug: 'challenges',
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'firm', 'accountSize', 'price', 'isActive'],
+    group: 'Catalog',
+    defaultColumns: ['name', 'firm', 'steps', 'accountSize', 'price', 'isActive'],
   },
   access: {
     read: () => true,
   },
+  hooks: firmRelatedRevalidation(),
   fields: [
     { name: 'firm', type: 'relationship', relationTo: 'firms', required: true, index: true },
     { name: 'name', type: 'text', required: true, admin: { description: 'e.g. "Stellar 2-Step 100K"' } },
