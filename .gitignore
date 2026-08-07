@@ -7,3 +7,4 @@ dist
 apps/web/media
 .DS_Store
 .claude/
+apps/web/test-results/
