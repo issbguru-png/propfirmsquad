@@ -4,6 +4,7 @@ import React from 'react'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { organizationLd } from '@/lib/seo/jsonld'
 import { MarketSwitcher } from './best/_lib/MarketSwitcher'
+import { Logomark } from '@/components/Logo'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -14,6 +15,47 @@ export const metadata: Metadata = {
   description:
     'Compare prop trading firms with verified data: rules, payouts, rule-change history, and real trader reviews.',
 }
+
+/** Footer sitemap. Every href must be a route that exists (no dead links). */
+const FOOTER_COLUMNS = [
+  {
+    heading: 'Prop firms',
+    links: [
+      { href: '/prop-firms', label: 'All prop firms' },
+      { href: '/best/cfd-prop-firms', label: 'Best CFD / Forex firms' },
+      { href: '/best/futures-prop-firms', label: 'Best futures firms' },
+      { href: '/best/crypto-prop-firms', label: 'Best crypto firms' },
+      { href: '/deals', label: 'Promo codes & deals' },
+    ],
+  },
+  {
+    heading: 'Free tools',
+    links: [
+      { href: '/tools/consistency-calculator', label: 'Consistency calculator' },
+      { href: '/tools/drawdown-calculator', label: 'Drawdown calculator' },
+      { href: '/tools/challenge-roi-calculator', label: 'Challenge ROI calculator' },
+      { href: '/tools/payout-split-calculator', label: 'Payout split calculator' },
+      { href: '/tools', label: 'All calculators' },
+    ],
+  },
+  {
+    heading: 'Learn',
+    links: [
+      { href: '/learn/what-is-a-prop-firm', label: 'What is a prop firm?' },
+      { href: '/learn/consistency-rule-explained', label: 'Consistency rule explained' },
+      { href: '/learn/trailing-drawdown-explained', label: 'Trailing drawdown explained' },
+      { href: '/learn', label: 'All guides' },
+    ],
+  },
+  {
+    heading: 'Company',
+    links: [
+      { href: '/about', label: 'About us' },
+      { href: '/methodology', label: 'How we rank' },
+      { href: '/best', label: 'All rankings' },
+    ],
+  },
+] as const
 
 const NAV = [
   { href: '/prop-firms', label: 'Prop Firms' },
@@ -30,21 +72,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <header className="bg-nav text-on-dark">
           <div className="mx-auto flex max-w-(--container-page) flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4">
             <Link href="/" className="flex items-center gap-2.5 text-xl font-extrabold tracking-tight">
-              {/* Logomark: ascending candles in a rounded square */}
-              <svg
-                aria-hidden
-                width="30"
-                height="30"
-                viewBox="0 0 32 32"
-                className="shrink-0"
-              >
-                <rect x="1" y="1" width="30" height="30" rx="7" className="fill-accent" />
-                <g stroke="var(--color-nav)" strokeWidth="3" strokeLinecap="round">
-                  <line x1="10" y1="21.5" x2="10" y2="16.5" />
-                  <line x1="16" y1="23.5" x2="16" y2="11.5" />
-                  <line x1="22" y1="18.5" x2="22" y2="8.5" />
-                </g>
-              </svg>
+              <Logomark />
               <span>
                 PropFirm<span className="text-accent">Squad</span>
               </span>
@@ -71,29 +99,85 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
           </div>
         </header>
         <main className="mx-auto max-w-(--container-page) px-4 py-10">{children}</main>
-        <footer className="bg-footer mt-16 py-10 text-on-dark-2">
-          <div className="mx-auto flex max-w-(--container-page) flex-col gap-6 px-4 text-sm">
-            <nav aria-label="Footer">
-              <ul className="flex flex-wrap gap-x-6 gap-y-2">
-                {NAV.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href} className="transition-colors hover:text-on-dark">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <p className="max-w-(--container-prose)">
-              Trading funded accounts involves risk, and evaluation fees are generally
-              non-refundable unless stated. PropFirmSquad may earn a commission when you buy a
-              challenge through our links; it never affects scores or rankings. See our{' '}
-              <Link href="/methodology" className="underline hover:text-on-dark">
-                methodology
-              </Link>
-              .
-            </p>
-            <p>© {new Date().getFullYear()} PropFirmSquad</p>
+        <footer className="bg-footer mt-16 text-on-dark-2">
+          <div className="mx-auto max-w-(--container-page) px-4 py-12">
+            {/* Brand + link columns */}
+            <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-6">
+              <div className="lg:col-span-2">
+                <Link
+                  href="/"
+                  className="flex items-center gap-2.5 text-xl font-extrabold tracking-tight text-on-dark"
+                >
+                  <Logomark />
+                  <span>
+                    PropFirm<span className="text-accent">Squad</span>
+                  </span>
+                </Link>
+                <p className="mt-3 max-w-sm text-sm">
+                  The top prop firms reviewed deeply, not five hundred listed shallowly. Verified
+                  rules, real payout data, and rankings that are never for sale.
+                </p>
+                <div className="mt-5 flex items-center gap-3">
+                  <img
+                    src="/ayub-rana.png"
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 rounded-full bg-accent-pale object-cover"
+                  />
+                  <p className="text-sm leading-tight">
+                    <span className="block font-semibold text-on-dark">
+                      Reviewed by Ayub Rana
+                    </span>
+                    <span className="text-xs">Chartered Accountant &amp; Forex Trader</span>
+                  </p>
+                </div>
+              </div>
+
+              {FOOTER_COLUMNS.map((col) => (
+                <nav key={col.heading} aria-label={col.heading}>
+                  <h2 className="mb-3 text-xs font-bold tracking-widest text-on-dark uppercase">
+                    {col.heading}
+                  </h2>
+                  <ul className="space-y-2 text-sm">
+                    {col.links.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} className="transition-colors hover:text-accent-light">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              ))}
+            </div>
+
+            {/* Disclosures */}
+            <div className="mt-10 border-t border-line-dark pt-6 text-xs leading-relaxed">
+              <p className="max-w-(--container-prose)">
+                <strong className="text-on-dark">Risk warning.</strong> Trading leveraged
+                instruments carries a high risk of loss and is not suitable for everyone. Evaluation
+                fees are generally non-refundable unless a firm states otherwise. Nothing on this
+                site is financial advice; always read a firm&apos;s terms before buying a challenge.
+              </p>
+              <p className="mt-3 max-w-(--container-prose)">
+                <strong className="text-on-dark">Affiliate disclosure.</strong> PropFirmSquad may
+                earn a commission when you buy a challenge through our links. Commissions never
+                influence scores, rankings, or what we publish. Read our{' '}
+                <Link href="/methodology" className="underline hover:text-on-dark">
+                  ranking methodology
+                </Link>
+                .
+              </p>
+            </div>
+
+            {/* Bottom bar */}
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-line-dark pt-6 text-xs">
+              <p>© {new Date().getFullYear()} PropFirmSquad. All rights reserved.</p>
+              <p>
+                Data verified continuously. Every page shows its own last-checked date.
+              </p>
+            </div>
           </div>
         </footer>
       </body>
