@@ -6,3 +6,4 @@ dist
 *.tsbuildinfo
 apps/web/media
 .DS_Store
+.claude/
