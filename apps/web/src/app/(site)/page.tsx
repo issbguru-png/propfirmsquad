@@ -100,9 +100,9 @@ export default async function HomePage() {
             <img
               src="/ayub-rana.png"
               alt=""
-              width={36}
-              height={36}
-              className="h-9 w-9 rounded-full border border-line object-cover"
+              width={52}
+              height={52}
+              className="h-13 w-13 rounded-full border-2 border-line object-cover"
             />
             <span className="leading-tight">
               <span className="block font-serif text-lg italic group-hover:text-accent-dark">
