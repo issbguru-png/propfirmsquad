@@ -84,7 +84,7 @@ try {
         firmTypes: ['cfd'],
         country: 'CZ',
         currency: 'EUR',
-        dateEstablished: '2015-01-01',
+        dateEstablished: '2015-01-01T00:00:00.000Z',
         trustPilotScore: 4.8,
         assets: ['fx', 'metals', 'indices', 'energy', 'crypto', 'stocks', 'other-commodities'],
         programTypes: ['1-step', '2-step'],
