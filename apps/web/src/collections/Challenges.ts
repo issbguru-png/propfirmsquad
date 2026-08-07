@@ -41,6 +41,15 @@ export const Challenges: CollectionConfig = {
     },
     { name: 'profitSplitPct', type: 'number' },
     { name: 'refundableFee', type: 'checkbox', defaultValue: false },
+    {
+      name: 'feeNote',
+      type: 'text',
+      localized: true,
+      admin: {
+        description:
+          'Fine-print note rendered as a footnote on the pricing table, e.g. staged fees where total cost differs from the entry price',
+      },
+    },
     { name: 'isActive', type: 'checkbox', defaultValue: true },
   ],
 }

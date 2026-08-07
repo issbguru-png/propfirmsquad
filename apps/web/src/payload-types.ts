@@ -347,6 +347,10 @@ export interface Challenge {
   drawdownType?: ('static' | 'trailing-eod' | 'trailing-intraday' | 'hybrid') | null;
   profitSplitPct?: number | null;
   refundableFee?: boolean | null;
+  /**
+   * Fine-print note rendered as a footnote on the pricing table, e.g. staged fees where total cost differs from the entry price
+   */
+  feeNote?: string | null;
   isActive?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -682,6 +686,7 @@ export interface ChallengesSelect<T extends boolean = true> {
   drawdownType?: T;
   profitSplitPct?: T;
   refundableFee?: T;
+  feeNote?: T;
   isActive?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -144,6 +144,21 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
     keyFacts.push({ label: 'Payout', value: payout.frequency, href: '#payouts' })
   }
 
+  // ── Pricing footnotes (challenge feeNote, e.g. staged fees) ──
+  const FOOTNOTE_MARKS = ['†', '‡', '§']
+  const feeNotes: string[] = []
+  const noteMarkFor = new Map<number, string>()
+  challenges.forEach((c, i) => {
+    if (isDbChallenge(c) && c.feeNote) {
+      let idx = feeNotes.indexOf(c.feeNote)
+      if (idx === -1) {
+        feeNotes.push(c.feeNote)
+        idx = feeNotes.length - 1
+      }
+      noteMarkFor.set(i, FOOTNOTE_MARKS[idx] ?? `*${idx + 1}`)
+    }
+  })
+
   // ── Editorial pros/cons + score breakdown ──
   const pros = (firm.prosCons?.pros ?? []).map((p) => p.text).filter(Boolean)
   const cons = (firm.prosCons?.cons ?? []).map((c) => c.text).filter(Boolean)
@@ -506,7 +521,12 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                         </span>
                       </th>
                       <td className={tdNum}>{money(c.accountSize)}</td>
-                      <td className={`${tdNum} font-bold text-accent-dark`}>{money(c.price)}</td>
+                      <td className={`${tdNum} font-bold text-accent-dark`}>
+                        {money(c.price)}
+                        {noteMarkFor.has(i) ? (
+                          <sup className="ml-0.5 font-semibold text-ink-2">{noteMarkFor.get(i)}</sup>
+                        ) : null}
+                      </td>
                       <td className={tdNum}>
                         {(c.profitTargets ?? []).length > 0
                           ? (c.profitTargets ?? []).map((t) => `${t.targetPct}%`).join(' / ')
@@ -527,6 +547,15 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
               </table>
             </div>
           )}
+          {feeNotes.length > 0 ? (
+            <ul className="mt-3 space-y-1 text-xs text-ink-2">
+              {feeNotes.map((note, idx) => (
+                <li key={note}>
+                  <sup className="font-semibold">{FOOTNOTE_MARKS[idx] ?? `*${idx + 1}`}</sup> {note}
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </SectionCard>
 
         {/* ————— Rules ————— */}
