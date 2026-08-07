@@ -349,7 +349,35 @@ export default async function HomePage() {
                 rules, pricing, and payout terms the way an accountant reads a balance sheet, and
                 trades funded accounts himself.
               </p>
+              <p>
+                Ayub has traded forex since 2018, specialising in ICT and smart-money concepts —
+                liquidity, price action, and institutional order flow. As an educator he has
+                published 100+ trading guides read by 300,000+ traders, and authored a widely-used
+                ICT trading eBook. That combination — a Chartered Accountant&apos;s eye for fine
+                print and a practitioner&apos;s feel for how firms treat funded traders — is what
+                every review on this site is built on.{' '}
+                <a
+                  href="https://ayubrana.com/"
+                  target="_blank"
+                  rel="noopener"
+                  className="font-semibold text-accent-dark underline"
+                >
+                  More about Ayub →
+                </a>
+              </p>
             </div>
+            <ul className="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
+              {['Trading since 2018', '300K+ blog readers', '100+ trading guides published', 'ICT & smart-money specialist'].map(
+                (stat) => (
+                  <li
+                    key={stat}
+                    className="rounded-full border border-line bg-page px-3 py-1.5 text-ink-2"
+                  >
+                    {stat}
+                  </li>
+                ),
+              )}
+            </ul>
           </div>
         </div>
       </section>

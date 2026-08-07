@@ -145,10 +145,14 @@ export function personLd(): JsonLdObject {
     image: absoluteUrl('/ayub-rana.png'),
     jobTitle: 'Chartered Accountant & Forex Trader',
     description:
-      'Qualified Chartered Accountant and full-time forex trader who personally reviews every prop firm ranked on PropFirmSquad.',
+      'Chartered Accountant and forex trader since 2018, specialising in ICT and smart-money concepts. Educator with 100+ published trading guides read by 300,000+ traders. Personally reviews every prop firm ranked on PropFirmSquad.',
+    url: 'https://ayubrana.com/',
+    sameAs: ['https://ayubrana.com/', 'https://www.ictpdf.com/'],
     knowsAbout: [
       'proprietary trading firms',
       'forex trading',
+      'ICT trading',
+      'smart money concepts',
       'prop firm challenges',
       'trading risk management',
       'financial auditing',
