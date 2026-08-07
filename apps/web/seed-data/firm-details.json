@@ -45,6 +45,10 @@
     "sources": [
       "https://the5ers.com/high-stakes/",
       "https://the5ers.com/hyper-growth/",
+      "https://the5ers.com/bootcamp/",
+      "https://the5ers.com/faqs/how-much-does-the-bootcamp-cost-in-total-and-how-much-is-it-to-start/",
+      "https://the5ers.com/challenge-programs-bootcamp-high-stakes-hyper-growth-explained/",
+      "https://propfirmmatch.com/prop-firm-challenges/the-5-ers-hyper-growth-program-1-step-5k",
       "https://fundedtrading.com/propfirm/the5ers/",
       "https://www.quantvps.com/blog/the5ers-payout-rules"
     ],
@@ -52,11 +56,22 @@
       { "name": "High Stakes 2-Step 5K", "steps": "2-step", "accountSize": 5000, "price": 39 },
       { "name": "High Stakes 2-Step 20K", "steps": "2-step", "accountSize": 20000, "price": 165 },
       { "name": "High Stakes 2-Step 60K", "steps": "2-step", "accountSize": 60000, "price": 300 },
-      { "name": "High Stakes 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 495 }
+      { "name": "High Stakes 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 495 },
+      { "name": "Hyper Growth Instant 5K", "steps": "instant", "accountSize": 5000, "price": 260 },
+      { "name": "Hyper Growth Instant 10K", "steps": "instant", "accountSize": 10000, "price": 450 },
+      { "name": "Hyper Growth Instant 20K", "steps": "instant", "accountSize": 20000, "price": 850 },
+      { "name": "Pro Growth 1-Step 5K", "steps": "1-step", "accountSize": 5000, "price": 52 },
+      { "name": "Pro Growth 1-Step 10K", "steps": "1-step", "accountSize": 10000, "price": 98 },
+      { "name": "Pro Growth 1-Step 20K", "steps": "1-step", "accountSize": 20000, "price": 189 },
+      { "name": "Pro Growth 1-Step 50K", "steps": "1-step", "accountSize": 50000, "price": 329 },
+      { "name": "Bootcamp 3-Step 20K", "steps": "3-step", "accountSize": 20000, "price": 22 },
+      { "name": "Bootcamp 3-Step 100K", "steps": "3-step", "accountSize": 100000, "price": 95 },
+      { "name": "Bootcamp 3-Step 250K", "steps": "3-step", "accountSize": 250000, "price": 225 }
     ],
     "rules": {
       "drawdownType": "static",
       "newsTradingAllowed": false,
+      "eaAllowed": true,
       "minTradingDays": 3
     },
     "payout": {
@@ -70,9 +85,17 @@
     "sources": [
       "https://proptradingvibes.com/prop-firms/brightfunded",
       "https://velotrade.com/blog/brightfunded-review",
-      "https://fundedtrading.com/propfirm/bright-funded/"
+      "https://fundedtrading.com/propfirm/bright-funded/",
+      "https://brightfunded.com/",
+      "https://brightfunded.com/1-step"
     ],
     "challenges": [
+      { "name": "1-Step 5K", "steps": "1-step", "accountSize": 5000, "price": 49, "currency": "EUR" },
+      { "name": "1-Step 10K", "steps": "1-step", "accountSize": 10000, "price": 97, "currency": "EUR" },
+      { "name": "1-Step 25K", "steps": "1-step", "accountSize": 25000, "price": 197, "currency": "EUR" },
+      { "name": "1-Step 50K", "steps": "1-step", "accountSize": 50000, "price": 297, "currency": "EUR" },
+      { "name": "1-Step 100K", "steps": "1-step", "accountSize": 100000, "price": 497, "currency": "EUR" },
+      { "name": "1-Step 200K", "steps": "1-step", "accountSize": 200000, "price": 997, "currency": "EUR" },
       { "name": "2-Step 5K", "steps": "2-step", "accountSize": 5000, "price": 55, "currency": "EUR" },
       { "name": "2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 105, "currency": "EUR" },
       { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 225, "currency": "EUR" },
@@ -99,7 +122,12 @@
       "https://velotrade.com/blog/e8-markets-review",
       "https://propnavi.io/en/blog/e8-markets-review/",
       "https://www.propfirmscompared.com/prop-firms/e8-markets",
-      "https://proptradingvibes.com/blog/e8-one-review"
+      "https://proptradingvibes.com/blog/e8-one-review",
+      "https://e8markets.com/",
+      "https://www.quantvps.com/blog/e8-markets-payout-rules",
+      "https://thetrustedprop.com/prop-firms/e8-markets",
+      "https://proptradingvibes.com/prop-firms/e8-markets",
+      "https://tradingfinder.com/props/e8-markets/"
     ],
     "challenges": [
       { "name": "E8 Signature 2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 130 },
@@ -107,9 +135,14 @@
       { "name": "E8 Signature 2-Step 150K", "steps": "2-step", "accountSize": 150000, "price": 390 }
     ],
     "rules": {
-      "drawdownType": "trailing-eod"
+      "drawdownType": "trailing-eod",
+      "consistencyRulePct": 35,
+      "newsTradingAllowed": false,
+      "eaAllowed": true,
+      "minTradingDays": 0
     },
     "payout": {
+      "methods": ["crypto", "bank-transfer"],
       "frequency": "every 14 days (first payout after 8 days)",
       "profitSplitPct": 80,
       "avgPayoutDays": 2
@@ -217,7 +250,9 @@
     "sources": [
       "https://thetrustedprop.com/prop-firms/atmos-funded",
       "https://brokeranalysis.com/prop-trading-firms/atmos-funded/",
-      "https://tradingfinder.com/props/atmos-funded/"
+      "https://tradingfinder.com/props/atmos-funded/",
+      "https://atmosfunded.com/",
+      "https://lunefi.com/blog/atmos-funded-complete-guide-to-rules-and-payouts"
     ],
     "challenges": [
       { "name": "1-Step Standard 5K", "steps": "1-step", "accountSize": 5000, "price": 63 },
@@ -294,7 +329,9 @@
     "sources": [
       "https://tradingfinder.com/props/trade-the-pool/",
       "https://tradingfinder.com/props/trade-the-pool/rules/",
-      "https://thetrustedprop.com/prop-firms/trade-the-pool"
+      "https://thetrustedprop.com/prop-firms/trade-the-pool",
+      "https://tradethepool.com/program-terms/",
+      "https://www.quantvps.com/blog/trade-the-pool-payout-rules"
     ],
     "challenges": [
       { "name": "Day Trade Flexible 5K", "steps": "1-step", "accountSize": 5000, "price": 59 },
@@ -318,8 +355,10 @@
     ],
     "rules": {
       "drawdownType": "static",
+      "consistencyRulePct": 30,
       "newsTradingAllowed": true,
-      "eaAllowed": false
+      "eaAllowed": false,
+      "minTradingDays": 0
     },
     "payout": {
       "methods": ["crypto", "bank-transfer"],
