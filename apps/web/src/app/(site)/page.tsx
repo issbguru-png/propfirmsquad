@@ -186,15 +186,101 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      {/* Trust note */}
-      <section className="max-w-(--container-prose) text-sm text-ink-2">
-        <h2 className="mb-2 text-lg font-extrabold text-ink">How this ranking works</h2>
-        <p>
-          Scores combine verified trader reviews, Trustpilot trend tracking, rule fairness, and
-          payout evidence we collect continuously. Affiliate commissions never influence position —
-          read the full <Link href="/methodology" className="font-semibold text-accent-dark underline">methodology</Link>.
+      {/* How this ranking works */}
+      <section aria-labelledby="ranking-how-h">
+        <p className="mb-2 text-xs font-bold tracking-widest text-accent uppercase">
+          — Our methodology —
+        </p>
+        <h2 id="ranking-how-h" className="mb-5 text-2xl font-extrabold tracking-tight">
+          How this ranking works
+        </h2>
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {RANKING_PILLARS.map((pillar) => (
+            <li
+              key={pillar.title}
+              className="rounded-lg border border-line bg-card p-5"
+            >
+              <span
+                aria-hidden
+                className="mb-3 flex h-10 w-10 items-center justify-center rounded-sm bg-accent-pale text-accent-dark"
+              >
+                {pillar.icon}
+              </span>
+              <h3 className="mb-1 font-bold">{pillar.title}</h3>
+              <p className="text-sm text-ink-2">{pillar.body}</p>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-sm text-ink-2">
+          Every data point on this site shows when it was last verified. Read the full{' '}
+          <Link href="/methodology" className="font-semibold text-accent-dark underline">
+            methodology
+          </Link>
+          .
         </p>
       </section>
     </div>
   )
 }
+
+/* Hand-rolled stroke icons (currentColor) — no icon libraries, per design system. */
+const iconProps = {
+  width: 20,
+  height: 20,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 2,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round',
+} as const
+
+const RANKING_PILLARS = [
+  {
+    title: 'Verified reviews first',
+    body: 'Rankings lead with real trader review scores and continuously tracked Trustpilot trends — not marketing claims.',
+    icon: (
+      <svg {...iconProps}>
+        {/* check inside a badge */}
+        <path d="M12 2l2.4 2.4 3.4-.4 1 3.2 3 1.6-1.6 3 1.6 3-3 1.6-1 3.2-3.4-.4L12 22l-2.4-2.7-3.4.4-1-3.2-3-1.6 1.6-3-1.6-3 3-1.6 1-3.2 3.4.4z" />
+        <path d="M8.5 12l2.5 2.5 4.5-5" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Payout evidence',
+    body: 'We collect dated payout proofs and publish what firms actually pay, not just what they advertise.',
+    icon: (
+      <svg {...iconProps}>
+        {/* banknote */}
+        <rect x="2" y="6" width="20" height="12" rx="2" />
+        <circle cx="12" cy="12" r="2.5" />
+        <path d="M5.5 9.5h.01M18.5 14.5h.01" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Rules audited',
+    body: 'Drawdown types, consistency caps, and news restrictions are read from the fine print and logged when they change.',
+    icon: (
+      <svg {...iconProps}>
+        {/* balance scale */}
+        <path d="M12 3v18M5 21h14" />
+        <path d="M12 5l-6 2 6-2 6 2-6-2z" />
+        <path d="M6 7l-2.5 6a3 3 0 005 0L6 7zM18 7l-2.5 6a3 3 0 005 0L18 7z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Never pay-to-rank',
+    body: 'Affiliate commissions never move a firm up or down. Position comes from data — the same math for every firm.',
+    icon: (
+      <svg {...iconProps}>
+        {/* struck-through coin */}
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7.5v9M9.8 9.5c.5-.8 1.3-1.2 2.2-1.2 1.4 0 2.4.8 2.4 1.9 0 2.4-4.8 1.4-4.8 3.8 0 1.1 1 1.9 2.4 1.9.9 0 1.7-.4 2.2-1.2" />
+        <path d="M5 19L19 5" />
+      </svg>
+    ),
+  },
+] as const
