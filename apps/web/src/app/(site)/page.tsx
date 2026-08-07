@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllActivePromos, getFirms } from './_lib/data'
 import { CURRENT_YEAR, FIRM_TYPE_LABELS, PROGRAM_LABELS, compactMoney } from './_lib/format'
-import { EmptyNote, FirmCard, FirmMark, Score, td, th } from './_lib/ui'
+import { EmptyNote, FirmCard, FirmMark, Score } from './_lib/ui'
 
 export const dynamic = 'force-dynamic'
 
@@ -22,6 +22,10 @@ const CATEGORY_LINKS = [
   { href: '/best/crypto-prop-firms', label: 'Crypto prop firms' },
   { href: '/deals', label: 'Active promo codes' },
 ] as const
+
+/* Top-10 table is the primary info section — larger type + roomier rows than the shared th/td. */
+const thTop = 'px-4 py-3 text-left text-xs font-bold tracking-wide text-ink-2 uppercase'
+const tdTop = 'px-4 py-4 align-middle'
 
 export default async function HomePage() {
   const [firms, promos] = await Promise.all([getFirms(), getAllActivePromos()])
@@ -78,45 +82,43 @@ export default async function HomePage() {
           </EmptyNote>
         ) : (
           <div className="overflow-x-auto rounded-lg border border-line bg-card">
-            <table className="w-full min-w-[760px] border-collapse text-sm">
+            <table className="w-full min-w-[720px] border-collapse text-base">
               <caption className="sr-only">
                 Top prop trading firms of {CURRENT_YEAR} ranked by review score
               </caption>
               <thead className="border-b border-line bg-page">
                 <tr>
-                  <th scope="col" className={th}>#</th>
-                  <th scope="col" className={th}>Firm</th>
-                  <th scope="col" className={th}>Score</th>
-                  <th scope="col" className={th}>Reviews</th>
-                  <th scope="col" className={th}>Trustpilot</th>
-                  <th scope="col" className={th}>Max funding</th>
-                  <th scope="col" className={th}>Programs</th>
-                  <th scope="col" className={th}>Market</th>
+                  <th scope="col" className={thTop}>#</th>
+                  <th scope="col" className={thTop}>Firm</th>
+                  <th scope="col" className={thTop}>Score</th>
+                  <th scope="col" className={thTop}>Reviews</th>
+                  <th scope="col" className={thTop}>Max funding</th>
+                  <th scope="col" className={thTop}>Programs</th>
+                  <th scope="col" className={thTop}>Market</th>
                 </tr>
               </thead>
               <tbody>
                 {top.map((firm, i) => (
                   <tr key={firm.id} className="border-b border-line last:border-0">
-                    <td className={`${td} font-bold text-ink-3`}>{i + 1}</td>
-                    <th scope="row" className={`${td} text-left`}>
+                    <td className={`${tdTop} font-bold text-ink-3`}>{i + 1}</td>
+                    <th scope="row" className={`${tdTop} text-left`}>
                       <Link
                         href={`/prop-firms/${firm.slug}`}
-                        className="flex items-center gap-2.5 font-bold text-accent-dark hover:underline"
+                        className="flex items-center gap-3 font-bold text-accent-dark hover:underline"
                       >
-                        <FirmMark firm={firm} size="sm" />
+                        <FirmMark firm={firm} />
                         {firm.name}
                       </Link>
                     </th>
-                    <td className={td}>
+                    <td className={tdTop}>
                       <Score value={firm.reviewScore} />
                     </td>
-                    <td className={td}>{firm.reviewsCount?.toLocaleString('en-US') ?? '—'}</td>
-                    <td className={td}>{firm.trustPilotScore ?? '—'}</td>
-                    <td className={td}>{compactMoney(firm.maxAllocation)}</td>
-                    <td className={`${td} text-ink-2`}>
+                    <td className={tdTop}>{firm.reviewsCount?.toLocaleString('en-US') ?? '—'}</td>
+                    <td className={`${tdTop} font-semibold`}>{compactMoney(firm.maxAllocation)}</td>
+                    <td className={`${tdTop} text-ink-2`}>
                       {(firm.programTypes ?? []).map((p) => PROGRAM_LABELS[p]).join(', ') || '—'}
                     </td>
-                    <td className={`${td} text-ink-2`}>
+                    <td className={`${tdTop} text-ink-2`}>
                       {(firm.firmTypes ?? []).map((t) => FIRM_TYPE_LABELS[t]).join(', ') || '—'}
                     </td>
                   </tr>
