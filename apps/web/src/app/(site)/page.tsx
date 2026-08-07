@@ -343,28 +343,32 @@ export default async function HomePage() {
             </p>
             <div className="max-w-(--container-prose) space-y-3 text-ink-2">
               <p>
-                <strong className="text-ink">Quality over quantity.</strong> Other sites list 500+
-                prop firms nobody has actually tested. PropFirmSquad reviews the top firms deeply —
-                every ranked firm is personally reviewed by Ayub, a qualified CA who audits challenge
-                rules, pricing, and payout terms the way an accountant reads a balance sheet, and
-                trades funded accounts himself.
+                <strong className="text-ink">
+                  I&apos;d rather review ten firms properly than list five hundred I&apos;ve never
+                  traded.
+                </strong>{' '}
+                Every firm ranked on this site is one I&apos;ve personally put through the wringer —
+                I audit the challenge rules, pricing, and payout terms the way my CA training taught
+                me to read a balance sheet, and I trade funded accounts myself, so I know exactly
+                where the fine print bites.
               </p>
               <p>
-                Ayub has traded forex since 2018, specialising in ICT and smart-money concepts —
-                liquidity, price action, and institutional order flow. As an educator he has
-                published 100+ trading guides read by 300,000+ traders, and authored a widely-used
-                ICT trading eBook. That combination — a Chartered Accountant&apos;s eye for fine
-                print and a practitioner&apos;s feel for how firms treat funded traders — is what
-                every review on this site is built on.{' '}
+                I&apos;ve traded forex since 2018, specialising in ICT and smart-money concepts —
+                liquidity, price action, and how institutional order flow actually moves markets.
+                Along the way I&apos;ve published 100+ trading guides that more than 300,000 traders
+                have read, plus an ICT trading eBook. PropFirmSquad is the site I wish I&apos;d had
+                before buying my first challenge: honest numbers, verified rules, and rankings that
+                are never for sale.{' '}
                 <a
                   href="https://ayubrana.com/"
                   target="_blank"
                   rel="noopener"
                   className="font-semibold text-accent-dark underline"
                 >
-                  More about Ayub →
+                  More about me →
                 </a>
               </p>
+              <p className="font-serif text-lg italic text-ink">— Ayub</p>
             </div>
             <ul className="mt-4 flex flex-wrap gap-2 text-xs font-semibold">
               {['Trading since 2018', '300K+ blog readers', '100+ trading guides published', 'ICT & smart-money specialist'].map(
