@@ -1,8 +1,9 @@
 'use client'
 
 /**
- * Compact market switcher for the site header — All (home) plus the three
- * /best hubs. Plain links; usePathname only drives the active state.
+ * Market switcher — rendered as its own darker strip under the main header
+ * row (bg set by the layout). Tab-style links with an accent underline for
+ * the active market; plain links, usePathname only drives active state.
  */
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -17,8 +18,17 @@ const MARKETS = [
 export function MarketSwitcher() {
   const pathname = usePathname()
   return (
-    <nav aria-label="Markets" className="overflow-x-auto">
-      <ul className="flex w-max items-center gap-1.5 rounded-full border border-line-dark bg-dark-section p-1 text-xs font-semibold">
+    <nav
+      aria-label="Markets"
+      className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      <ul className="flex w-max items-center gap-x-6 text-sm font-semibold">
+        <li
+          aria-hidden
+          className="py-2.5 text-[11px] font-bold tracking-widest text-on-dark-2/60 uppercase"
+        >
+          Markets
+        </li>
         {MARKETS.map((m) => {
           const active = pathname === m.href
           return (
@@ -26,10 +36,10 @@ export function MarketSwitcher() {
               <Link
                 href={m.href}
                 aria-current={active ? 'page' : undefined}
-                className={`inline-block rounded-full px-3 py-1 whitespace-nowrap transition-colors ${
+                className={`inline-block border-b-2 py-2.5 whitespace-nowrap transition-colors ${
                   active
-                    ? 'bg-accent text-nav'
-                    : 'text-on-dark-2 hover:bg-nav hover:text-on-dark'
+                    ? 'border-accent text-accent'
+                    : 'border-transparent text-on-dark-2 hover:border-line-dark hover:text-on-dark'
                 }`}
               >
                 {m.label}

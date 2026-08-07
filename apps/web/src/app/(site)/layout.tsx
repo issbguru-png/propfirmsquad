@@ -38,7 +38,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-on-dark-2 transition-colors hover:text-on-dark"
+                      className="text-on-dark transition-colors hover:text-accent-light"
                     >
                       {item.label}
                     </Link>
@@ -47,8 +47,10 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
               </ul>
             </nav>
           </div>
-          <div className="mx-auto max-w-(--container-page) px-4 pb-3">
-            <MarketSwitcher />
+          <div className="border-t border-line-dark bg-dark-section">
+            <div className="mx-auto max-w-(--container-page) px-4">
+              <MarketSwitcher />
+            </div>
           </div>
         </header>
         <main className="mx-auto max-w-(--container-page) px-4 py-10">{children}</main>
