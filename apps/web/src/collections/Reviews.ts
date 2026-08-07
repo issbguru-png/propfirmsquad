@@ -1,11 +1,14 @@
 import type { CollectionConfig } from 'payload'
+import { firmRelatedRevalidation } from '../payload/revalidate'
 
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'firm', 'rating', 'status'],
+    group: 'Community',
+    defaultColumns: ['title', 'firm', 'rating', 'status', 'verified', 'authorName'],
   },
+  hooks: firmRelatedRevalidation(),
   access: {
     // Public API only exposes approved reviews (CONTRACTS.md)
     read: ({ req }) => {

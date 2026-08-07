@@ -4,6 +4,8 @@ export const Countries: CollectionConfig = {
   slug: 'countries',
   admin: {
     useAsTitle: 'name',
+    group: 'Catalog',
+    defaultColumns: ['name', 'iso2', 'flagEmoji'],
   },
   access: {
     read: () => true,

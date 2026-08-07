@@ -1,14 +1,17 @@
 import type { CollectionConfig } from 'payload'
+import { firmRelatedRevalidation } from '../payload/revalidate'
 
 export const Promos: CollectionConfig = {
   slug: 'promos',
   admin: {
     useAsTitle: 'code',
+    group: 'Catalog',
     defaultColumns: ['code', 'firm', 'discountPct', 'active', 'endDate'],
   },
   access: {
     read: () => true,
   },
+  hooks: firmRelatedRevalidation(['/deals']),
   fields: [
     { name: 'firm', type: 'relationship', relationTo: 'firms', required: true, index: true },
     { name: 'code', type: 'text', required: true },

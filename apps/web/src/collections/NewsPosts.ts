@@ -1,9 +1,11 @@
 import type { CollectionConfig } from 'payload'
+import { revalidateNewsAfterChange, revalidateNewsAfterDelete } from '../payload/revalidate'
 
 export const NewsPosts: CollectionConfig = {
   slug: 'news-posts',
   admin: {
     useAsTitle: 'title',
+    group: 'Content',
     defaultColumns: ['title', 'type', 'firm', 'publishedAt', '_status'],
   },
   versions: {
@@ -11,6 +13,10 @@ export const NewsPosts: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidateNewsAfterChange],
+    afterDelete: [revalidateNewsAfterDelete],
   },
   fields: [
     { name: 'title', type: 'text', required: true, localized: true },

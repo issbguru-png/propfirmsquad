@@ -1,12 +1,15 @@
 import type { CollectionConfig } from 'payload'
+import { firmRelatedRevalidation } from '../payload/revalidate'
 
 export const RuleChanges: CollectionConfig = {
   slug: 'rule-changes',
   admin: {
     useAsTitle: 'summary',
-    defaultColumns: ['firm', 'date', 'summary'],
+    group: 'Content',
+    defaultColumns: ['summary', 'firm', 'date', 'source'],
     description: 'Per-firm rule-change timeline — unique content moat, renders on profiles',
   },
+  hooks: firmRelatedRevalidation(['/rule-changes']),
   access: {
     read: () => true,
   },
