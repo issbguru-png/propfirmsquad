@@ -21,7 +21,7 @@ export async function getFirms(opts?: { firmType?: string }): Promise<Firm[]> {
       where,
       sort: '-reviewScore',
       limit: 200,
-      depth: 0,
+      depth: 1, // populate `logo` media for listing cards
     })
     return res.docs
   } catch {
@@ -126,7 +126,7 @@ export async function getAlternatives(firm: Firm, limit = 3): Promise<Firm[]> {
       },
       sort: '-reviewScore',
       limit: limit + 5,
-      depth: 0,
+      depth: 1, // populate `logo` media for alternative-firm cards
     })
     // Prefer firms sharing a firm type with the current one.
     const types = new Set(firm.firmTypes ?? [])

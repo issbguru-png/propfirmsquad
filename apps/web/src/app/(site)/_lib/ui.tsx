@@ -41,16 +41,33 @@ export function Score({ value, max = 5 }: { value: number | null | undefined; ma
   )
 }
 
-/** Letter avatar standing in for the firm logo (media not seeded yet). */
-export function FirmMark({ firm, size = 'md' }: { firm: Pick<Firm, 'name' | 'logoBackgroundColor'>; size?: 'md' | 'lg' }) {
+/** Resolve a populated Media relation to its URL (null when unpopulated or unset). */
+export function firmLogoUrl(logo: Firm['logo']): string | null {
+  return logo && typeof logo === 'object' && typeof logo.url === 'string' ? logo.url : null
+}
+
+/** Firm logo in a colored box; falls back to an initial-letter avatar when no logo is set. */
+export function FirmMark({
+  firm,
+  size = 'md',
+}: {
+  firm: Pick<Firm, 'name' | 'logoBackgroundColor'> & { logo?: Firm['logo'] }
+  size?: 'md' | 'lg'
+}) {
   const dims = size === 'lg' ? 'h-14 w-14 text-2xl' : 'h-10 w-10 text-lg'
+  const logoUrl = firmLogoUrl(firm.logo)
   return (
     <span
       aria-hidden
-      className={`flex ${dims} shrink-0 items-center justify-center rounded-sm font-black text-on-dark`}
+      className={`flex ${dims} shrink-0 items-center justify-center overflow-hidden rounded-sm font-black text-on-dark`}
       style={{ backgroundColor: firm.logoBackgroundColor || '#2d2520' }}
     >
-      {firm.name.charAt(0)}
+      {logoUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={logoUrl} alt="" className="h-full w-full object-contain p-[15%]" />
+      ) : (
+        firm.name.charAt(0)
+      )}
     </span>
   )
 }
@@ -83,13 +100,12 @@ export function FirmCard({ firm, rank }: { firm: Firm; rank?: number }) {
       href={`/prop-firms/${firm.slug}`}
       className="flex items-center gap-3 rounded-sm border border-line bg-card p-4 transition-colors hover:border-accent"
     >
-      {rank != null ? (
+      {rank != null && (
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-accent-pale text-sm font-bold text-accent-dark">
           {String(rank).padStart(2, '0')}
         </span>
-      ) : (
-        <FirmMark firm={firm} />
       )}
+      <FirmMark firm={firm} />
       <span className="min-w-0">
         <span className="block truncate font-bold">{firm.name}</span>
         <span className="block text-sm text-ink-2">

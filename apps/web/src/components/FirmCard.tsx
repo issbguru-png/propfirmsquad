@@ -69,7 +69,7 @@ export function FirmCard({
               width={48}
               height={48}
               loading="lazy"
-              className="size-full object-contain"
+              className="size-full object-contain p-[15%]"
             />
           ) : (
             <span className="text-lg font-extrabold text-white">{initial}</span>
