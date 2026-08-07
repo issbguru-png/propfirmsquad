@@ -103,20 +103,62 @@ export default async function HomePage() {
         {/* Author card beside the headline */}
         <a
           href="#author-h"
-          className="group flex shrink-0 flex-col items-center rounded-lg border border-line bg-card p-4 text-center"
+          className="group relative w-52 shrink-0 overflow-hidden rounded-lg border border-line bg-card text-center shadow-sm transition-shadow hover:shadow-md"
         >
-          <img
-            src="/ayub-rana.png"
-            alt="Ayub Rana, Chartered Accountant and forex trader"
-            width={132}
-            height={132}
-            className="h-33 w-33 rounded-lg bg-accent-pale object-cover"
-          />
-          <span className="mt-3 font-serif text-xl italic group-hover:text-accent-dark">
-            Ayub Rana
+          {/* Portrait stage: warm backdrop, cutout sits flush on its bottom edge */}
+          <span className="block bg-gradient-to-b from-accent-pale to-accent-light/40 px-6 pt-5">
+            <img
+              src="/ayub-rana.png"
+              alt="Ayub Rana, Chartered Accountant and forex trader"
+              width={144}
+              height={144}
+              className="mx-auto block h-36 w-36 object-contain object-bottom drop-shadow-[0_6px_12px_rgba(31,30,28,0.25)]"
+            />
           </span>
-          <span className="mt-0.5 max-w-40 text-xs leading-snug text-ink-3">
-            CA &amp; forex trader — every review personally verified
+          {/* Verified badge pinned over the stage */}
+          <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-card/95 py-1 pr-2.5 pl-1.5 text-[10px] font-bold tracking-wide text-accent-dark uppercase shadow-sm">
+            <svg
+              aria-hidden
+              width={12}
+              height={12}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 2l8 3.5v5.2c0 5-3.4 9.4-8 11.3-4.6-1.9-8-6.3-8-11.3V5.5L12 2z" />
+              <path d="M8.5 12l2.5 2.5 4.5-5" />
+            </svg>
+            Verified reviewer
+          </span>
+          {/* Signature block */}
+          <span className="block border-t-2 border-accent px-4 pt-3 pb-4">
+            <span className="block font-serif text-2xl italic group-hover:text-accent-dark">
+              Ayub Rana
+            </span>
+            <svg
+              aria-hidden
+              width={110}
+              height={8}
+              viewBox="0 0 110 8"
+              fill="none"
+              className="mx-auto mt-0.5 text-accent"
+            >
+              <path
+                d="M2 5.5C22 1.5 44 6.5 62 3.5c16-2.6 30 1.5 46 .5"
+                stroke="currentColor"
+                strokeWidth={1.8}
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="mt-1.5 block text-xs leading-snug text-ink-3">
+              Chartered Accountant &amp; forex trader
+            </span>
+            <span className="mt-0.5 block text-[11px] font-semibold text-ink-2">
+              Every review personally verified
+            </span>
           </span>
         </a>
       </section>
