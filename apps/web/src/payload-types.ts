@@ -213,6 +213,33 @@ export interface Firm {
      */
     avgPayoutDays?: number | null;
   };
+  /**
+   * Editorial pros & cons shown on the profile page
+   */
+  prosCons?: {
+    pros?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    cons?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Editorial subscores powering the profile breakdown (0–5)
+   */
+  scores?: {
+    pricingValue?: number | null;
+    rulesFairness?: number | null;
+    payoutReliability?: number | null;
+    support?: number | null;
+    platforms?: number | null;
+  };
   restrictedCountries?: (number | Country)[] | null;
   underReview?: boolean | null;
   underReviewNote?: string | null;
@@ -591,6 +618,31 @@ export interface FirmsSelect<T extends boolean = true> {
         frequency?: T;
         profitSplitPct?: T;
         avgPayoutDays?: T;
+      };
+  prosCons?:
+    | T
+    | {
+        pros?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        cons?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+      };
+  scores?:
+    | T
+    | {
+        pricingValue?: T;
+        rulesFairness?: T;
+        payoutReliability?: T;
+        support?: T;
+        platforms?: T;
       };
   restrictedCountries?: T;
   underReview?: T;

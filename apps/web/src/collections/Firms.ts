@@ -119,6 +119,37 @@ export const Firms: CollectionConfig = {
         { name: 'avgPayoutDays', type: 'number', admin: { description: 'Tracked from community proofs' } },
       ],
     },
+    {
+      name: 'prosCons',
+      type: 'group',
+      admin: { description: 'Editorial pros & cons shown on the profile page' },
+      fields: [
+        {
+          name: 'pros',
+          type: 'array',
+          fields: [{ name: 'text', type: 'text', required: true, localized: true }],
+        },
+        {
+          name: 'cons',
+          type: 'array',
+          fields: [{ name: 'text', type: 'text', required: true, localized: true }],
+        },
+      ],
+    },
+    {
+      name: 'scores',
+      type: 'group',
+      admin: { description: 'Editorial subscores powering the profile breakdown (0–5)' },
+      fields: (
+        ['pricingValue', 'rulesFairness', 'payoutReliability', 'support', 'platforms'] as const
+      ).map((name) => ({
+        name,
+        type: 'number' as const,
+        min: 0,
+        max: 5,
+        admin: { step: 0.1 },
+      })),
+    },
     // ── Restrictions ──────────────────────────────────────────
     { name: 'restrictedCountries', type: 'relationship', relationTo: 'countries', hasMany: true },
     // ── Trust & workflow ──────────────────────────────────────

@@ -79,6 +79,25 @@ export async function getChallengesForFirm(firmId: number): Promise<Challenge[]>
   }
 }
 
+/** Active challenges for several firms in ONE query (mini comparison table). */
+export async function getChallengesForFirms(firmIds: number[]): Promise<Challenge[]> {
+  if (firmIds.length === 0) return []
+  try {
+    const payload = await db()
+    const res = await payload.find({
+      collection: 'challenges',
+      where: {
+        and: [{ firm: { in: firmIds } }, { isActive: { not_equals: false } }],
+      },
+      limit: 300,
+      depth: 0,
+    })
+    return res.docs
+  } catch {
+    return []
+  }
+}
+
 const promoIsLive = (p: Promo) =>
   p.active !== false && (!p.endDate || new Date(p.endDate).getTime() >= Date.now())
 

@@ -1,16 +1,19 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import type { Challenge, Platform } from '@/payload-types'
+import type { Challenge, Country, Firm, Platform } from '@/payload-types'
 import { getFixtureChallenges, type FixtureChallenge } from '@/fixtures/challenges'
 import { buildFirmFaqs } from '@/fixtures/faqs'
 import {
   getAlternatives,
   getChallengesForFirm,
+  getChallengesForFirms,
   getFirmBySlug,
+  getFirms,
   getPromosForFirm,
   getRuleChangesForFirm,
 } from '../../_lib/data'
+import { cheapestByFirm, computeTypeRank, scoreBreakdown } from '../../_lib/profile'
 import {
   ASSET_LABELS,
   CURRENT_YEAR,
@@ -29,6 +32,7 @@ import {
 import { Badge, EmptyNote, FirmCard, FirmMark, SectionCard, td, th } from '../../_lib/ui'
 import { Button, RatingStars, SectionKicker, TrendChart, VerdictBox } from '@/components'
 import { SectionNav } from './SectionNav'
+import { AvailabilityChecker } from './AvailabilityChecker'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, firmLd } from '@/lib/seo/jsonld'
 import { firmProfileMeta } from '@/lib/seo/metadata'
@@ -39,6 +43,7 @@ type Params = Promise<{ slug: string }>
 
 const SECTIONS = [
   { id: 'verdict', label: 'Verdict' },
+  { id: 'pros-cons', label: 'Pros & Cons' },
   { id: 'pricing', label: 'Pricing' },
   { id: 'rules', label: 'Rules' },
   { id: 'payouts', label: 'Payouts' },
@@ -47,6 +52,10 @@ const SECTIONS = [
   { id: 'faq', label: 'FAQ' },
   { id: 'alternatives', label: 'Alternatives' },
 ] as const
+
+/** § wayfinding number for a section id (1-based, follows SECTIONS order). */
+const sectionNumber = (id: (typeof SECTIONS)[number]['id']) =>
+  SECTIONS.findIndex((s) => s.id === id) + 1
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug } = await params
@@ -66,11 +75,12 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
   const firm = await getFirmBySlug(slug)
   if (!firm) notFound()
 
-  const [dbChallenges, promos, ruleChanges, alternatives] = await Promise.all([
+  const [dbChallenges, promos, ruleChanges, alternatives, allFirms] = await Promise.all([
     getChallengesForFirm(firm.id),
     getPromosForFirm(firm.id),
     getRuleChangesForFirm(firm.id),
     getAlternatives(firm),
+    getFirms(),
   ])
 
   const usingFixturePricing = dbChallenges.length === 0
@@ -103,6 +113,71 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
     .slice()
     .sort((a, b) => (b.discountPct ?? 0) - (a.discountPct ?? 0))[0]
 
+  // ── Rank among firms sharing this firm's primary type ──
+  const rankInfo = computeTypeRank(firm, allFirms)
+
+  // ── Key-facts chips (omit chips with no data) ──
+  const cheapestRow = cheapestIdx >= 0 ? challenges[cheapestIdx] : null
+  const currentCheapest =
+    cheapestRow && cheapestRow.price != null
+      ? {
+          price: cheapestRow.price,
+          currency: isDbChallenge(cheapestRow) ? (cheapestRow.currency ?? 'USD') : 'USD',
+        }
+      : null
+  const keyFacts: { label: string; value: string; href: string }[] = []
+  if (currentCheapest) {
+    keyFacts.push({
+      label: 'Cheapest challenge',
+      value: money(currentCheapest.price, currentCheapest.currency),
+      href: '#pricing',
+    })
+  }
+  if (firm.maxAllocation != null) {
+    keyFacts.push({ label: 'Max funding', value: compactMoney(firm.maxAllocation), href: '#trust' })
+  }
+  if (payout?.profitSplitPct != null) {
+    keyFacts.push({ label: 'Profit split', value: `${payout.profitSplitPct}%`, href: '#payouts' })
+  }
+  if (payout?.frequency) {
+    keyFacts.push({ label: 'Payout', value: payout.frequency, href: '#payouts' })
+  }
+
+  // ── Editorial pros/cons + score breakdown ──
+  const pros = (firm.prosCons?.pros ?? []).map((p) => p.text).filter(Boolean)
+  const cons = (firm.prosCons?.cons ?? []).map((c) => c.text).filter(Boolean)
+  const breakdown = scoreBreakdown(firm.scores)
+
+  // ── Availability (restrictedCountries populated at depth 1) ──
+  const restrictedIso2 = (firm.restrictedCountries ?? [])
+    .filter((c): c is Country => typeof c === 'object' && c !== null)
+    .map((c) => c.iso2)
+
+  // ── Mini comparison: firm vs top-2 alternatives (ONE extra query) ──
+  const compareAlts = alternatives.slice(0, 2)
+  const altCheapest = cheapestByFirm(await getChallengesForFirms(compareAlts.map((a) => a.id)))
+  const compareFirms = [firm, ...compareAlts]
+  const cheapestFor = (f: Firm) => (f.id === firm.id ? currentCheapest : altCheapest.get(f.id))
+  const compareRows: { label: string; render: (f: Firm) => string }[] = [
+    { label: 'Review score', render: (f) => (f.reviewScore != null ? `${f.reviewScore}/5` : '—') },
+    {
+      label: 'Trustpilot',
+      render: (f) => (f.trustPilotScore != null ? `${f.trustPilotScore}/5` : '—'),
+    },
+    { label: 'Max funding', render: (f) => compactMoney(f.maxAllocation) },
+    {
+      label: 'Profit split',
+      render: (f) => (f.payout?.profitSplitPct != null ? `${f.payout.profitSplitPct}%` : '—'),
+    },
+    {
+      label: 'Cheapest challenge',
+      render: (f) => {
+        const entry = cheapestFor(f)
+        return entry ? money(entry.price, entry.currency) : '—'
+      },
+    },
+  ]
+
   return (
     <div>
       <JsonLd data={firmLd(firm)} />
@@ -131,6 +206,12 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             {firm.lastVerifiedAt ? (
               <span>· data verified {formatDate(firm.lastVerifiedAt)}</span>
             ) : null}
+            {rankInfo ? (
+              <span className="font-semibold text-ink">
+                · #{rankInfo.rank} of {rankInfo.total} {FIRM_TYPE_LABELS[rankInfo.type]} firms · By
+                PropFirmSquad Research
+              </span>
+            ) : null}
           </p>
         </div>
         {firm.websiteUrl ? (
@@ -146,6 +227,25 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           </Button>
         ) : null}
       </div>
+
+      {/* ————— Key-facts chips ————— */}
+      {keyFacts.length > 0 ? (
+        <ul className="mb-6 flex flex-wrap gap-2">
+          {keyFacts.map((f) => (
+            <li key={f.label}>
+              <a
+                href={f.href}
+                className="flex items-baseline gap-2 rounded-sm border border-line bg-card px-3 py-1.5 transition-colors hover:border-accent"
+              >
+                <span className="text-[11px] font-bold tracking-wide text-ink-3 uppercase">
+                  {f.label}
+                </span>
+                <span className="text-sm font-extrabold tabular-nums">{f.value}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : null}
 
       {firm.underReview ? (
         <div role="alert" className="mb-6 rounded-sm border border-negative/40 bg-negative/10 p-4 text-sm font-semibold text-negative">
@@ -173,7 +273,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           id="verdict"
           title={`Our verdict on ${firm.name}`}
           updatedAt={firm.lastVerifiedAt}
-          kicker={<SectionKicker number={1} className="mb-1.5">Verdict</SectionKicker>}
+          kicker={<SectionKicker number={sectionNumber('verdict')} className="mb-1.5">Verdict</SectionKicker>}
           badge={verdictIsDraft ? <Badge>Draft — pending review</Badge> : undefined}
           className="scroll-mt-24 sm:p-7"
         >
@@ -221,6 +321,36 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
               </div>
             ) : null}
           </div>
+          {breakdown ? (
+            <div className="mb-5 max-w-md rounded-sm border border-line p-4">
+              <div className="mb-3 flex items-baseline justify-between gap-4">
+                <span className="text-xs font-bold tracking-wide text-ink-3 uppercase">
+                  Score breakdown
+                </span>
+                <span className="text-sm font-extrabold tabular-nums">
+                  Overall {breakdown.overall.toFixed(1)}
+                </span>
+              </div>
+              <dl className="space-y-2.5">
+                {breakdown.rows.map((r) => (
+                  <div key={r.key} className="flex items-center gap-3">
+                    <dt className="w-36 shrink-0 text-xs font-semibold text-ink-2">{r.label}</dt>
+                    <dd className="flex min-w-0 flex-1 items-center gap-2.5">
+                      <div aria-hidden className="h-1.5 flex-1 overflow-hidden rounded-full bg-page">
+                        <div
+                          className="h-full rounded-full bg-accent"
+                          style={{ width: `${Math.min(100, (r.value / 5) * 100)}%` }}
+                        />
+                      </div>
+                      <span className="w-8 text-right text-sm font-bold tabular-nums">
+                        {r.value.toFixed(1)}
+                      </span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          ) : null}
           {verdictParas.length > 0 ? (
             verdictParas.map((p, i) => (
               <p key={i} className="mb-3 max-w-(--container-prose) leading-relaxed">
@@ -253,10 +383,77 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           ) : null}
         </VerdictBox>
 
-        {/* ————— 2. Challenge pricing ————— */}
+        {/* ————— Pros & Cons ————— */}
+        <SectionCard
+          id="pros-cons"
+          number={sectionNumber('pros-cons')}
+          kicker="Pros & Cons"
+          title={`${firm.name} pros & cons`}
+          intro="The strengths and trade-offs our editors weigh when scoring this firm."
+        >
+          {pros.length > 0 || cons.length > 0 ? (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="rounded-sm border border-positive/30 bg-positive/10 p-5">
+                <h3 className="mb-3 text-sm font-bold tracking-wide text-positive uppercase">
+                  What traders like
+                </h3>
+                <ul className="space-y-2.5">
+                  {pros.map((p) => (
+                    <li key={p} className="flex gap-2.5 text-sm leading-relaxed">
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 16 16"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-positive"
+                      >
+                        <path
+                          d="M3 8.5 6.5 12 13 4.5"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-sm border border-negative/30 bg-negative/10 p-5">
+                <h3 className="mb-3 text-sm font-bold tracking-wide text-negative uppercase">
+                  What to watch
+                </h3>
+                <ul className="space-y-2.5">
+                  {cons.map((c) => (
+                    <li key={c} className="flex gap-2.5 text-sm leading-relaxed">
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 16 16"
+                        className="mt-0.5 h-4 w-4 shrink-0 text-negative"
+                      >
+                        <path
+                          d="M4 4l8 8M12 4l-8 8"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <EmptyNote>Pros &amp; cons pending editorial review.</EmptyNote>
+          )}
+        </SectionCard>
+
+        {/* ————— Challenge pricing ————— */}
         <SectionCard
           id="pricing"
-          number={2}
+          number={sectionNumber('pricing')}
           kicker="Pricing"
           title={`${firm.name} challenge pricing`}
           intro={`Every account size and step count ${firm.name} sells, with targets and drawdown limits in one table.`}
@@ -326,10 +523,10 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           )}
         </SectionCard>
 
-        {/* ————— 3. Rules ————— */}
+        {/* ————— Rules ————— */}
         <SectionCard
           id="rules"
-          number={3}
+          number={sectionNumber('rules')}
           kicker="Rules"
           title={`${firm.name} rules, explained`}
           intro="The rules that actually get traders breached — what they are and how this firm sets them."
@@ -419,10 +616,10 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           )}
         </SectionCard>
 
-        {/* ————— 4. Payouts ————— */}
+        {/* ————— Payouts ————— */}
         <SectionCard
           id="payouts"
-          number={4}
+          number={sectionNumber('payouts')}
           kicker="Payouts"
           title={`${firm.name} payout data`}
           intro="Advertised terms plus what we can verify from dated community payout proofs."
@@ -462,10 +659,10 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           </p>
         </SectionCard>
 
-        {/* ————— 5. Trust & company ————— */}
+        {/* ————— Trust & company ————— */}
         <SectionCard
           id="trust"
-          number={5}
+          number={sectionNumber('trust')}
           kicker="Trust & Company"
           title={`Is ${firm.name} legit? Trust & company facts`}
         >
@@ -528,12 +725,13 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
               </a>
             ) : null}
           </p>
+          <AvailabilityChecker firmName={firm.name} restrictedIso2={restrictedIso2} />
         </SectionCard>
 
-        {/* ————— 6. Platforms & assets ————— */}
+        {/* ————— Platforms & assets ————— */}
         <SectionCard
           id="platforms"
-          number={6}
+          number={sectionNumber('platforms')}
           kicker="Platforms & Assets"
           title="Platforms & tradable assets"
         >
@@ -581,10 +779,10 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           ) : null}
         </SectionCard>
 
-        {/* ————— 7. FAQ ————— */}
+        {/* ————— FAQ ————— */}
         <SectionCard
           id="faq"
-          number={7}
+          number={sectionNumber('faq')}
           kicker="FAQ"
           title={`${firm.name} — frequently asked questions`}
         >
@@ -598,14 +796,67 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           </div>
         </SectionCard>
 
-        {/* ————— 8. Alternatives ————— */}
+        {/* ————— Alternatives ————— */}
         <SectionCard
           id="alternatives"
-          number={8}
+          number={sectionNumber('alternatives')}
           kicker="Alternatives"
           title={`Alternatives to ${firm.name}`}
           intro="Top-rated firms traders compare against this one."
         >
+          {compareAlts.length > 0 ? (
+            <div className="mb-6 overflow-x-auto rounded-sm border border-line">
+              <table className="w-full min-w-[560px] border-collapse text-sm">
+                <caption className="sr-only">
+                  {firm.name} compared with its top alternatives
+                </caption>
+                <thead className="border-b border-line bg-page">
+                  <tr>
+                    <th scope="col" className={th}>
+                      Metric
+                    </th>
+                    {compareFirms.map((f) => (
+                      <th
+                        key={f.id}
+                        scope="col"
+                        className={`${th} ${f.id === firm.id ? 'bg-accent-pale/60 text-accent-dark' : ''}`}
+                      >
+                        {f.id === firm.id ? (
+                          f.name
+                        ) : (
+                          <Link
+                            href={`/prop-firms/${f.slug}`}
+                            className="hover:text-accent-dark hover:underline"
+                          >
+                            {f.name}
+                          </Link>
+                        )}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {compareRows.map((row) => (
+                    <tr key={row.label} className="border-b border-line last:border-0">
+                      <th scope="row" className={`${td} text-left font-bold`}>
+                        {row.label}
+                      </th>
+                      {compareFirms.map((f) => (
+                        <td
+                          key={f.id}
+                          className={`${td} tabular-nums ${
+                            f.id === firm.id ? 'bg-accent-pale/60 font-bold' : ''
+                          }`}
+                        >
+                          {row.render(f)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
           {alternatives.length === 0 ? (
             <EmptyNote>No alternatives to show yet.</EmptyNote>
           ) : (
