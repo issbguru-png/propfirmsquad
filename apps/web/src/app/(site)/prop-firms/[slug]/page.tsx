@@ -32,6 +32,7 @@ import {
 import { Badge, EmptyNote, FirmCard, FirmMark, SectionCard, td, th } from '../../_lib/ui'
 import { Button, RatingStars, SectionKicker, TrendChart, VerdictBox } from '@/components'
 import { SectionNav } from './SectionNav'
+import { AuthorByline } from './AuthorByline'
 import { AvailabilityChecker } from './AvailabilityChecker'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, firmLd } from '@/lib/seo/jsonld'
@@ -269,6 +270,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             : null
         }
       />
+
+      <AuthorByline verifiedAt={firm.lastVerifiedAt} />
 
       <div className="space-y-10">
         {/* ————— 1. Verdict ————— */}
