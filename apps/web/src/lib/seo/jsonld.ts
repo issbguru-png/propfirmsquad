@@ -132,6 +132,31 @@ export function itemListLd(items: ItemListEntry[]): JsonLdObject {
   }
 }
 
+/**
+ * The site's named reviewer — E-E-A-T anchor. Rendered on the homepage and
+ * referenced anywhere reviews are attributed.
+ */
+export function personLd(): JsonLdObject {
+  return {
+    '@context': CONTEXT,
+    '@type': 'Person',
+    '@id': `${siteUrl()}/#ayub-rana`,
+    name: 'Ayub Rana',
+    image: absoluteUrl('/ayub-rana.png'),
+    jobTitle: 'Chartered Accountant & Forex Trader',
+    description:
+      'Qualified Chartered Accountant and full-time forex trader who personally reviews every prop firm ranked on PropFirmSquad.',
+    knowsAbout: [
+      'proprietary trading firms',
+      'forex trading',
+      'prop firm challenges',
+      'trading risk management',
+      'financial auditing',
+    ],
+    worksFor: { '@id': `${siteUrl()}/#organization` },
+  }
+}
+
 export type BreadcrumbItem = { name: string; path: string }
 
 /** BreadcrumbList — `path` is site-relative ('/prop-firms/ftmo'). */

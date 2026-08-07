@@ -208,8 +208,11 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             ) : null}
             {rankInfo ? (
               <span className="font-semibold text-ink">
-                · #{rankInfo.rank} of {rankInfo.total} {FIRM_TYPE_LABELS[rankInfo.type]} firms · By
-                PropFirmSquad Research
+                · #{rankInfo.rank} of {rankInfo.total} {FIRM_TYPE_LABELS[rankInfo.type]} firms ·
+                Reviewed by{' '}
+                <Link href="/#author-h" className="underline decoration-accent hover:text-accent-dark">
+                  Ayub Rana, CA
+                </Link>
               </span>
             ) : null}
           </p>

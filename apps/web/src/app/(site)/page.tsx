@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { getAllActivePromos, getFirms } from './_lib/data'
 import { CURRENT_YEAR, FIRM_TYPE_LABELS, PROGRAM_LABELS, compactMoney } from './_lib/format'
 import { EmptyNote, FirmCard, FirmMark, Score } from './_lib/ui'
+import { JsonLd } from '@/lib/seo/json-ld'
+import { personLd } from '@/lib/seo/jsonld'
 
 export const dynamic = 'force-dynamic'
 
@@ -221,6 +223,46 @@ export default async function HomePage() {
           .
         </p>
       </section>
+
+      {/* Author / E-E-A-T */}
+      <section
+        aria-labelledby="author-h"
+        className="rounded-lg border border-line bg-card p-6 sm:p-8"
+      >
+        <JsonLd data={personLd()} />
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
+          <img
+            src="/ayub-rana.png"
+            alt="Ayub Rana, Chartered Accountant and forex trader — PropFirmSquad reviewer"
+            width={112}
+            height={112}
+            className="h-28 w-28 shrink-0 rounded-lg border border-line object-cover"
+          />
+          <div>
+            <h2 id="author-h" className="mb-1 text-2xl font-extrabold tracking-tight">
+              Reviewed by a real trader — not a content team
+            </h2>
+            <p className="mb-3 text-sm font-semibold text-ink-2">
+              Ayub Rana · Chartered Accountant &amp; full-time forex trader
+            </p>
+            <div className="max-w-(--container-prose) space-y-3 text-ink-2">
+              <p>
+                <strong className="text-ink">Quality over quantity.</strong> Other sites list 500+
+                prop firms nobody has actually tested. PropFirmSquad reviews the top firms deeply —
+                every ranked firm is personally reviewed by Ayub, a qualified CA who audits challenge
+                rules, pricing, and payout terms the way an accountant reads a balance sheet, and
+                trades funded accounts himself.
+              </p>
+              <p>
+                <strong className="text-ink">Real trader sentiment, collected in-house.</strong> Our
+                review scores aggregate what traders actually report on Trustpilot, Reddit, X, and
+                Facebook — gathered and verified by us, not copied from press releases. Affiliate
+                commissions never move a ranking.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
@@ -240,7 +282,7 @@ const iconProps = {
 const RANKING_PILLARS = [
   {
     title: 'Verified reviews first',
-    body: 'Rankings lead with real trader review scores and continuously tracked Trustpilot trends — not marketing claims.',
+    body: 'Rankings lead with real trader sentiment we collect in-house from Trustpilot, Reddit, X, and Facebook — not marketing claims.',
     icon: (
       <svg {...iconProps}>
         {/* check inside a badge */}
