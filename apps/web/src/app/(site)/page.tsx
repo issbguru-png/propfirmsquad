@@ -116,7 +116,7 @@ export default async function HomePage() {
             />
           </span>
           {/* Verified badge pinned over the stage */}
-          <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-card/95 py-1 pr-2.5 pl-1.5 text-[10px] font-bold tracking-wide text-accent-dark uppercase shadow-sm">
+          <span className="absolute top-3 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-card/95 py-1 pr-2.5 pl-1.5 text-[10px] font-bold tracking-wide whitespace-nowrap text-accent-dark uppercase shadow-sm">
             <svg
               aria-hidden
               width={12}
@@ -154,7 +154,7 @@ export default async function HomePage() {
               />
             </svg>
             <span className="mt-1.5 block text-xs leading-snug text-ink-3">
-              Chartered Accountant &amp; forex trader
+              Chartered Accountant &amp; Forex Trader
             </span>
             <span className="mt-0.5 block text-[11px] font-semibold text-ink-2">
               Every review personally verified
@@ -305,7 +305,13 @@ export default async function HomePage() {
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-sm text-ink-2">
+        <p className="mt-4 max-w-(--container-prose) text-sm text-ink-2">
+          <strong className="text-ink">Real trader sentiment, collected in-house.</strong> Our
+          review scores aggregate what traders actually report on Trustpilot, Reddit, X, and
+          Facebook — gathered and verified by us, not copied from press releases. Affiliate
+          commissions never move a ranking.
+        </p>
+        <p className="mt-2 text-sm text-ink-2">
           Every data point on this site shows when it was last verified. Read the full{' '}
           <Link href="/methodology" className="font-semibold text-accent-dark underline">
             methodology
@@ -342,12 +348,6 @@ export default async function HomePage() {
                 every ranked firm is personally reviewed by Ayub, a qualified CA who audits challenge
                 rules, pricing, and payout terms the way an accountant reads a balance sheet, and
                 trades funded accounts himself.
-              </p>
-              <p>
-                <strong className="text-ink">Real trader sentiment, collected in-house.</strong> Our
-                review scores aggregate what traders actually report on Trustpilot, Reddit, X, and
-                Facebook — gathered and verified by us, not copied from press releases. Affiliate
-                commissions never move a ranking.
               </p>
             </div>
           </div>
