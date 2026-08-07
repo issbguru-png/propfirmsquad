@@ -1,0 +1,2002 @@
+{
+ "capturedAt": "2026-08-07T17:53:38.956Z",
+ "source": "propfirmmatch.com tRPC firm.listPopular + firm.getListFilteringOptions",
+ "firms": {
+  "data": [
+   {
+    "id": "64c668fd2cff33c4e4695619",
+    "assets": [
+     {
+      "type": "fx"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "otherCommodities"
+     },
+     {
+      "type": "crypto"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": false,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": null,
+    "country": "AE",
+    "currency": "USD",
+    "dateEstablished": "2022-03-31T17:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "lzzse3i19s8fyjiqdv83w8j7",
+      "icon": {
+       "name": "platforms-metatrader-4.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/gdp5h92baw9l91v7rinkznmb/platforms-metatrader-4.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT4"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 75549,
+    "logo": {
+     "name": "Firm=FundedNext, Category=Prop Firm.svg",
+     "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/qhbxdzpcco86uuzxsc9yp8v2/Firm=FundedNext,_Category=Prop_Firm.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": "FundedNext prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 0,
+     "g": 0,
+     "r": 0
+    },
+    "maxAllocation": 300000,
+    "maxAllocationCurrency": null,
+    "name": "FundedNext",
+    "popularityScore": null,
+    "programType": [
+     "1 Step",
+     "2_Steps",
+     "Instant"
+    ],
+    "rank": 17,
+    "reviewsCount": 853,
+    "reviewScore": 4.3,
+    "slug": "fundednext",
+    "trustPilotScore": 4.5,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "1",
+    "preferredPromo": {
+     "id": "v965khfz8zz0yk5ai80zhaof",
+     "promo": {
+      "id": "v4cpqje6fizs0i6458c9pmzm",
+      "name": "FN-MATCHNEWX",
+      "description": "25% off on all Stellar accounts up to 50K (new users only)",
+      "isNew": true,
+      "slug": "fn-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": false,
+      "endDate": "2026-09-01T04:59:00+00:00",
+      "extraAccountPromo": null,
+      "holidayOffer": false,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "ucxmkqwcdle8ns5ck062h7cb",
+        "type": "standard",
+        "amount": 25,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "64c667f7b5d3e5b85d01b78a",
+    "assets": [
+     {
+      "type": "energy"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "metals"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": null,
+    "country": "AE",
+    "currency": "USD",
+    "dateEstablished": "2022-11-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 106113,
+    "logo": {
+     "name": "675854fe6df8f98dc09b6caf_FundingPips-Logotype.svg",
+     "path": "system/b5filxasbwwrg110uhxvgv4v/675854fe6df8f98dc09b6caf_FundingPips-Logotype.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": "FundingPips prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 85,
+     "g": 19,
+     "r": 18
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": null,
+    "name": "FundingPips",
+    "popularityScore": null,
+    "programType": [
+     "Instant",
+     "1 Step",
+     "2_Steps"
+    ],
+    "rank": 24,
+    "reviewsCount": 1161,
+    "reviewScore": 4.2,
+    "slug": "funding-pips",
+    "trustPilotScore": 4.5,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "2",
+    "preferredPromo": {
+     "id": "qq785d0frsowuq0qlyibg0u0",
+     "promo": {
+      "id": "650d9d213e85dfe3071a0c49",
+      "name": "FP-MATCH",
+      "description": "20% off all accounts (except Flex account) \u2014 first order only",
+      "isNew": true,
+      "slug": "fp-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": false,
+      "endDate": null,
+      "extraAccountPromo": false,
+      "holidayOffer": true,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "chpv2efaubekttocinv4k04s",
+        "type": "standard",
+        "amount": 20,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "64ce8b42d9d267abe76f901b",
+    "assets": [
+     {
+      "type": "indices"
+     },
+     {
+      "type": "energy"
+     },
+     {
+      "type": "otherCommodities"
+     },
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "metals"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": false,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": true,
+    "bestSellerStocks": null,
+    "country": "GB",
+    "currency": "USD",
+    "dateEstablished": "2016-01-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "z7slp824vugpo29ebzmb13bk",
+      "icon": {
+       "name": "platforms-tradingview.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/aec7367d0yct9gxyopy1hd19/platforms-tradingview.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TradingView"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 90836,
+    "logo": {
+     "name": "jadjbsw5o3buct9yk1zmcfxu.svg",
+     "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/d0tfly4u6umzlf9ti03joqhz/jadjbsw5o3buct9yk1zmcfxu.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": true,
+    "logoAltText": "The 5%ers prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 255,
+     "g": 255,
+     "r": 255
+    },
+    "maxAllocation": 1375000,
+    "maxAllocationCurrency": null,
+    "name": "The5ers",
+    "popularityScore": null,
+    "programType": [
+     "2_Steps",
+     "3_Steps",
+     "1 Step"
+    ],
+    "rank": 3,
+    "reviewsCount": 1266,
+    "reviewScore": 4.7,
+    "slug": "the-5-ers",
+    "trustPilotScore": 4.7,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "3",
+    "preferredPromo": {
+     "id": "q1cbgmcklpwd54nfrnrc17q7",
+     "promo": {
+      "id": "6511ba6475292ecb3cb3a109",
+      "name": "5ERS-MATCH",
+      "description": "10% off + credits equivalent to free account of the same size if reaching payout on all accounts except 100K High Stakes account (first order only)",
+      "isNew": true,
+      "slug": "5ers-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": false,
+      "endDate": null,
+      "extraAccountPromo": true,
+      "holidayOffer": true,
+      "freeAccountPayout": true,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "jbzr2jfy0zya3p1pqcofdygq",
+        "type": "standard",
+        "amount": 10,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "650b32700c0ed24f87558d2e",
+    "assets": [
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "energy"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "metals"
+     },
+     {
+      "type": "majors"
+     },
+     {
+      "type": "altcoins"
+     },
+     {
+      "type": "btcEth"
+     },
+     {
+      "type": "defi"
+     },
+     {
+      "type": "meme"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": false,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": true,
+    "bestSellerStocks": null,
+    "country": "AE",
+    "currency": "EUR",
+    "dateEstablished": "2023-09-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "uksamjqmygph9qykkh4ruoj4",
+      "icon": {
+       "name": "platforms-brightfunded-platform.svg",
+       "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/kb3i7o379dzuimgo8o0xahfd/platforms-brightfunded-platform.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "BrightFunded Platform (DxTrade)"
+     }
+    ],
+    "firmExchanges": [
+     {
+      "id": "sbk6z5bag6i1vheh9vpqlpgg",
+      "icon": {
+       "name": "qhp85vaqi1db8tj79iyfoab3.svg",
+       "path": "user_2s5D069TQXG2GNGl8ALCFVkGfX2/xbm14gug3qlicgyy97na6uis/qhp85vaqi1db8tj79iyfoab3.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Coinbase"
+     },
+     {
+      "id": "087cc3393edc1212687bec45",
+      "icon": {
+       "name": "exq5zexdf95d3din00qbit85.svg",
+       "path": "user_2s5D069TQXG2GNGl8ALCFVkGfX2/mxl77rais0gywa6emort83pt/exq5zexdf95d3din00qbit85.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Bybit"
+     },
+     {
+      "id": "08a31bc61b929d0a63fbe004",
+      "icon": {
+       "name": "c5va9ell846755vw15qu0mv3.svg",
+       "path": "user_2s5D069TQXG2GNGl8ALCFVkGfX2/fxpq2bakjn2wnhaxrkyc6iwa/c5va9ell846755vw15qu0mv3.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Binance"
+     },
+     {
+      "id": "29f857f6bc48271083d2a8e6",
+      "icon": {
+       "name": "ja085bter2161ius8on18pv9.svg",
+       "path": "user_2s5D069TQXG2GNGl8ALCFVkGfX2/psskvxfa01yy6cs4et8ggm5b/ja085bter2161ius8on18pv9.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Kraken"
+     }
+    ],
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": true,
+    "likesCount": 37153,
+    "logo": {
+     "name": "pocfr1ipohuv4ejhvcl7y94g.jpg",
+     "path": "user_2s52JelP7NsVT2WTM72aXmiLnJm/bc6akpmn2rp7fifcmqbj5ktd/pocfr1ipohuv4ejhvcl7y94g.jpg",
+     "type": "image/jpeg",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": true,
+    "logoAltText": "BrightFunded prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 255,
+     "g": 255,
+     "r": 255
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": "USD",
+    "name": "BrightFunded",
+    "popularityScore": null,
+    "programType": [
+     "2_Steps"
+    ],
+    "rank": 10,
+    "reviewsCount": 111,
+    "reviewScore": 4.5,
+    "slug": "brightfunded",
+    "trustPilotScore": null,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "4",
+    "preferredPromo": {
+     "id": "jaqde01o1cmyhyzdebbiumz6",
+     "promo": {
+      "id": "t3mal904dbu40e41vit3iccd",
+      "name": "BF-MATCH30",
+      "description": "30% off + 15% evaluation profit reward from evaluation stage + free account of the same size if reaching payout on 1-step challenges",
+      "isNew": true,
+      "slug": "bf-match",
+      "code": "MATCH30",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": true,
+      "holidayOffer": false,
+      "freeAccountPayout": true,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "nr4qq80nxfra755jdr1bxion",
+        "type": "standard",
+        "amount": 30,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "64ce887253e0c5bc9d3845e3",
+    "assets": [
+     {
+      "type": "fx"
+     },
+     {
+      "type": "energy"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "metals"
+     },
+     {
+      "type": "crypto"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": false,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": null,
+    "country": "US",
+    "currency": "USD",
+    "dateEstablished": "2021-11-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "a9mktr0p1f6os6sfvig5pjyc",
+      "icon": {
+       "name": "platforms-tradelocker.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/sf29k5mugfaf1myx2pdrd57d/platforms-tradelocker.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TradeLocker"
+     },
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 33381,
+    "logo": {
+     "name": "yh8tmzcf4fybtca4ciixoijm.svg",
+     "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/cookchclfl3h9qn9klhz3bh7/yh8tmzcf4fybtca4ciixoijm.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": true,
+    "logoAltText": "E8 Markets prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 0,
+     "g": 0,
+     "r": 0
+    },
+    "maxAllocation": 1750000,
+    "maxAllocationCurrency": null,
+    "name": "E8 Markets",
+    "popularityScore": null,
+    "programType": [
+     "1 Step",
+     "3_Steps",
+     "2_Steps"
+    ],
+    "rank": 1,
+    "reviewsCount": 478,
+    "reviewScore": 4.8,
+    "slug": "e8-markets",
+    "trustPilotScore": null,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "5",
+    "preferredPromo": {
+     "id": "gz7iydn3ov5bj4qdrcb73orf",
+     "promo": {
+      "id": "xv98j9l1fmbstkf9nt20h9f2",
+      "name": "E8-MATCH25",
+      "description": "10% off on all accounts",
+      "isNew": true,
+      "slug": "e8-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": null,
+      "holidayOffer": false,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "bjm5m7zcgv0sjtyv4310dked",
+        "type": "standard",
+        "amount": 10,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "g1buy9r3cc61sksd2rkvuui6",
+    "assets": [
+     {
+      "type": "otherCommodities"
+     },
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "metals"
+     },
+     {
+      "type": "fx"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": null,
+    "country": "HK",
+    "currency": "USD",
+    "dateEstablished": "2024-08-23T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "a9mktr0p1f6os6sfvig5pjyc",
+      "icon": {
+       "name": "platforms-tradelocker.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/sf29k5mugfaf1myx2pdrd57d/platforms-tradelocker.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TradeLocker"
+     },
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "ev5358wfrmhch8x99u8zml46",
+      "icon": {
+       "name": "platforms-dxtrade.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/qgtk8hfcs5oez5n2roojzd11/platforms-dxtrade.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "DXTrade"
+     },
+     {
+      "id": "lzzse3i19s8fyjiqdv83w8j7",
+      "icon": {
+       "name": "platforms-metatrader-4.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/gdp5h92baw9l91v7rinkznmb/platforms-metatrader-4.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT4"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 2598,
+    "logo": {
+     "name": "wqvfqoihax3yg3ab1uwn2vzk.svg",
+     "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/nqwjfltgte2wk859pims0p2i/wqvfqoihax3yg3ab1uwn2vzk.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": true,
+    "logoAltText": null,
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 0,
+     "g": 0,
+     "r": 0
+    },
+    "maxAllocation": 500000,
+    "maxAllocationCurrency": "USD",
+    "name": "Hola Prime",
+    "popularityScore": null,
+    "programType": [
+     "Instant",
+     "1 Step",
+     "2_Steps"
+    ],
+    "rank": 20,
+    "reviewsCount": 101,
+    "reviewScore": 4.3,
+    "slug": "hola-prime",
+    "trustPilotScore": 4.5,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "6",
+    "preferredPromo": {
+     "id": "awgzmi2hbftyfdru2wbpsecf",
+     "promo": {
+      "id": "yx52ynpxk8a4f84ttlk5atiw",
+      "name": "HP-MATCH20",
+      "description": "20% off all accounts (except 2K accounts)",
+      "isNew": true,
+      "slug": "hp-match",
+      "code": "MATCH20",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": null,
+      "holidayOffer": false,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "sgcd42yrpu5pd0g6v33d316v",
+        "type": "standard",
+        "amount": 20,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "64ce885555a76af5ce15e04d",
+    "assets": [
+     {
+      "type": "btcEth"
+     },
+     {
+      "type": "otherCommodities"
+     },
+     {
+      "type": "defi"
+     },
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "majors"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "meme"
+     },
+     {
+      "type": "stocks"
+     },
+     {
+      "type": "altcoins"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": true,
+    "bestSellerStocks": null,
+    "country": "CH",
+    "currency": "USD",
+    "dateEstablished": "2022-11-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "geqxb9w6ixssorpw6xfgscp4",
+      "icon": {
+       "name": "jp05tyfo7sc0leibrnci166a.svg",
+       "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/gmjcywnmi6dbpp1br0vpex2k/jp05tyfo7sc0leibrnci166a.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Bybit"
+     },
+     {
+      "id": "l5jlkh1jvf2n961vv6muehqw",
+      "icon": null,
+      "name": "CFT Platform (MatchTrader)"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     }
+    ],
+    "firmExchanges": [
+     {
+      "id": "087cc3393edc1212687bec45",
+      "icon": {
+       "name": "exq5zexdf95d3din00qbit85.svg",
+       "path": "user_2s5D069TQXG2GNGl8ALCFVkGfX2/mxl77rais0gywa6emort83pt/exq5zexdf95d3din00qbit85.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Bybit"
+     }
+    ],
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": true,
+    "likesCount": 27160,
+    "logo": {
+     "name": "d7za0ua4c70vsb16ab4t25gz.svg",
+     "path": "user_2s52JelP7NsVT2WTM72aXmiLnJm/kd896n044t6yr2dpqbrhnxa0/d7za0ua4c70vsb16ab4t25gz.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": "Crypto Fund Trader prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 18,
+     "g": 18,
+     "r": 18
+    },
+    "maxAllocation": 830000,
+    "maxAllocationCurrency": null,
+    "name": "Crypto Fund Trader",
+    "popularityScore": null,
+    "programType": [
+     "1 Step",
+     "2_Steps",
+     "Instant"
+    ],
+    "rank": 30,
+    "reviewsCount": 109,
+    "reviewScore": 4.1,
+    "slug": "crypto-fund-trader",
+    "trustPilotScore": null,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "7",
+    "preferredPromo": {
+     "id": "mh9361in2tvhkbqbios24w45",
+     "promo": {
+      "id": "64ee01499c3c52ab817d8bbd",
+      "name": "CFT-MATCH",
+      "description": "10% off + free account of the same size upon getting funded on 1\u2011step and 2\u2011step challenges (Instant accounts and Break accounts excluded)",
+      "isNew": true,
+      "slug": "cft-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": false,
+      "endDate": null,
+      "extraAccountPromo": true,
+      "holidayOffer": false,
+      "freeAccountPayout": true,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "znv2lrphqt2t1ucakkgs4hgb",
+        "type": "standard",
+        "amount": 10,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "64c669ca53db3600918d0fda",
+    "assets": [
+     {
+      "type": "fx"
+     },
+     {
+      "type": "metals"
+     },
+     {
+      "type": "energy"
+     },
+     {
+      "type": "otherCommodities"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "stocks"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": false,
+    "bestSellerStocks": null,
+    "country": "HK",
+    "currency": "USD",
+    "dateEstablished": "2023-06-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "a9mktr0p1f6os6sfvig5pjyc",
+      "icon": {
+       "name": "platforms-tradelocker.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/sf29k5mugfaf1myx2pdrd57d/platforms-tradelocker.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TradeLocker"
+     },
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "unzagq3m2t74jgnvln7zfu08",
+      "icon": null,
+      "name": "Volumetrica FX"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 58735,
+    "logo": {
+     "name": "ukleiv6mxkw996z63w878s0g.svg",
+     "path": "user_2s52JelP7NsVT2WTM72aXmiLnJm/k69j70if1eyou2lsfikaphc9/ukleiv6mxkw996z63w878s0g.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": true,
+    "logoAltText": "Goat Funded Trader prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 44,
+     "g": 25,
+     "r": 7
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": null,
+    "name": "Goat Funded Trader",
+    "popularityScore": null,
+    "programType": [
+     "Instant",
+     "1 Step",
+     "2_Steps"
+    ],
+    "rank": 25,
+    "reviewsCount": 1075,
+    "reviewScore": 4.2,
+    "slug": "goat-funded-trader",
+    "trustPilotScore": null,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "8",
+    "preferredPromo": {
+     "id": "g5yrxx81w0jnboljxd7dzfmd",
+     "promo": {
+      "id": "p8tijb5sqs5jwjsbi7r977zr",
+      "name": "GOAT-MATCH45",
+      "description": "45% off all accounts + free account upon reaching payout (directly issued by the firm, except the 5K 2\u2011Step GOAT & Standard accounts)",
+      "isNew": true,
+      "slug": "goat-match",
+      "code": "MATCH45",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": true,
+      "holidayOffer": false,
+      "freeAccountPayout": true,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "ahw01ghlnqpuugbux35b7its",
+        "type": "standard",
+        "amount": 45,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "rn637eu6fyi8umzhgj1jgfsi",
+    "assets": [
+     {
+      "type": "metals"
+     },
+     {
+      "type": "energy"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "crypto"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": null,
+    "bestSellerAllWeekly": null,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": null,
+    "country": "CY",
+    "currency": "USD",
+    "dateEstablished": "2024-11-09T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 462,
+    "logo": {
+     "name": "xfe79ayqrjnts78szt1r4gc5.svg",
+     "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/afbinns9gtjahi8f3bb4b4h4/xfe79ayqrjnts78szt1r4gc5.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": true,
+    "logoAltText": null,
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 0,
+     "g": 0,
+     "r": 0
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": null,
+    "name": "Atmos Funded",
+    "popularityScore": null,
+    "programType": [
+     "Instant",
+     "1 Step",
+     "2_Steps"
+    ],
+    "rank": 47,
+    "reviewsCount": 36,
+    "reviewScore": 4.6,
+    "slug": "atmos-funded",
+    "trustPilotScore": 3.8,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "9",
+    "preferredPromo": {
+     "id": "l8vkzxw6qd33p8iqeva48vx8",
+     "promo": {
+      "id": "kzh1qr377r2qpjqpx10wrmkk",
+      "name": "ATMOS-MATCH",
+      "description": "30% off + free account of the same size if reaching payout all challenges except Instant & Nova",
+      "isNew": true,
+      "slug": "atmos-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": true,
+      "holidayOffer": false,
+      "freeAccountPayout": true,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "r5qhcdfwe0o7wji1yny0jzm0",
+        "type": "standard",
+        "amount": 30,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "651c5f510be07dcf66f8e250",
+    "assets": [
+     {
+      "type": "indices"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "metals"
+     },
+     {
+      "type": "energy"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": false,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": null,
+    "country": "GB",
+    "currency": "USD",
+    "dateEstablished": "2021-11-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "a9mktr0p1f6os6sfvig5pjyc",
+      "icon": {
+       "name": "platforms-tradelocker.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/sf29k5mugfaf1myx2pdrd57d/platforms-tradelocker.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TradeLocker"
+     },
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "ev5358wfrmhch8x99u8zml46",
+      "icon": {
+       "name": "platforms-dxtrade.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/qgtk8hfcs5oez5n2roojzd11/platforms-dxtrade.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "DXTrade"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 42794,
+    "logo": {
+     "name": "Firm=Alpha Capital Group, Category=Prop Firm (4).svg",
+     "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/fj5mue1x2n3djluo2o67lrn7/Firm=Alpha_Capital_Group,_Category=Prop_Firm_(4).svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": "Alpha Capital Group prop firm logo",
+    "logoBackgroundColor": {
+     "a": 0.93,
+     "b": 180,
+     "g": 23,
+     "r": 2
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": null,
+    "name": "Alpha Capital",
+    "popularityScore": null,
+    "programType": [
+     "1 Step",
+     "2_Steps",
+     "3_Steps"
+    ],
+    "rank": 13,
+    "reviewsCount": 978,
+    "reviewScore": 4.4,
+    "slug": "alpha-capital-group",
+    "trustPilotScore": 4.7,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "10",
+    "preferredPromo": {
+     "id": "pf4d3ck21q111djo5siaep0u",
+     "promo": {
+      "id": "ylhirujy59zo9pt0ce63eis2",
+      "name": "ALPHA-ALPHA40",
+      "description": "40% off on Direct accounts",
+      "isNew": true,
+      "slug": "alpha-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": true,
+      "futures": null,
+      "endDate": "2026-08-10T04:59:00+00:00",
+      "extraAccountPromo": null,
+      "holidayOffer": false,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "bzox7su5zhicq2fp6nxwy5pz",
+        "type": "standard",
+        "amount": 40,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "657650b1b89a7f7c0f999d5f",
+    "assets": [
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "otherCommodities"
+     },
+     {
+      "type": "metals"
+     },
+     {
+      "type": "fx"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": null,
+    "bestSellerAllWeekly": false,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": true,
+    "country": "AE",
+    "currency": "USD",
+    "dateEstablished": "2023-12-10T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "a9mktr0p1f6os6sfvig5pjyc",
+      "icon": {
+       "name": "platforms-tradelocker.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/sf29k5mugfaf1myx2pdrd57d/platforms-tradelocker.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TradeLocker"
+     },
+     {
+      "id": "dzirqb7g5wlzz3k409un88kv",
+      "icon": {
+       "name": "platforms-ctrader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ask9jrekssd2xvuzgud6ckxo/platforms-ctrader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "cTrader"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 14492,
+    "logo": {
+     "name": "66df6b936b9b3130088ae508_AquaFunded-Logo.svg",
+     "path": "system/dj52yiqtko1lajk4xg6i26bd/66df6b936b9b3130088ae508_AquaFunded-Logo.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": "Aquafunded logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 255,
+     "g": 255,
+     "r": 255
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": null,
+    "name": "AquaFunded",
+    "popularityScore": null,
+    "programType": [
+     "Instant",
+     "1 Step",
+     "2_Steps"
+    ],
+    "rank": 14,
+    "reviewsCount": 284,
+    "reviewScore": 4.4,
+    "slug": "aquafunded",
+    "trustPilotScore": null,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "11",
+    "preferredPromo": {
+     "id": "pefgzylh32gohyttqeyr1285",
+     "promo": {
+      "id": "jafo4qhsgik7ol7bwwoehrop",
+      "name": "AQUA-WELCOME",
+      "description": "50% off all accounts \u2013 new customers only",
+      "isNew": true,
+      "slug": "aqua-match",
+      "code": "WELCOME",
+      "exclusive": null,
+      "showEndDate": null,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": null,
+      "holidayOffer": false,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "w3th5riesdb8cip2cj4o1j5a",
+        "type": "standard",
+        "amount": 50,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "6501e0cf481bbe2f25d7c597",
+    "assets": [
+     {
+      "type": "stocks"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": false,
+    "bestSellerAllMonthly": true,
+    "bestSellerAllWeekly": true,
+    "bestSellerCrypto": false,
+    "bestSellerStocks": true,
+    "country": "IL",
+    "currency": "USD",
+    "dateEstablished": "2022-09-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "fl2tzasyvezn1u5imm7f00ju",
+      "icon": {
+       "name": "platforms-trader-evolutions.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/b4xiz4jnoli060k8p601g8rn/platforms-trader-evolutions.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TraderEvolution"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 1506,
+    "logo": {
+     "name": "65e0ed9174fc8bbb414d357a_Trade-The-Pool.svg",
+     "path": "system/poutzcfp0aky9cme1t352ydc/65e0ed9174fc8bbb414d357a_Trade-The-Pool.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": "Trade The Pool prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 255,
+     "g": 255,
+     "r": 255
+    },
+    "maxAllocation": 450000,
+    "maxAllocationCurrency": null,
+    "name": "Trade The Pool",
+    "popularityScore": null,
+    "programType": [
+     "1 Step"
+    ],
+    "rank": 42,
+    "reviewsCount": 4,
+    "reviewScore": 4.8,
+    "slug": "trade-the-pool",
+    "trustPilotScore": 4.4,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "12",
+    "preferredPromo": {
+     "id": "feuo2v4ni2lf1ixdq44tuuje",
+     "promo": {
+      "id": "65ca7efbddd67fa3c478583e",
+      "name": "POOL-MATCH",
+      "description": "10% off all accounts + free account of the same size if reaching payout (first order only) excluding $100K and $200K Buying Power - Flex and Max accounts",
+      "isNew": false,
+      "slug": "pool-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": false,
+      "endDate": null,
+      "extraAccountPromo": true,
+      "holidayOffer": true,
+      "freeAccountPayout": true,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "m68s4h6o4md4pxw5qwz5w9gr",
+        "type": "standard",
+        "amount": 10,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "64c66834bf2156a87dad66b1",
+    "assets": [
+     {
+      "type": "crypto"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "otherCommodities"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": false,
+    "bestSellerAllWeekly": false,
+    "bestSellerCrypto": true,
+    "bestSellerStocks": null,
+    "country": "AE",
+    "currency": "USD",
+    "dateEstablished": "2021-06-01T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "a9mktr0p1f6os6sfvig5pjyc",
+      "icon": {
+       "name": "platforms-tradelocker.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/sf29k5mugfaf1myx2pdrd57d/platforms-tradelocker.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "TradeLocker"
+     },
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 12817,
+    "logo": {
+     "name": "qhkroxy67h4c4wh9sxvv9ow6.png",
+     "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/nxxcphbidyhu0ylfd4rokp52/qhkroxy67h4c4wh9sxvv9ow6.png",
+     "type": "image/png",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": true,
+    "logoAltText": "Blue Guardian prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 51,
+     "g": 33,
+     "r": 6
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": null,
+    "name": "Blue Guardian",
+    "popularityScore": null,
+    "programType": [
+     "Instant",
+     "1 Step",
+     "2_Steps",
+     "3_Steps"
+    ],
+    "rank": 18,
+    "reviewsCount": 211,
+    "reviewScore": 4.3,
+    "slug": "blue-guardian",
+    "trustPilotScore": 3.9,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "13",
+    "preferredPromo": {
+     "id": "ia8kubacubpkicxtxvfaiv8u",
+     "promo": {
+      "id": "fb4vssfyb1z1knn0d047bwbz",
+      "name": "BG-MATCHxx",
+      "description": "25% off all accounts",
+      "isNew": true,
+      "slug": "bg-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": null,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": false,
+      "holidayOffer": false,
+      "freeAccountPayout": false,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "hokokytgrfwblk21xlgoxy3i",
+        "type": "standard",
+        "amount": 25,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "64c6692662db2b29ae95cab4",
+    "assets": [
+     {
+      "type": "metals"
+     },
+     {
+      "type": "otherCommodities"
+     },
+     {
+      "type": "indices"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "energy"
+     },
+     {
+      "type": "crypto"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": false,
+    "bestSellerAllWeekly": false,
+    "bestSellerCrypto": true,
+    "bestSellerStocks": null,
+    "country": "LC",
+    "currency": "USD",
+    "dateEstablished": "2022-11-30T16:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 40133,
+    "logo": {
+     "name": "66d9ca429b3ad9c951fe1e83_Maven-Logo-XXL.png",
+     "path": "system/l0qn6qyp3zb74v43hcyod8jo/66d9ca429b3ad9c951fe1e83_Maven-Logo-XXL.png",
+     "type": "image/png",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": "Maven Trading prop firm logo",
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 0,
+     "g": 118,
+     "r": 255
+    },
+    "maxAllocation": 200000,
+    "maxAllocationCurrency": null,
+    "name": "Maven",
+    "popularityScore": null,
+    "programType": [
+     "1 Step",
+     "2_Steps",
+     "Instant"
+    ],
+    "rank": 26,
+    "reviewsCount": 763,
+    "reviewScore": 4.2,
+    "slug": "maven-trading",
+    "trustPilotScore": null,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "14",
+    "preferredPromo": {
+     "id": "zagyfksxuj1e7c1iu4dhchv8",
+     "promo": {
+      "id": "ngxh0emju54cud233xvna7e1",
+      "name": "MAVEN-OMO",
+      "description": "40% off on 10K to 100K OMO challenges",
+      "isNew": true,
+      "slug": "maven-match",
+      "code": "OMO",
+      "exclusive": null,
+      "showEndDate": null,
+      "futures": null,
+      "endDate": null,
+      "extraAccountPromo": null,
+      "holidayOffer": false,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "g3kkitd0ar25j1f4ypnv1a4c",
+        "type": "standard",
+        "amount": 40,
+        "strategy": "percentage",
+        "customLabel": null
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "v4xg7vuvld4fgihxa9kfgql8",
+    "assets": [
+     {
+      "type": "indices"
+     },
+     {
+      "type": "fx"
+     },
+     {
+      "type": "energy"
+     },
+     {
+      "type": "metals"
+     },
+     {
+      "type": "crypto"
+     }
+    ],
+    "affiliateUrl": "[url]",
+    "autoLoyaltyEnabled": true,
+    "bestSellerAllMonthly": null,
+    "bestSellerAllWeekly": null,
+    "bestSellerCrypto": null,
+    "bestSellerStocks": null,
+    "country": "IT",
+    "currency": "USD",
+    "dateEstablished": "2023-11-12T05:00:00.000Z",
+    "firmPlatforms": [
+     {
+      "id": "raekcp6ag53m53skw1twu8aw",
+      "icon": {
+       "name": "platforms-metatrader-5.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/by5cjd0adh9zw6m2bpapkaq6/platforms-metatrader-5.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "MT5"
+     },
+     {
+      "id": "woao462xe60qt84jtswjqb7w",
+      "icon": {
+       "name": "platforms-match-trader.svg",
+       "path": "user_2rmBzzwlyNFeYaJ74FgryMW7Y0m/ivexd9cbazekxn4scqgj2v6q/platforms-match-trader.svg",
+       "type": "image/svg+xml",
+       "accessType": "PUBLIC"
+      },
+      "name": "Match Trader"
+     }
+    ],
+    "firmExchanges": null,
+    "listingType": "listed",
+    "isForexCategory": true,
+    "isFuturesCategory": false,
+    "isCryptoCategory": false,
+    "likesCount": 3762,
+    "logo": {
+     "name": "o3d73fv83ok06i5ig10r7zcn.svg",
+     "path": "user_2s2hlBXYjq3Z0JvbQ39DazaaarZ/br8jsjf6z8264mlgfzvozs1u/o3d73fv83ok06i5ig10r7zcn.svg",
+     "type": "image/svg+xml",
+     "accessType": "PUBLIC"
+    },
+    "noLogoExtraPadding": false,
+    "logoAltText": null,
+    "logoBackgroundColor": {
+     "a": 1,
+     "b": 39,
+     "g": 13,
+     "r": 17
+    },
+    "maxAllocation": 400000,
+    "maxAllocationCurrency": null,
+    "name": "FundedElite",
+    "popularityScore": null,
+    "programType": [
+     "Instant",
+     "1 Step",
+     "2_Steps"
+    ],
+    "rank": 19,
+    "reviewsCount": 180,
+    "reviewScore": 4.3,
+    "slug": "fundedelite",
+    "trustPilotScore": null,
+    "underReview": false,
+    "underReviewNoticeText": null,
+    "popularityRank": "15",
+    "preferredPromo": {
+     "id": "u4xz64ftooljaq9uuh0udcqf",
+     "promo": {
+      "id": "uit2psmw6tlnwx5q7pggjvqr",
+      "name": "FE-MATCH50PERCENT",
+      "description": "50% off + 14% max drawdown on Instant elite 300k & 400k accounts",
+      "isNew": true,
+      "slug": "fe-match",
+      "code": "MATCH",
+      "exclusive": true,
+      "showEndDate": false,
+      "futures": null,
+      "endDate": "2026-09-01T04:59:00+00:00",
+      "extraAccountPromo": null,
+      "holidayOffer": false,
+      "freeAccountPayout": null,
+      "freeAccountReset": null,
+      "discounts": [
+       {
+        "id": "c9t89ib26b26guswappuaypt",
+        "type": "standard",
+        "amount": 50,
+        "strategy": "percentage",
+        "customLabel": null
+       },
+       {
+        "id": "xzdnbjl62xc2wd04uhh9xft5",
+        "type": "custom",
+        "amount": null,
+        "strategy": null,
+        "customLabel": "14% MDD"
+       }
+      ]
+     }
+    }
+   }
+  ],
+  "nextPage": null,
+  "hasMore": false,
+  "count": 15
+ },
+ "filterOptions": null,
+ "newFirms": null,
+ "entityLastUpdated": null,
+ "tutorials": null
+}

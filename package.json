@@ -1,0 +1,15 @@
+{
+  "name": "propfirmsquad",
+  "private": true,
+  "version": "0.0.1",
+  "packageManager": "pnpm@11.20.0",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "seed": "pnpm --filter web seed",
+    "generate:types": "pnpm --filter web generate:types",
+    "generate:importmap": "pnpm --filter web generate:importmap"
+  }
+}

@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+/*
+ * PropFirmSquad design tokens — derived from crttrading.com design system.
+ * Warm paper editorial light theme; single orange accent; Inter everywhere.
+ * See propfirmmatch-seo-data/propfirmsquad-design-system.md
+ */
+@theme {
+  /* Accent */
+  --color-accent: #f98d00;
+  --color-accent-dark: #d97500;
+  --color-accent-light: #ffa82e;
+  --color-accent-pale: #fff3e0;
+
+  /* Surfaces — warm paper */
+  --color-page: #edecea;
+  --color-card: #ffffff;
+  --color-nav: #2d2520;
+  --color-dark-section: #1c1410;
+  --color-footer: #1b1b1f;
+
+  /* Lines & text */
+  --color-line: #e0ddd9;
+  --color-line-dark: #3a342e;
+  --color-ink: #1f1e1c;
+  --color-ink-2: #5a5652;
+  --color-ink-3: #9e9994;
+  --color-on-dark: #f0ede6;
+  --color-on-dark-2: #9e998f;
+
+  /* Semantic — data only (payouts up/down, pass/fail) */
+  --color-positive: #16a34a;
+  --color-negative: #dc2626;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Layout */
+  --radius-sm: 6px;
+  --radius-lg: 12px;
+  --container-page: 1160px;
+  --container-prose: 820px;
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
