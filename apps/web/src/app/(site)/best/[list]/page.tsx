@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getFirms } from '../../_lib/data'
 import { CURRENT_YEAR, FIRM_TYPE_LABELS, PROGRAM_LABELS, compactMoney } from '../../_lib/format'
-import { EmptyNote, Score, td, th } from '../../_lib/ui'
+import { EmptyNote, FirmMark, Score, td, th } from '../../_lib/ui'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, itemListLd } from '@/lib/seo/jsonld'
 import { bestListMeta } from '@/lib/seo/metadata'
@@ -115,8 +115,9 @@ export default async function BestListPage({ params }: { params: Params }) {
                     <th scope="row" className={`${td} text-left`}>
                       <Link
                         href={`/prop-firms/${firm.slug}`}
-                        className="font-bold text-accent-dark hover:underline"
+                        className="flex items-center gap-2.5 font-bold text-accent-dark hover:underline"
                       >
+                        <FirmMark firm={firm} size="sm" />
                         {firm.name}
                       </Link>
                     </th>

@@ -53,9 +53,10 @@ export function FirmMark({
   size = 'md',
 }: {
   firm: Pick<Firm, 'name' | 'logoBackgroundColor'> & { logo?: Firm['logo'] }
-  size?: 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg'
 }) {
-  const dims = size === 'lg' ? 'h-14 w-14 text-2xl' : 'h-10 w-10 text-lg'
+  const dims =
+    size === 'lg' ? 'h-14 w-14 text-2xl' : size === 'sm' ? 'h-7 w-7 text-xs' : 'h-10 w-10 text-lg'
   const logoUrl = firmLogoUrl(firm.logo)
   return (
     <span

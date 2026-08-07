@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllActivePromos, getFirms } from './_lib/data'
 import { CURRENT_YEAR, FIRM_TYPE_LABELS, PROGRAM_LABELS, compactMoney } from './_lib/format'
-import { EmptyNote, FirmCard, Score, td, th } from './_lib/ui'
+import { EmptyNote, FirmCard, FirmMark, Score, td, th } from './_lib/ui'
 
 export const dynamic = 'force-dynamic'
 
@@ -101,8 +101,9 @@ export default async function HomePage() {
                     <th scope="row" className={`${td} text-left`}>
                       <Link
                         href={`/prop-firms/${firm.slug}`}
-                        className="font-bold text-accent-dark hover:underline"
+                        className="flex items-center gap-2.5 font-bold text-accent-dark hover:underline"
                       >
+                        <FirmMark firm={firm} size="sm" />
                         {firm.name}
                       </Link>
                     </th>
