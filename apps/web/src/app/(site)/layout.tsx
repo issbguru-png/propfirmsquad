@@ -29,8 +29,25 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={organizationLd()} />
         <header className="bg-nav text-on-dark">
           <div className="mx-auto flex max-w-(--container-page) flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4">
-            <Link href="/" className="text-lg font-extrabold tracking-tight">
-              PropFirm<span className="text-accent">Squad</span>
+            <Link href="/" className="flex items-center gap-2.5 text-xl font-extrabold tracking-tight">
+              {/* Logomark: ascending candles in a rounded square */}
+              <svg
+                aria-hidden
+                width="30"
+                height="30"
+                viewBox="0 0 32 32"
+                className="shrink-0"
+              >
+                <rect x="1" y="1" width="30" height="30" rx="7" className="fill-accent" />
+                <g stroke="var(--color-nav)" strokeWidth="3" strokeLinecap="round">
+                  <line x1="10" y1="21.5" x2="10" y2="16.5" />
+                  <line x1="16" y1="23.5" x2="16" y2="11.5" />
+                  <line x1="22" y1="18.5" x2="22" y2="8.5" />
+                </g>
+              </svg>
+              <span>
+                PropFirm<span className="text-accent">Squad</span>
+              </span>
             </Link>
             <nav aria-label="Main">
               <ul className="flex flex-wrap items-center gap-x-5 gap-y-1 text-sm font-semibold">
