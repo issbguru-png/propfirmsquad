@@ -71,6 +71,49 @@ export default async function HomePage() {
             commission size.
           </p>
         )}
+
+        {/* Trust strip: core mantra + author signature */}
+        <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <p className="flex items-center gap-2.5 rounded-full border border-line bg-card py-2 pr-4 pl-3 text-sm font-semibold">
+            <span
+              aria-hidden
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-pale text-accent-dark"
+            >
+              {/* shield-check */}
+              <svg
+                width={16}
+                height={16}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M12 2l8 3.5v5.2c0 5-3.4 9.4-8 11.3-4.6-1.9-8-6.3-8-11.3V5.5L12 2z" />
+                <path d="M8.5 12l2.5 2.5 4.5-5" />
+              </svg>
+            </span>
+            Quality over quantity — the top firms reviewed deeply, not 500 listed shallowly.
+          </p>
+          <a href="#author-h" className="group flex items-center gap-2.5">
+            <img
+              src="/ayub-rana.png"
+              alt=""
+              width={36}
+              height={36}
+              className="h-9 w-9 rounded-full border border-line object-cover"
+            />
+            <span className="leading-tight">
+              <span className="block font-serif text-lg italic group-hover:text-accent-dark">
+                Ayub Rana
+              </span>
+              <span className="block text-xs text-ink-3">
+                CA &amp; forex trader — every review personally verified
+              </span>
+            </span>
+          </a>
+        </div>
       </section>
 
       {/* Ranked data table near the top — AI-Overview / featured-snippet target */}
