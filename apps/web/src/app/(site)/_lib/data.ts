@@ -11,6 +11,22 @@ async function db() {
   return getPayload({ config })
 }
 
+/**
+ * Ranking order for firm listings: reviewScore desc with null (unrated) LAST —
+ * Postgres `sort: '-reviewScore'` puts nulls first, which ranked unrated firms
+ * #1 sitewide. Ties break on reviewsCount desc, then trustPilotScore desc.
+ */
+export function compareFirmsByRating(a: Firm, b: Firm): number {
+  if (a.reviewScore != null || b.reviewScore != null) {
+    if (a.reviewScore == null) return 1
+    if (b.reviewScore == null) return -1
+    if (b.reviewScore !== a.reviewScore) return b.reviewScore - a.reviewScore
+  }
+  const byReviews = (b.reviewsCount ?? 0) - (a.reviewsCount ?? 0)
+  if (byReviews !== 0) return byReviews
+  return (b.trustPilotScore ?? 0) - (a.trustPilotScore ?? 0)
+}
+
 export async function getFirms(opts?: { firmType?: string }): Promise<Firm[]> {
   try {
     const payload = await db()
@@ -23,7 +39,8 @@ export async function getFirms(opts?: { firmType?: string }): Promise<Firm[]> {
       limit: 200,
       depth: 1, // populate `logo` media for listing cards
     })
-    return res.docs
+    // Re-sort in JS: Postgres puts null reviewScore first; we want unrated last.
+    return res.docs.slice().sort(compareFirmsByRating)
   } catch {
     return []
   }
@@ -128,10 +145,11 @@ export async function getAlternatives(firm: Firm, limit = 3): Promise<Firm[]> {
       limit: limit + 5,
       depth: 1, // populate `logo` media for alternative-firm cards
     })
-    // Prefer firms sharing a firm type with the current one.
+    // Re-sort in JS (nulls last), then prefer firms sharing a firm type with the current one.
+    const ranked = res.docs.slice().sort(compareFirmsByRating)
     const types = new Set(firm.firmTypes ?? [])
-    const shared = res.docs.filter((f) => (f.firmTypes ?? []).some((t) => types.has(t)))
-    const rest = res.docs.filter((f) => !shared.includes(f))
+    const shared = ranked.filter((f) => (f.firmTypes ?? []).some((t) => types.has(t)))
+    const rest = ranked.filter((f) => !shared.includes(f))
     return [...shared, ...rest].slice(0, limit)
   } catch {
     return []

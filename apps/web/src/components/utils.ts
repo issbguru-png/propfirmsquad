@@ -11,7 +11,9 @@ export function cn(...classes: Array<string | false | null | undefined>): string
 /** "2026-08-07" | ISO datetime -> "Aug 7, 2026". Returns null for missing/invalid input. */
 export function formatDate(iso: string | null | undefined): string | null {
   if (!iso) return null
-  const d = new Date(iso)
+  // Pin bare date-only strings to UTC midnight so they never shift a day
+  // when formatted, regardless of the server's timezone.
+  const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T00:00:00.000Z` : iso)
   if (Number.isNaN(d.getTime())) return null
   return new Intl.DateTimeFormat('en-US', {
     month: 'short',

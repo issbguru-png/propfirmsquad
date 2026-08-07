@@ -5,6 +5,7 @@
 import Link from 'next/link'
 import React from 'react'
 import type { Firm } from '@/payload-types'
+import { SectionKicker } from '@/components'
 
 export function Badge({
   children,
@@ -76,15 +77,26 @@ export function SectionCard({
   id,
   title,
   intro,
+  number,
+  kicker,
   children,
 }: {
   id: string
   title: string
   intro?: string
+  /** Section number for "§ 01 — LABEL" wayfinding above the title. */
+  number?: number
+  /** Short kicker label (defaults to `title` when only `number` is set). */
+  kicker?: string
   children: React.ReactNode
 }) {
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="scroll-mt-24 rounded-lg border border-line bg-card p-5 sm:p-7">
+      {number != null ? (
+        <SectionKicker number={number} className="mb-1.5">
+          {kicker ?? title}
+        </SectionKicker>
+      ) : null}
       <h2 id={`${id}-h`} className="mb-2 text-2xl font-extrabold tracking-tight">
         {title}
       </h2>

@@ -11,6 +11,10 @@ export type ButtonProps = {
   href?: string
   /** Button type when rendered as a <button> (default "button"). */
   type?: 'button' | 'submit' | 'reset'
+  /** rel override for external anchors (default "noopener"). */
+  rel?: string
+  /** Open external anchors in a new tab. */
+  newTab?: boolean
   disabled?: boolean
   className?: string
 }
@@ -39,6 +43,8 @@ export function Button({
   size = 'md',
   href,
   type = 'button',
+  rel,
+  newTab,
   disabled,
   className,
 }: ButtonProps): ReactNode {
@@ -48,7 +54,12 @@ export function Button({
     const external = /^https?:\/\//.test(href)
     if (external) {
       return (
-        <a href={href} rel="noopener" className={classes}>
+        <a
+          href={href}
+          rel={rel ?? 'noopener'}
+          target={newTab ? '_blank' : undefined}
+          className={classes}
+        >
           {children}
         </a>
       )

@@ -23,10 +23,12 @@ import {
   formatDate,
   money,
   richTextToParagraphs,
+  splitDraftMarker,
   yearOf,
 } from '../../_lib/format'
 import { Badge, EmptyNote, FirmCard, FirmMark, SectionCard, td, th } from '../../_lib/ui'
-import { RatingStars, TrendChart } from '@/components'
+import { Button, RatingStars, SectionKicker, TrendChart, VerdictBox } from '@/components'
+import { SectionNav } from './SectionNav'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, firmLd } from '@/lib/seo/jsonld'
 import { firmProfileMeta } from '@/lib/seo/metadata'
@@ -55,6 +57,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 const isDbChallenge = (c: Challenge | FixtureChallenge): c is Challenge => 'id' in c
 
+/** Right-aligned variants for numeric table columns. */
+const thNum = `${th} text-right`
+const tdNum = `${td} text-right tabular-nums`
+
 export default async function FirmProfilePage({ params }: { params: Params }) {
   const { slug } = await params
   const firm = await getFirmBySlug(slug)
@@ -79,6 +85,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
   const cheapest = challenges.length
     ? Math.min(...challenges.map((c) => c.price ?? Infinity))
     : null
+  const cheapestIdx = challenges.findIndex((c) => c.price != null && c.price === cheapest)
   const faqs = buildFirmFaqs({
     firm,
     promos,
@@ -86,11 +93,15 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
     platformNames,
   })
 
-  const verdictParas = richTextToParagraphs(firm.verdict)
+  const { paragraphs: verdictParas, isDraft: verdictIsDraft } = splitDraftMarker(
+    richTextToParagraphs(firm.verdict),
+  )
   const est = yearOf(firm.dateEstablished)
   const rules = firm.rulesSummary
   const payout = firm.payout
-  const bestPromo = promos[0]
+  const bestPromo = promos
+    .slice()
+    .sort((a, b) => (b.discountPct ?? 0) - (a.discountPct ?? 0))[0]
 
   return (
     <div>
@@ -122,6 +133,18 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             ) : null}
           </p>
         </div>
+        {firm.websiteUrl ? (
+          <Button
+            variant="secondary"
+            size="sm"
+            href={firm.websiteUrl}
+            rel="nofollow noopener sponsored"
+            newTab
+            className="sm:ml-auto"
+          >
+            Visit {firm.name} ↗
+          </Button>
+        ) : null}
       </div>
 
       {firm.underReview ? (
@@ -131,38 +154,55 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
       ) : null}
 
       {/* ————— Sticky section nav ————— */}
-      <nav
-        aria-label="On this page"
-        className="sticky top-0 z-10 -mx-4 mb-8 border-y border-line bg-page/95 px-4 backdrop-blur"
-      >
-        <ul className="flex gap-x-5 overflow-x-auto py-3 text-sm font-semibold whitespace-nowrap">
-          {SECTIONS.map((s) => (
-            <li key={s.id}>
-              <a href={`#${s.id}`} className="text-ink-2 transition-colors hover:text-accent-dark">
-                {s.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <SectionNav
+        sections={SECTIONS.map((s) => ({ id: s.id, label: s.label }))}
+        promo={
+          bestPromo?.code
+            ? {
+                code: bestPromo.code,
+                discountPct: bestPromo.discountPct,
+                href: `/prop-firms/${firm.slug}/promo-code`,
+              }
+            : null
+        }
+      />
 
       <div className="space-y-10">
         {/* ————— 1. Verdict ————— */}
-        <SectionCard id="verdict" title={`Our verdict on ${firm.name}`}>
-          <div className="mb-5 flex flex-wrap items-center gap-x-8 gap-y-3">
-            <div>
-              <div className="text-5xl font-black text-accent-dark">
-                {firm.reviewScore != null ? firm.reviewScore : '—'}
-                <span className="text-2xl text-accent">★</span>
+        <VerdictBox
+          id="verdict"
+          title={`Our verdict on ${firm.name}`}
+          updatedAt={firm.lastVerifiedAt}
+          kicker={<SectionKicker number={1} className="mb-1.5">Verdict</SectionKicker>}
+          badge={verdictIsDraft ? <Badge>Draft — pending review</Badge> : undefined}
+          className="scroll-mt-24 sm:p-7"
+        >
+          <div className="mb-5 flex flex-wrap items-end gap-x-8 gap-y-3">
+            {firm.reviewScore != null ? (
+              <div>
+                <div className="text-5xl font-black tabular-nums text-accent-dark">
+                  {firm.reviewScore}
+                  <span className="text-2xl text-accent">★</span>
+                </div>
+                <RatingStars rating={firm.reviewScore} />
+                <div className="text-xs text-ink-3">
+                  {firm.reviewsCount
+                    ? `${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
+                    : 'trader review score'}
+                </div>
               </div>
-              {firm.reviewScore != null ? <RatingStars rating={firm.reviewScore} /> : null}
-              <div className="text-xs text-ink-3">
-                {firm.reviewsCount
-                  ? `${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
-                  : 'not yet rated'}
+            ) : firm.trustPilotScore != null ? (
+              <div>
+                <div className="text-5xl font-black tabular-nums text-accent-dark">
+                  {firm.trustPilotScore}
+                  <span className="text-2xl font-extrabold text-ink-3">/5</span>
+                </div>
+                <div className="text-xs text-ink-3">Trustpilot</div>
               </div>
-            </div>
-            {firm.trustPilotScore != null ? (
+            ) : (
+              <div className="text-sm text-ink-3">Not yet rated</div>
+            )}
+            {firm.reviewScore != null && firm.trustPilotScore != null ? (
               <div>
                 <div className="text-2xl font-extrabold">{firm.trustPilotScore}/5</div>
                 <div className="text-xs text-ink-3">Trustpilot</div>
@@ -211,11 +251,13 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
               </Link>
             </p>
           ) : null}
-        </SectionCard>
+        </VerdictBox>
 
         {/* ————— 2. Challenge pricing ————— */}
         <SectionCard
           id="pricing"
+          number={2}
+          kicker="Pricing"
           title={`${firm.name} challenge pricing`}
           intro={`Every account size and step count ${firm.name} sells, with targets and drawdown limits in one table.`}
         >
@@ -236,33 +278,43 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                 <thead className="border-b border-line bg-page">
                   <tr>
                     <th scope="col" className={th}>Program</th>
-                    <th scope="col" className={th}>Account size</th>
-                    <th scope="col" className={th}>Price</th>
-                    <th scope="col" className={th}>Profit target(s)</th>
-                    <th scope="col" className={th}>Max daily loss</th>
-                    <th scope="col" className={th}>Max drawdown</th>
+                    <th scope="col" className={thNum}>Account size</th>
+                    <th scope="col" className={thNum}>Price</th>
+                    <th scope="col" className={thNum}>Profit target(s)</th>
+                    <th scope="col" className={thNum}>Max daily loss</th>
+                    <th scope="col" className={thNum}>Max drawdown</th>
                     <th scope="col" className={th}>Drawdown type</th>
-                    <th scope="col" className={th}>Split</th>
+                    <th scope="col" className={thNum}>Split</th>
                     <th scope="col" className={th}>Refundable</th>
                   </tr>
                 </thead>
                 <tbody>
                   {challenges.map((c, i) => (
-                    <tr key={isDbChallenge(c) ? c.id : i} className="border-b border-line last:border-0">
-                      <th scope="row" className={`${td} text-left font-bold`}>{c.name}</th>
-                      <td className={td}>{money(c.accountSize)}</td>
-                      <td className={`${td} font-bold text-accent-dark`}>{money(c.price)}</td>
-                      <td className={td}>
+                    <tr
+                      key={isDbChallenge(c) ? c.id : i}
+                      className={`border-b border-line last:border-0 ${
+                        i === cheapestIdx ? 'bg-accent-pale/60' : 'odd:bg-page/40'
+                      }`}
+                    >
+                      <th scope="row" className={`${td} text-left font-bold`}>
+                        <span className="inline-flex items-center gap-2">
+                          {c.name}
+                          {i === cheapestIdx ? <Badge tone="accent">Cheapest</Badge> : null}
+                        </span>
+                      </th>
+                      <td className={tdNum}>{money(c.accountSize)}</td>
+                      <td className={`${tdNum} font-bold text-accent-dark`}>{money(c.price)}</td>
+                      <td className={tdNum}>
                         {(c.profitTargets ?? []).length > 0
                           ? (c.profitTargets ?? []).map((t) => `${t.targetPct}%`).join(' / ')
                           : 'None'}
                       </td>
-                      <td className={td}>{c.maxDailyLossPct != null ? `${c.maxDailyLossPct}%` : '—'}</td>
-                      <td className={td}>
+                      <td className={tdNum}>{c.maxDailyLossPct != null ? `${c.maxDailyLossPct}%` : '—'}</td>
+                      <td className={tdNum}>
                         {c.maxTotalDrawdownPct != null ? `${c.maxTotalDrawdownPct}%` : '—'}
                       </td>
                       <td className={td}>{c.drawdownType ? DRAWDOWN_LABELS[c.drawdownType] : '—'}</td>
-                      <td className={td}>{c.profitSplitPct != null ? `${c.profitSplitPct}%` : '—'}</td>
+                      <td className={tdNum}>{c.profitSplitPct != null ? `${c.profitSplitPct}%` : '—'}</td>
                       <td className={td}>
                         {c.refundableFee == null ? '—' : c.refundableFee ? 'Yes' : 'No'}
                       </td>
@@ -277,6 +329,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         {/* ————— 3. Rules ————— */}
         <SectionCard
           id="rules"
+          number={3}
+          kicker="Rules"
           title={`${firm.name} rules, explained`}
           intro="The rules that actually get traders breached — what they are and how this firm sets them."
         >
@@ -368,6 +422,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         {/* ————— 4. Payouts ————— */}
         <SectionCard
           id="payouts"
+          number={4}
+          kicker="Payouts"
           title={`${firm.name} payout data`}
           intro="Advertised terms plus what we can verify from dated community payout proofs."
         >
@@ -409,6 +465,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         {/* ————— 5. Trust & company ————— */}
         <SectionCard
           id="trust"
+          number={5}
+          kicker="Trust & Company"
           title={`Is ${firm.name} legit? Trust & company facts`}
         >
           <div className="overflow-x-auto rounded-sm border border-line">
@@ -475,6 +533,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         {/* ————— 6. Platforms & assets ————— */}
         <SectionCard
           id="platforms"
+          number={6}
+          kicker="Platforms & Assets"
           title="Platforms & tradable assets"
         >
           <div className="grid gap-6 sm:grid-cols-2">
@@ -522,7 +582,12 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         </SectionCard>
 
         {/* ————— 7. FAQ ————— */}
-        <SectionCard id="faq" title={`${firm.name} — frequently asked questions`}>
+        <SectionCard
+          id="faq"
+          number={7}
+          kicker="FAQ"
+          title={`${firm.name} — frequently asked questions`}
+        >
           <div className="max-w-(--container-prose) divide-y divide-line">
             {faqs.map((f) => (
               <div key={f.question} className="py-4 first:pt-0 last:pb-0">
@@ -536,6 +601,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         {/* ————— 8. Alternatives ————— */}
         <SectionCard
           id="alternatives"
+          number={8}
+          kicker="Alternatives"
           title={`Alternatives to ${firm.name}`}
           intro="Top-rated firms traders compare against this one."
         >

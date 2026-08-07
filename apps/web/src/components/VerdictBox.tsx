@@ -12,6 +12,12 @@ export type VerdictBoxProps = {
   updatedAt?: string | null
   /** Heading text (default "Our verdict"). */
   title?: string
+  /** Anchor id for in-page navigation / TOC links. */
+  id?: string
+  /** Slot rendered above the header (e.g. a SectionKicker). */
+  kicker?: ReactNode
+  /** Small badge rendered beside the title (e.g. draft status). */
+  badge?: ReactNode
   className?: string
 }
 
@@ -26,21 +32,27 @@ export function VerdictBox({
   scoreOutOf = 5,
   updatedAt,
   title = 'Our verdict',
+  id,
+  kicker,
+  badge,
   className,
 }: VerdictBoxProps): ReactNode {
   const updated = formatDate(updatedAt)
 
   return (
     <section
+      id={id}
       aria-label={title}
       className={cn(
         'rounded-lg border border-line border-t-4 border-t-accent bg-card p-5',
         className,
       )}
     >
+      {kicker}
       <header className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <div className="flex items-baseline gap-3">
+        <div className="flex flex-wrap items-baseline gap-3">
           <h2 className="text-lg font-extrabold text-ink">{title}</h2>
+          {badge}
           {score != null && (
             <p className="text-ink" aria-label={`Score ${score} out of ${scoreOutOf}`}>
               <span className="text-2xl font-black tabular-nums text-accent-dark">

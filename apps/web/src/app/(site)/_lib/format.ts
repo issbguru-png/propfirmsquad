@@ -22,9 +22,22 @@ export function compactMoney(n: number | null | undefined): string {
   return `$${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(n)}`
 }
 
+const DATE_ONLY_RE = /^\d{4}-\d{2}-\d{2}$/
+
+/**
+ * Parse an ISO date input for display. Bare date-only strings ("2015-01-01")
+ * are pinned to UTC midnight so they can never shift a day (or a year) when
+ * formatted, regardless of the server's timezone.
+ */
+function parseIsoUTC(iso: string): Date {
+  return new Date(DATE_ONLY_RE.test(iso) ? `${iso}T00:00:00.000Z` : iso)
+}
+
 export function formatDate(iso: string | null | undefined): string {
   if (!iso) return '—'
-  return new Date(iso).toLocaleDateString('en-US', {
+  const d = parseIsoUTC(iso)
+  if (Number.isNaN(d.getTime())) return '—'
+  return d.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -33,7 +46,28 @@ export function formatDate(iso: string | null | undefined): string {
 }
 
 export function yearOf(iso: string | null | undefined): number | null {
-  return iso ? new Date(iso).getUTCFullYear() : null
+  if (!iso) return null
+  const d = parseIsoUTC(iso)
+  return Number.isNaN(d.getTime()) ? null : d.getUTCFullYear()
+}
+
+/** Trailing editorial marker appended to seeded verdicts, e.g. "[Draft verdict — pending editorial review.]" */
+const DRAFT_VERDICT_RE = /\[Draft verdict[^\]]*\]\s*$/
+
+/**
+ * Detect and strip a trailing "[Draft verdict …]" marker from verdict
+ * paragraphs so it can render as a status badge instead of body copy.
+ */
+export function splitDraftMarker(paragraphs: string[]): {
+  paragraphs: string[]
+  isDraft: boolean
+} {
+  if (paragraphs.length === 0) return { paragraphs, isDraft: false }
+  const last = paragraphs[paragraphs.length - 1]
+  if (!DRAFT_VERDICT_RE.test(last)) return { paragraphs, isDraft: false }
+  const stripped = last.replace(DRAFT_VERDICT_RE, '').trim()
+  const rest = paragraphs.slice(0, -1)
+  return { paragraphs: stripped ? [...rest, stripped] : rest, isDraft: true }
 }
 
 export const FIRM_TYPE_LABELS: Record<NonNullable<Firm['firmTypes']>[number], string> = {
