@@ -47,3 +47,32 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
+
+/*
+ * Appended by the design-system lane (components need these tokens).
+ * Pale tints for semantic badges — data semantics only (pass/fail, up/down).
+ */
+@theme {
+  --color-positive-pale: #e8f5ec;
+  --color-negative-pale: #fdeceb;
+}
+
+/*
+ * Dark mode — class-toggled (`.dark` on <html> or a wrapper).
+ * Warm brown-black derived from the existing dark tokens
+ * (--color-nav, --color-dark-section, --color-on-dark family) — never blue-black.
+ * Utilities read the vars, so overriding them here re-themes every component.
+ */
+@custom-variant dark (&:is(.dark *));
+
+.dark {
+  --color-page: #1c1410; /* --color-dark-section */
+  --color-card: #2d2520; /* --color-nav */
+  --color-line: #3a342e; /* --color-line-dark */
+  --color-ink: #f0ede6; /* --color-on-dark */
+  --color-ink-2: #9e998f; /* --color-on-dark-2 */
+  --color-ink-3: #756f66;
+  --color-accent-pale: #3b2a12; /* warm dark orange tint */
+  --color-positive-pale: #14301d;
+  --color-negative-pale: #3a1a16;
+}
