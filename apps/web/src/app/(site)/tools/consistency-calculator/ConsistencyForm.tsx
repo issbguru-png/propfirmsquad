@@ -46,7 +46,7 @@ export function ConsistencyForm() {
             rows={4}
             className="w-full rounded-sm border border-line bg-card px-3 py-2 text-ink focus:border-accent focus:ring-2 focus:ring-accent-pale focus:outline-none"
           />
-          <span className="mt-1 block text-xs text-ink-3">Losses are fine — enter them as negatives.</span>
+          <span className="mt-1 block text-xs text-ink-3">Losses are fine. Enter them as negatives.</span>
         </label>
         <NumberField
           label="Firm's consistency limit"

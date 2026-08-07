@@ -72,12 +72,12 @@ export default async function BestListPage({ params }: { params: Params }) {
                 {f.reviewScore != null ? ` (${f.reviewScore}★)` : ''}
               </span>
             ))}
-            . We rank on verified reviews, rule fairness, and real payout speed — never on
+            . We rank on verified reviews, rule fairness, and real payout speed, never on
             commission size.
           </p>
         ) : (
           <p className="max-w-(--container-prose) text-lg text-ink-2">
-            {cfg.intro} We rank on verified reviews, rule fairness, and real payout speed — never on
+            {cfg.intro} We rank on verified reviews, rule fairness, and real payout speed, never on
             commission size.
           </p>
         )}
@@ -90,7 +90,7 @@ export default async function BestListPage({ params }: { params: Params }) {
           {FIRM_TYPE_LABELS[cfg.filter]} prop firms compared
         </h2>
         {firms.length === 0 ? (
-          <EmptyNote>No firms in this category yet — check back soon.</EmptyNote>
+          <EmptyNote>No firms in this category yet. Check back soon.</EmptyNote>
         ) : (
           <div className="overflow-x-auto rounded-lg border border-line bg-card">
             <table className="w-full min-w-[760px] border-collapse text-sm">
@@ -138,7 +138,7 @@ export default async function BestListPage({ params }: { params: Params }) {
         )}
         <p className="mt-3 text-sm text-ink-2">
           Scores combine verified trader reviews, Trustpilot trend tracking, rule fairness, and
-          payout evidence — commissions never influence position. Read the full{' '}
+          payout evidence; commissions never influence position. Read the full{' '}
           <Link href="/methodology" className="font-semibold text-accent-dark underline">
             methodology
           </Link>

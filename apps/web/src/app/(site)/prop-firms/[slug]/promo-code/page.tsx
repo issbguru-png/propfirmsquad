@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (best) return promoPageMeta(firm, best)
   return {
     title: `${firm.name} Promo Code ${monthYear()} (Verified)`,
-    description: `Looking for a ${firm.name} promo code? We track and verify every active discount — see current status for ${monthYear()}.`,
+    description: `Looking for a ${firm.name} promo code? We track and verify every active discount; see current status for ${monthYear()}.`,
     alternates: { canonical: `/prop-firms/${firm.slug}/promo-code` },
     robots: { index: false, follow: true },
   }
@@ -59,12 +59,12 @@ export default async function PromoCodePage({ params }: { params: Params }) {
       <p className="mb-8 text-lg text-ink-2">
         {promos.length > 0
           ? `${promos.length} active, verified discount${promos.length > 1 ? 's' : ''} for ${firm.name} challenges. Codes are checked before listing and removed the moment they stop working.`
-          : `No verified ${firm.name} discount is live right now. We check codes continuously — this page updates the moment one works.`}
+          : `No verified ${firm.name} discount is live right now. We check codes continuously; this page updates the moment one works.`}
       </p>
 
       {promos.length === 0 ? (
         <EmptyNote>
-          No active promo — see the{' '}
+          No active promo. See the{' '}
           <Link href={`/prop-firms/${firm.slug}`} className="font-semibold text-accent-dark underline">
             full {firm.name} review
           </Link>{' '}
@@ -133,7 +133,7 @@ export default async function PromoCodePage({ params }: { params: Params }) {
         <Link href={`/prop-firms/${firm.slug}`} className="font-semibold text-accent-dark underline">
           full {firm.name} review
         </Link>{' '}
-        — rules, live pricing, and payout data — before you buy.
+        (rules, live pricing, and payout data) before you buy.
       </p>
     </div>
   )

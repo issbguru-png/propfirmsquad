@@ -16,7 +16,7 @@ export default function ConsistencyCalculatorPage() {
       <h1 className="mb-2 text-3xl font-black tracking-tight">Consistency Rule Calculator</h1>
       <p className="mb-6 max-w-(--container-prose) text-ink-2">
         Paste your daily profits, set the firm&rsquo;s limit, and instantly see whether your best day
-        breaks the consistency rule — and how much more you need to make to fix it.
+        breaks the consistency rule, and how much more you need to make to fix it.
       </p>
 
       <ConsistencyForm />
@@ -26,7 +26,7 @@ export default function ConsistencyCalculatorPage() {
         <div className="space-y-3 text-ink-2">
           <p>
             Most prop firms define consistency the same way: no single trading day&rsquo;s profit may
-            account for more than a fixed percentage — commonly 20%, 30%, or 40% — of your total
+            account for more than a fixed percentage (commonly 20%, 30%, or 40%) of your total
             profit at the time you request a payout or attempt to pass an evaluation. The rule
             exists to filter out traders who hit their target with one oversized, lucky trade
             rather than a repeatable process.
@@ -34,7 +34,7 @@ export default function ConsistencyCalculatorPage() {
           <p>
             The math is simple: divide your best day by your total profit. If a $900 day sits
             inside $1,000 of total profit, that day is 90% of the total and fails a 30% rule badly.
-            Importantly, you usually don&rsquo;t need to lose the &ldquo;bad&rdquo; day — you need to keep trading
+            Importantly, you usually don&rsquo;t need to lose the &ldquo;bad&rdquo; day; you need to keep trading
             until the total grows enough that the big day shrinks below the limit. This calculator
             solves that equation for you: it reports the exact additional profit required, spread
             across other days, to bring your best day under the firm&rsquo;s threshold.
@@ -49,7 +49,7 @@ export default function ConsistencyCalculatorPage() {
             <h3 className="mb-1 font-bold">Do losing days count toward the consistency rule?</h3>
             <p className="text-ink-2">
               Losing days reduce your total profit, which makes your best day a larger share of the
-              total — so losses actually make the rule harder to pass. Enter losses as negative
+              total, so losses actually make the rule harder to pass. Enter losses as negative
               numbers and the calculator handles them correctly.
             </p>
           </div>

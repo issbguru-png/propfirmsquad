@@ -5,7 +5,7 @@ export function generateMetadata(): Metadata {
   return {
     title: 'Free Prop Firm Drawdown Calculator (2026)',
     description:
-      'Calculate your prop firm drawdown floor for static, trailing end-of-day, and trailing intraday drawdown — plus remaining daily loss and whether your account is breached.',
+      'Calculate your prop firm drawdown floor for static, trailing end-of-day, and trailing intraday drawdown, plus remaining daily loss and whether your account is breached.',
   }
 }
 
@@ -25,12 +25,12 @@ export default function DrawdownCalculatorPage() {
         <h2 className="mb-3 text-xl font-bold">How prop firm drawdown works</h2>
         <div className="space-y-3 text-ink-2">
           <p>
-            Every prop firm sets a maximum loss limit — a &ldquo;floor&rdquo; your equity must stay above. With
+            Every prop firm sets a maximum loss limit: a &ldquo;floor&rdquo; your equity must stay above. With
             <strong> static drawdown</strong>, the floor is fixed: a $100,000 account with a 10%
             limit breaches at $90,000, no matter how much profit you make first. With
             <strong> trailing drawdown</strong>, the floor follows your high-water mark upward.
             End-of-day trailing moves the floor only on your highest closing balance; intraday
-            trailing is stricter, following your peak equity even during open trades — so a winner
+            trailing is stricter, following your peak equity even during open trades, so a winner
             you let retrace can still raise your floor.
           </p>
           <p>
@@ -53,7 +53,7 @@ export default function DrawdownCalculatorPage() {
             <p className="text-ink-2">
               End-of-day trailing recalculates your floor only from your best closing balance, so
               unrealized profit during the day never moves it. Intraday trailing follows your peak
-              equity in real time — including open trades — which makes it the least forgiving
+              equity in real time (including open trades), which makes it the least forgiving
               drawdown type.
             </p>
           </div>
@@ -68,7 +68,7 @@ export default function DrawdownCalculatorPage() {
           <div className="rounded-lg border border-line bg-card p-5">
             <h3 className="mb-1 font-bold">Is hitting the floor exactly a breach?</h3>
             <p className="text-ink-2">
-              At most firms, touching the floor is enough — accounts are liquidated the moment
+              At most firms, touching the floor is enough: accounts are liquidated the moment
               equity reaches the limit, not only when it drops below. This calculator uses the same
               convention, so treat &ldquo;$0 remaining&rdquo; as breached, not as safe.
             </p>

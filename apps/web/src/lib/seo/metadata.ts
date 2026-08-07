@@ -76,7 +76,7 @@ export function firmProfileMeta(firm: Firm, now: Date = new Date()): Metadata {
     firm.seo?.metaTitle || `${firm.name} Review ${year}: Rules, Payouts & Real Trader Data${rating}`
   const description =
     firm.seo?.metaDescription ||
-    `${firm.name} rules, payouts, challenge pricing and rule-change history — verified data and real trader reviews, updated ${MONTHS[now.getMonth()]} ${year}.`
+    `${firm.name} rules, payouts, challenge pricing and rule-change history: verified data and real trader reviews, updated ${MONTHS[now.getMonth()]} ${year}.`
   return build({
     title,
     description,
@@ -91,7 +91,7 @@ export function promoPageMeta(firm: Firm, promo: Promo, now: Date = new Date()):
   const year = now.getFullYear()
   const off = promo.discountPct != null ? `: ${promo.discountPct}% Off (Verified)` : ' (Verified)'
   const title = `${firm.name} Promo Code ${month} ${year}${off}`
-  const description = `Working ${firm.name} promo code for ${month} ${year} — code "${promo.code}"${
+  const description = `Working ${firm.name} promo code for ${month} ${year}: code "${promo.code}"${
     promo.discountPct != null ? ` for ${promo.discountPct}% off` : ''
   }. Verified by ${SITE_NAME}${promo.exclusive ? ', exclusive to our readers' : ''}.`
   return build({
@@ -109,7 +109,7 @@ export function bestListMeta(slug: string, title: string, description?: string):
     title,
     description:
       description ||
-      `${title} — ranked with verified data on rules, pricing, payouts and real trader reviews.`,
+      `${title}, ranked with verified data on rules, pricing, payouts and real trader reviews.`,
     path: `/best/${slug}`,
     index: true,
   })
@@ -119,8 +119,8 @@ export function bestListMeta(slug: string, title: string, description?: string):
 export function toolMeta(name: string, slug?: string): Metadata {
   const toolSlug = slug || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
   return build({
-    title: `${name} — Free Prop Firm Tool`,
-    description: `Free ${name.toLowerCase()} for prop firm traders. Instant results, no signup — built on the same verified rule data as our firm profiles.`,
+    title: `${name}: Free Prop Firm Tool`,
+    description: `Free ${name.toLowerCase()} for prop firm traders. Instant results, no signup, built on the same verified rule data as our firm profiles.`,
     path: `/tools/${toolSlug}`,
     index: true,
   })

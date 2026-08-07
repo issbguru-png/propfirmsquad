@@ -12,7 +12,7 @@ export function generateMetadata(): Metadata {
   return {
     // Root segment doesn't inherit the layout title template — brand manually.
     title: `Best Prop Trading Firms ${CURRENT_YEAR}: Ranked by Real Trader Data | PropFirmSquad`,
-    description: `The best prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rules, and payout data — not by who pays the biggest affiliate commission.`,
+    description: `The best prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rules, and payout data, not by who pays the biggest affiliate commission.`,
     alternates: { canonical: '/' },
   }
 }
@@ -63,12 +63,12 @@ export default async function HomePage() {
                 {f.reviewScore != null ? ` (${f.reviewScore}★)` : ''}
               </span>
             ))}
-            . We rank on verified reviews, rule fairness, and real payout speed — never on
+            . We rank on verified reviews, rule fairness, and real payout speed, never on
             commission size.
           </p>
         ) : (
           <p className="max-w-(--container-prose) text-lg text-ink-2">
-            We rank prop firms on verified reviews, rule fairness, and real payout speed — never on
+            We rank prop firms on verified reviews, rule fairness, and real payout speed, never on
             commission size.
           </p>
         )}
@@ -95,7 +95,7 @@ export default async function HomePage() {
                 <path d="M8.5 12l2.5 2.5 4.5-5" />
               </svg>
             </span>
-            Quality over quantity — the top firms reviewed deeply, not 500 listed shallowly.
+            Quality over quantity: the top firms reviewed deeply, not 500 listed shallowly.
           </p>
         </div>
         </div>
@@ -170,7 +170,7 @@ export default async function HomePage() {
         </h2>
         {top.length === 0 ? (
           <EmptyNote>
-            No firms in the database yet — run <code className="rounded bg-accent-pale px-1 text-accent-dark">pnpm seed</code>.
+            No firms in the database yet. Run <code className="rounded bg-accent-pale px-1 text-accent-dark">pnpm seed</code>.
           </EmptyNote>
         ) : (
           <div className="overflow-x-auto rounded-lg border border-line bg-card">
@@ -252,8 +252,7 @@ export default async function HomePage() {
             {promos.length} verified promo codes live right now
           </h2>
           <p className="mb-4 max-w-(--container-prose) text-on-dark-2">
-            Up to {Math.max(...promos.map((p) => p.discountPct ?? 0))}% off challenges — every code
-            checked before listing.
+            Up to {Math.max(...promos.map((p) => p.discountPct ?? 0))}% off challenges. Every code is checked before listing.
           </p>
           <Link
             href="/deals"
@@ -308,7 +307,7 @@ export default async function HomePage() {
         <p className="mt-4 max-w-(--container-prose) text-sm text-ink-2">
           <strong className="text-ink">Real trader sentiment, collected in-house.</strong> Our
           review scores aggregate what traders actually report on Trustpilot, Reddit, X, and
-          Facebook — gathered and verified by us, not copied from press releases. Affiliate
+          Facebook, gathered and verified by us, not copied from press releases. Affiliate
           commissions never move a ranking.
         </p>
         <p className="mt-2 text-sm text-ink-2">
@@ -329,14 +328,14 @@ export default async function HomePage() {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
           <img
             src="/ayub-rana.png"
-            alt="Ayub Rana, Chartered Accountant and forex trader — PropFirmSquad reviewer"
+            alt="Ayub Rana, Chartered Accountant and forex trader, PropFirmSquad reviewer"
             width={112}
             height={112}
             className="h-28 w-28 shrink-0 rounded-lg bg-accent-pale object-cover"
           />
           <div>
             <h2 id="author-h" className="mb-1 text-2xl font-extrabold tracking-tight">
-              Reviewed by a real trader — not a content team
+              Reviewed by a real trader, not a content team
             </h2>
             <p className="mb-3 text-sm font-semibold text-ink-2">
               Ayub Rana · Chartered Accountant &amp; full-time forex trader
@@ -347,13 +346,13 @@ export default async function HomePage() {
                   I&apos;d rather review ten firms properly than list five hundred I&apos;ve never
                   traded.
                 </strong>{' '}
-                Every firm ranked on this site is one I&apos;ve personally put through the wringer —
+                Every firm ranked on this site is one I&apos;ve personally put through the wringer.
                 I audit the challenge rules, pricing, and payout terms the way my CA training taught
                 me to read a balance sheet, and I trade funded accounts myself, so I know exactly
                 where the fine print bites.
               </p>
               <p>
-                I&apos;ve traded forex since 2018, specialising in ICT and smart-money concepts —
+                I&apos;ve traded forex since 2018, specialising in ICT and smart-money concepts:
                 liquidity, price action, and how institutional order flow actually moves markets.
                 Along the way I&apos;ve published 100+ trading guides that more than 300,000 traders
                 have read, plus an ICT trading eBook. PropFirmSquad is the site I wish I&apos;d had
@@ -404,7 +403,7 @@ const iconProps = {
 const RANKING_PILLARS = [
   {
     title: 'Verified reviews first',
-    body: 'Rankings lead with real trader sentiment we collect in-house from Trustpilot, Reddit, X, and Facebook — not marketing claims.',
+    body: 'Rankings lead with real trader sentiment we collect in-house from Trustpilot, Reddit, X, and Facebook, not marketing claims.',
     icon: (
       <svg {...iconProps}>
         {/* check inside a badge */}
@@ -439,7 +438,7 @@ const RANKING_PILLARS = [
   },
   {
     title: 'Never pay-to-rank',
-    body: 'Affiliate commissions never move a firm up or down. Position comes from data — the same math for every firm.',
+    body: 'Affiliate commissions never move a firm up or down. Position comes from data: the same math for every firm.',
     icon: (
       <svg {...iconProps}>
         {/* struck-through coin */}

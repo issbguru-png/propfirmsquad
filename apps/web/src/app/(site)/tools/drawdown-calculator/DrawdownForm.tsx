@@ -129,7 +129,7 @@ export function DrawdownForm() {
             ) : null}
             {result.lockedAtInitial ? (
               <p className="py-2 text-xs text-ink-3">
-                Your trailing floor has locked at the initial balance — it will no longer rise with
+                Your trailing floor has locked at the initial balance and will no longer rise with
                 new highs.
               </p>
             ) : null}

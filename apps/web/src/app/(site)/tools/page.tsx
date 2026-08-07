@@ -5,7 +5,7 @@ export function generateMetadata(): Metadata {
   return {
     title: 'Free Prop Firm Calculators (2026)',
     description:
-      'Five free prop firm calculators: consistency rule, drawdown floors, challenge ROI, payout splits, and profit targets — instant results, no signup.',
+      'Five free prop firm calculators: consistency rule, drawdown floors, challenge ROI, payout splits, and profit targets. Instant results, no signup.',
   }
 }
 
@@ -20,7 +20,7 @@ const tools = [
     href: '/tools/drawdown-calculator',
     name: 'Drawdown Calculator',
     description:
-      'Find your exact breach level for static, trailing end-of-day, and trailing intraday drawdown — including the lock-at-initial-balance rule.',
+      'Find your exact breach level for static, trailing end-of-day, and trailing intraday drawdown, including the lock-at-initial-balance rule.',
   },
   {
     href: '/tools/challenge-roi-calculator',

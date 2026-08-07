@@ -5,9 +5,9 @@ import { staticPageMeta } from '@/lib/seo/metadata'
 import { BEST_LISTS } from './_lib/lists'
 
 export const metadata: Metadata = staticPageMeta(
-  `Best Prop Firms ${CURRENT_YEAR} — Rankings by Market`,
+  `Best Prop Firms ${CURRENT_YEAR}: Rankings by Market`,
   '/best',
-  `Curated prop firm rankings by market — CFD/forex, futures, and crypto — built from verified trader reviews, Trustpilot trends, and tracked payout data.`,
+  `Curated prop firm rankings by market (CFD/forex, futures, and crypto), built from verified trader reviews, Trustpilot trends, and tracked payout data.`,
 )
 
 export default function BestIndexPage() {
@@ -19,7 +19,7 @@ export default function BestIndexPage() {
         </h1>
         <p className="max-w-(--container-prose) text-lg text-ink-2">
           Every ranking below is built the same way: verified trader reviews, weekly Trustpilot
-          trend tracking, rule-fairness audits, and dated payout evidence — never affiliate
+          trend tracking, rule-fairness audits, and dated payout evidence, never affiliate
           commission. Pick your market.
         </p>
       </section>

@@ -252,7 +252,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
 
       {firm.underReview ? (
         <div role="alert" className="mb-6 rounded-sm border border-negative/40 bg-negative/10 p-4 text-sm font-semibold text-negative">
-          {firm.name} is currently under review{firm.underReviewNote ? `: ${firm.underReviewNote}` : ' — we are investigating recent reports. Hold off on purchases until this clears.'}
+          {firm.name} is currently under review{firm.underReviewNote ? `: ${firm.underReviewNote}` : '. We are investigating recent reports. Hold off on purchases until this clears.'}
         </div>
       ) : null}
 
@@ -277,7 +277,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           title={`Our verdict on ${firm.name}`}
           updatedAt={firm.lastVerifiedAt}
           kicker={<SectionKicker number={sectionNumber('verdict')} className="mb-1.5">Verdict</SectionKicker>}
-          badge={verdictIsDraft ? <Badge>Draft — pending review</Badge> : undefined}
+          badge={verdictIsDraft ? <Badge>Draft: pending review</Badge> : undefined}
           className="scroll-mt-24 sm:p-7"
         >
           <div className="mb-5 flex flex-wrap items-end gap-x-8 gap-y-3">
@@ -369,7 +369,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                 ? `It scores ${firm.reviewScore}/5 from ${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
                 : 'It has not yet accumulated enough reviews for a rating'}
               {firm.trustPilotScore != null ? ` and holds ${firm.trustPilotScore}/5 on Trustpilot` : ''}
-              . Our full editorial verdict is in progress — the data below is what we have verified
+              . Our full editorial verdict is in progress; the data below is what we have verified
               so far.
             </p>
           )}
@@ -463,7 +463,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         >
           {usingFixturePricing && challenges.length > 0 ? (
             <p className="mb-3 rounded-sm border border-accent/30 bg-accent-pale p-3 text-sm text-accent-dark">
-              Live prices for {firm.name} are being verified — the table shows the typical structure
+              Live prices for {firm.name} are being verified; the table shows the typical structure
               of its programs, not confirmed quotes.
             </p>
           ) : null}
@@ -532,7 +532,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           number={sectionNumber('rules')}
           kicker="Rules"
           title={`${firm.name} rules, explained`}
-          intro="The rules that actually get traders breached — what they are and how this firm sets them."
+          intro="The rules that actually get traders breached: what they are and how this firm sets them."
         >
           <div className="overflow-x-auto rounded-sm border border-line">
             <table className="w-full min-w-[640px] border-collapse text-sm">
@@ -569,7 +569,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                         : rules.newsTradingAllowed
                           ? 'Allowed'
                           : 'Restricted',
-                    why: 'Some firms void trades placed around high-impact news releases — critical if you trade NFP, CPI, or rate decisions.',
+                    why: 'Some firms void trades placed around high-impact news releases, which is critical if you trade NFP, CPI, or rate decisions.',
                   },
                   {
                     rule: 'Expert advisors (EAs)',
@@ -581,7 +581,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                     rule: 'Minimum trading days',
                     value:
                       rules?.minTradingDays != null ? `${rules.minTradingDays} days` : 'Being verified',
-                    why: 'The floor on how fast you can pass a phase — matters if you trade infrequently or want to pass quickly.',
+                    why: 'The floor on how fast you can pass a phase, which matters if you trade infrequently or want to pass quickly.',
                   },
                 ].map((row) => (
                   <tr key={row.rule} className="border-b border-line last:border-0">
@@ -613,8 +613,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             </div>
           ) : (
             <p className="mt-4 text-sm text-ink-2">
-              We track every rule change {firm.name} makes and log it here with dates and sources —
-              no changes recorded yet.
+              We track every rule change {firm.name} makes and log it here with dates and sources.
+              No changes recorded yet.
             </p>
           )}
         </SectionCard>
@@ -693,7 +693,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                   { label: 'Max allocation', value: compactMoney(firm.maxAllocation) },
                   {
                     label: 'Status',
-                    value: firm.underReview ? 'Under review — see notice above' : 'Listed in good standing',
+                    value: firm.underReview ? 'Under review (see notice above)' : 'Listed in good standing',
                   },
                   { label: 'Data last verified', value: formatDate(firm.lastVerifiedAt) },
                 ].map((row) => (
@@ -787,7 +787,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           id="faq"
           number={sectionNumber('faq')}
           kicker="FAQ"
-          title={`${firm.name} — frequently asked questions`}
+          title={`${firm.name}: frequently asked questions`}
         >
           <div className="max-w-(--container-prose) divide-y divide-line">
             {faqs.map((f) => (

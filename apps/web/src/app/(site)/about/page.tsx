@@ -23,7 +23,7 @@ export default function AboutPage() {
           <p className="text-ink-2">
             The prop-firm industry moves fast: rules change quietly, firms launch and collapse, and
             most &quot;review&quot; sites are coupon pages ranked by commission. PropFirmSquad was
-            built by traders to fix that — one dense, honest profile per firm covering pricing,
+            built by traders to fix that: one dense, honest profile per firm covering pricing,
             rules, payouts, and trust signals, with a visible date on every claim.
           </p>
         </section>
@@ -40,7 +40,7 @@ export default function AboutPage() {
             </li>
             <li>Full per-firm reviews: challenge pricing, rules explained, payout data, trust facts</li>
             <li>
-              A per-firm <strong className="text-ink">rule-change log</strong> — we track edits firms
+              A per-firm <strong className="text-ink">rule-change log</strong>: we track edits firms
               hope you won&apos;t notice
             </li>
             <li>
@@ -55,7 +55,7 @@ export default function AboutPage() {
         <section>
           <h2 className="mb-2 text-2xl font-extrabold">How we make money</h2>
           <p className="text-ink-2">
-            Affiliate commissions on some challenge purchases — disclosed everywhere they apply, and
+            Affiliate commissions on some challenge purchases, disclosed everywhere they apply and
             firewalled from rankings. The full process is in our{' '}
             <Link href="/methodology" className="font-semibold text-accent-dark underline">
               methodology
@@ -67,7 +67,7 @@ export default function AboutPage() {
         <section>
           <h2 className="mb-2 text-2xl font-extrabold">Get in touch</h2>
           <p className="text-ink-2">
-            Corrections, payout proofs, or a firm we should cover — a contact page is coming soon;
+            Corrections, payout proofs, or a firm we should cover: a contact page is coming soon;
             until then, reach us through our community channels.
           </p>
         </section>

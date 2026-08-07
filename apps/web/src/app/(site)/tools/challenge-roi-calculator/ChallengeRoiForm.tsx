@@ -48,7 +48,7 @@ export function ChallengeRoiForm() {
           value={passRatePct}
           onChange={setPassRatePct}
           suffix="%"
-          hint="Your honest odds of passing — industry-wide it's often under 20%."
+          hint="Your honest odds of passing. Industry-wide it's often under 20%."
         />
         <NumberField
           label="Avg funded profit per month"

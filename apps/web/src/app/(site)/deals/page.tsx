@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
       promos.length > 0
         ? `Prop Firm Deals ${monthYear()}: ${promos.length} Verified Promo Codes${best > 0 ? ` (Up to ${best}% Off)` : ''}`
         : `Prop Firm Deals ${monthYear()}: Verified Promo Codes`,
-    description: `Every working prop firm discount in one place — verified codes${best > 0 ? ` up to ${best}% off` : ''}, with expiry dates. No dead coupons.`,
+    description: `Every working prop firm discount in one place: verified codes${best > 0 ? ` up to ${best}% off` : ''}, with expiry dates. No dead coupons.`,
     alternates: { canonical: '/deals' },
   }
 }
@@ -30,11 +30,11 @@ export default async function DealsPage() {
       <h1 className="mb-3 text-4xl font-black tracking-tight">Prop firm deals & promo codes</h1>
       <p className="mb-8 max-w-(--container-prose) text-lg text-ink-2">
         Every active discount across the firms we track, in one table. Codes are verified before
-        listing and removed when they die — no copy-paste coupon graveyard.
+        listing and removed when they die. No copy-paste coupon graveyard.
       </p>
 
       {promos.length === 0 ? (
-        <EmptyNote>No verified deals live right now. Check back soon — this page updates continuously.</EmptyNote>
+        <EmptyNote>No verified deals live right now. Check back soon; this page updates continuously.</EmptyNote>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-line bg-card">
           <table className="w-full min-w-[720px] border-collapse text-sm">
@@ -103,7 +103,7 @@ export default async function DealsPage() {
       )}
 
       <p className="mt-6 max-w-(--container-prose) text-sm text-ink-2">
-        PropFirmSquad may earn a commission when you use these codes — it never affects which deals
+        PropFirmSquad may earn a commission when you use these codes; it never affects which deals
         are listed or how firms are ranked. See our{' '}
         <Link href="/methodology" className="font-semibold text-accent-dark underline">
           methodology

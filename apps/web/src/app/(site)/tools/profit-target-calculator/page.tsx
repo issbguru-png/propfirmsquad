@@ -27,8 +27,8 @@ export default function ProfitTargetCalculatorPage() {
           <p>
             Prop firm evaluations set a profit target per phase, expressed as a percentage of the
             account size. A classic two-step challenge asks for 8% in Phase 1 and 5% in Phase 2: on
-            a $100,000 account that means growing the balance to $108,000, then — after the account
-            resets to $100,000 for the next phase — reaching $105,000. Each phase starts fresh from
+            a $100,000 account that means growing the balance to $108,000, then (after the account
+            resets to $100,000 for the next phase) reaching $105,000. Each phase starts fresh from
             the nominal account size, which is why the second target is calculated from $100,000,
             not from your Phase 1 finishing balance.
           </p>
@@ -37,7 +37,7 @@ export default function ProfitTargetCalculatorPage() {
             is $8,000 of profit, and with a typical 5% daily-loss rule you cannot simply swing for
             it in one trade without risking a breach. This calculator shows the profit required and
             remaining for each phase, plus an overall progress figure weighted by each phase&rsquo;s
-            dollar target — losses count as zero progress rather than negative, since a drawn-down
+            dollar target. Losses count as zero progress rather than negative, since a drawn-down
             account still owes the full target.
           </p>
         </div>
@@ -50,13 +50,13 @@ export default function ProfitTargetCalculatorPage() {
             <h3 className="mb-1 font-bold">Is the Phase 2 target based on my Phase 1 profits?</h3>
             <p className="text-ink-2">
               No. Each phase resets to the nominal account size, so a 5% Phase 2 target on a $100K
-              account is always $5,000 — regardless of how far past the Phase 1 target you finished.
+              account is always $5,000, regardless of how far past the Phase 1 target you finished.
             </p>
           </div>
           <div className="rounded-lg border border-line bg-card p-5">
             <h3 className="mb-1 font-bold">Do funded accounts have profit targets?</h3>
             <p className="text-ink-2">
-              Usually not — once funded, you trade for payouts rather than targets, though some
+              Usually not: once funded, you trade for payouts rather than targets, though some
               firms set a small buffer you must build before your first withdrawal. You can model a
               funded account here by adding a phase with a 0% target.
             </p>

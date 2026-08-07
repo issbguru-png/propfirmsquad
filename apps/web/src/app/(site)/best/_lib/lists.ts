@@ -31,15 +31,15 @@ export const BEST_LISTS: BestList[] = [
     slug: 'cfd-prop-firms',
     h1: `Best CFD / Forex Prop Firms of ${CURRENT_YEAR}`,
     title: `Best CFD / Forex Prop Firms ${CURRENT_YEAR}`,
-    description: `The best CFD and forex prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rule fairness, and tracked payout data — never by affiliate commission.`,
+    description: `The best CFD and forex prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rule fairness, and tracked payout data, never by affiliate commission.`,
     intro:
-      'CFD prop firms fund forex, indices, metals, and commodities traders through simulated challenge accounts — pass the evaluation, keep a share of the profits.',
+      'CFD prop firms fund forex, indices, metals, and commodities traders through simulated challenge accounts: pass the evaluation, keep a share of the profits.',
     filter: 'cfd',
     faq: [
       {
         question: 'What is a CFD prop firm?',
         answer:
-          'A CFD prop firm gives traders access to a funded account for trading contracts for difference — typically forex pairs, indices, metals, and energies. You pay a one-time evaluation fee, prove you can trade profitably within the firm’s drawdown and target rules, and then split profits from a funded account, usually keeping 80–90%.',
+          'A CFD prop firm gives traders access to a funded account for trading contracts for difference, typically forex pairs, indices, metals, and energies. You pay a one-time evaluation fee, prove you can trade profitably within the firm’s drawdown and target rules, and then split profits from a funded account, usually keeping 80–90%.',
       },
       {
         question: 'How do CFD prop firm challenges work?',
@@ -49,7 +49,7 @@ export const BEST_LISTS: BestList[] = [
       {
         question: 'Are CFD prop firms legit?',
         answer:
-          'The established ones pay out reliably, but quality varies widely — which is why we track verified trader reviews, weekly Trustpilot trends, and dated payout proofs for every firm we list. Check a firm’s payout evidence and rule-change history on its profile before buying a challenge, and treat any firm with credible non-payment reports as under review.',
+          'The established ones pay out reliably, but quality varies widely, which is why we track verified trader reviews, weekly Trustpilot trends, and dated payout proofs for every firm we list. Check a firm’s payout evidence and rule-change history on its profile before buying a challenge, and treat any firm with credible non-payment reports as under review.',
       },
       {
         question: 'How much funding can I get from a CFD prop firm?',
@@ -59,7 +59,7 @@ export const BEST_LISTS: BestList[] = [
       {
         question: 'How do we pick the best CFD prop firms?',
         answer:
-          'Rankings combine verified trader reviews submitted on our platform, weekly Trustpilot trend tracking, rule-fairness audits of drawdown and consistency rules, and dated payout evidence. Affiliate commissions never influence position — the full methodology is public.',
+          'Rankings combine verified trader reviews submitted on our platform, weekly Trustpilot trend tracking, rule-fairness audits of drawdown and consistency rules, and dated payout evidence. Affiliate commissions never influence position; the full methodology is public.',
       },
     ],
   },
@@ -67,9 +67,9 @@ export const BEST_LISTS: BestList[] = [
     slug: 'futures-prop-firms',
     h1: `Best Futures Prop Firms of ${CURRENT_YEAR}`,
     title: `Best Futures Prop Firms ${CURRENT_YEAR}`,
-    description: `The best futures prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rule fairness, and tracked payout data — never by affiliate commission.`,
+    description: `The best futures prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rule fairness, and tracked payout data, never by affiliate commission.`,
     intro:
-      'Futures prop firms fund traders on real exchange-traded contracts — ES, NQ, crude, gold — with transparent, exchange-regulated pricing instead of broker spreads.',
+      'Futures prop firms fund traders on real exchange-traded contracts (ES, NQ, crude, gold) with transparent, exchange-regulated pricing instead of broker spreads.',
     filter: 'futures',
     faq: [
       {
@@ -85,7 +85,7 @@ export const BEST_LISTS: BestList[] = [
       {
         question: 'What is a trailing drawdown?',
         answer:
-          'A trailing drawdown moves up with your account high-water mark: if the limit is $2,500 and you make $1,000, your liquidation level rises by $1,000 too. Some firms trail on end-of-day balance (more forgiving) while others trail intraday on unrealized profit — each firm’s drawdown type is audited on its profile.',
+          'A trailing drawdown moves up with your account high-water mark: if the limit is $2,500 and you make $1,000, your liquidation level rises by $1,000 too. Some firms trail on end-of-day balance (more forgiving) while others trail intraday on unrealized profit; each firm’s drawdown type is audited on its profile.',
       },
       {
         question: 'How do futures prop firm payouts work?',
@@ -98,30 +98,30 @@ export const BEST_LISTS: BestList[] = [
     slug: 'crypto-prop-firms',
     h1: `Best Crypto Prop Firms of ${CURRENT_YEAR}`,
     title: `Best Crypto Prop Firms ${CURRENT_YEAR}`,
-    description: `The best crypto prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rule fairness, and tracked payout data — never by affiliate commission.`,
+    description: `The best crypto prop firms of ${CURRENT_YEAR}, ranked by verified trader reviews, Trustpilot trend, rule fairness, and tracked payout data, never by affiliate commission.`,
     intro:
-      'Crypto prop firms fund traders on Bitcoin, Ethereum, and altcoin pairs — often with 24/7 markets, crypto-native payouts, and deeper coin coverage than CFD firms offer.',
+      'Crypto prop firms fund traders on Bitcoin, Ethereum, and altcoin pairs, often with 24/7 markets, crypto-native payouts, and deeper coin coverage than CFD firms offer.',
     filter: 'crypto',
     faq: [
       {
         question: 'What is a crypto prop firm?',
         answer:
-          'A crypto prop firm funds traders to speculate on cryptocurrency pairs — BTC, ETH, and a range of altcoins — through an evaluation model similar to forex prop firms: pass a challenge within drawdown rules, then trade a funded account for a profit split. Dedicated crypto firms usually list far more coins than the handful of crypto CFDs a forex firm offers.',
+          'A crypto prop firm funds traders to speculate on cryptocurrency pairs (BTC, ETH, and a range of altcoins) through an evaluation model similar to forex prop firms: pass a challenge within drawdown rules, then trade a funded account for a profit split. Dedicated crypto firms usually list far more coins than the handful of crypto CFDs a forex firm offers.',
       },
       {
         question: 'Can I trade crypto 24/7 on a funded account?',
         answer:
-          'Usually yes — crypto markets never close, and most crypto prop firms allow weekend trading and holding. Rules still vary by firm on leverage, position sizing, and holding over high-volatility events, so check the audited rules on each firm’s profile before buying a challenge.',
+          'Usually yes: crypto markets never close, and most crypto prop firms allow weekend trading and holding. Rules still vary by firm on leverage, position sizing, and holding over high-volatility events, so check the audited rules on each firm’s profile before buying a challenge.',
       },
       {
         question: 'How do crypto prop firms pay out?',
         answer:
-          'Most pay in stablecoins or major cryptocurrencies via on-chain transfer, which is typically faster than bank wires — some settle payouts within hours. Profit splits generally run 70–90%. We track dated payout proofs for each firm so you can see real payout speed, not marketing claims.',
+          'Most pay in stablecoins or major cryptocurrencies via on-chain transfer, which is typically faster than bank wires; some settle payouts within hours. Profit splits generally run 70–90%. We track dated payout proofs for each firm so you can see real payout speed, not marketing claims.',
       },
       {
         question: 'Are crypto prop firms riskier than forex prop firms?',
         answer:
-          'The evaluation fee you risk is the same kind of sunk cost, but crypto’s volatility makes drawdown rules easier to breach, and the sector is younger with fewer long-established firms. That makes verified reviews, Trustpilot trend, and payout evidence — the data this ranking is built on — even more important before you pay for a challenge.',
+          'The evaluation fee you risk is the same kind of sunk cost, but crypto’s volatility makes drawdown rules easier to breach, and the sector is younger with fewer long-established firms. That makes verified reviews, Trustpilot trend, and payout evidence (the data this ranking is built on) even more important before you pay for a challenge.',
       },
     ],
   },

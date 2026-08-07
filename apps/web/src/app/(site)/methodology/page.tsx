@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'How We Rate Prop Firms — Methodology',
+  title: 'How We Rate Prop Firms: Methodology',
   description:
-    'How PropFirmSquad scores prop trading firms: verified reviews, tracked Trustpilot trends, rule audits, and dated payout proofs — and how affiliate links are handled.',
+    'How PropFirmSquad scores prop trading firms: verified reviews, tracked Trustpilot trends, rule audits, and dated payout proofs, plus how affiliate links are handled.',
   alternates: { canonical: '/methodology' },
 }
 
@@ -22,20 +22,20 @@ export default function MethodologyPage() {
           <h2 className="mb-2 text-2xl font-extrabold">What goes into a score</h2>
           <ul className="list-disc space-y-2 pl-5 text-ink-2">
             <li>
-              <strong className="text-ink">Trader reviews</strong> — submitted on our platform,
+              <strong className="text-ink">Trader reviews</strong>: submitted on our platform,
               moderated for authenticity before they count.
             </li>
             <li>
-              <strong className="text-ink">Trustpilot trend</strong> — we record each firm&apos;s
+              <strong className="text-ink">Trustpilot trend</strong>: we record each firm&apos;s
               Trustpilot score weekly, so a firm coasting on old ratings can&apos;t hide a decline.
             </li>
             <li>
-              <strong className="text-ink">Rule fairness</strong> — drawdown type, consistency
+              <strong className="text-ink">Rule fairness</strong>: drawdown type, consistency
               rules, news-trading and EA policy, audited from the firm&apos;s own documents and
               re-checked when they change. Every change lands in the firm&apos;s rule-change log.
             </li>
             <li>
-              <strong className="text-ink">Payout evidence</strong> — dated community payout proofs,
+              <strong className="text-ink">Payout evidence</strong>: dated community payout proofs,
               which we aggregate into real payout-speed data instead of trusting advertised claims.
             </li>
           </ul>
@@ -55,7 +55,7 @@ export default function MethodologyPage() {
           <h2 className="mb-2 text-2xl font-extrabold">Affiliate disclosure</h2>
           <p className="text-ink-2">
             Some links are affiliate links and may earn us a commission at no cost to you. Rankings,
-            scores, and under-review flags are produced independently of commercial relationships —
+            scores, and under-review flags are produced independently of commercial relationships:
             a firm cannot pay to move up, and we list firms that pay us nothing.
           </p>
         </section>
@@ -64,7 +64,7 @@ export default function MethodologyPage() {
           <h2 className="mb-2 text-2xl font-extrabold">Corrections</h2>
           <p className="text-ink-2">
             Spotted an outdated price or a wrong rule? Tell us and we&apos;ll re-verify within 48
-            hours. This page and our process will keep evolving as the site grows — see{' '}
+            hours. This page and our process will keep evolving as the site grows; see{' '}
             <Link href="/about" className="font-semibold text-accent-dark underline">
               about us
             </Link>{' '}

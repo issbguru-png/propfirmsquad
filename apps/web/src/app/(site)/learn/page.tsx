@@ -6,9 +6,9 @@ import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd } from '@/lib/seo/jsonld'
 
 export const metadata: Metadata = staticPageMeta(
-  'Learn Prop Trading — Rules, Drawdown & Payouts Explained',
+  'Learn Prop Trading: Rules, Drawdown & Payouts Explained',
   '/learn',
-  'Plain-English guides to how prop firms actually work: evaluation rules, consistency rules, trailing drawdown, and payouts — written from verified firm data.',
+  'Plain-English guides to how prop firms actually work: evaluation rules, consistency rules, trailing drawdown, and payouts, written from verified firm data.',
 )
 
 export default function LearnIndexPage() {

@@ -85,7 +85,7 @@ export function AvailabilityChecker({
       {selected && name ? (
         restricted.has(selected) ? (
           <p role="status" className="mt-3 text-sm font-bold text-negative">
-            ✗ Restricted — {firmName} does not accept traders from {name}.
+            ✗ Restricted: {firmName} does not accept traders from {name}.
           </p>
         ) : (
           <p role="status" className="mt-3 text-sm font-bold text-positive">
@@ -93,7 +93,7 @@ export function AvailabilityChecker({
             {noneRecorded ? (
               <span className="font-semibold text-ink-2">
                 {' '}
-                (no restrictions recorded yet — verify with the firm)
+                (no restrictions recorded yet; verify with the firm)
               </span>
             ) : null}
           </p>
@@ -102,7 +102,7 @@ export function AvailabilityChecker({
       <noscript>
         <p className="mt-3 text-sm text-ink-2">
           This checker needs JavaScript. Restricted countries on record:{' '}
-          {restrictedIso2.length > 0 ? restrictedIso2.join(', ') : 'none yet'} — always verify
+          {restrictedIso2.length > 0 ? restrictedIso2.join(', ') : 'none yet'}. Always verify
           eligibility with {firmName} before purchasing.
         </p>
       </noscript>

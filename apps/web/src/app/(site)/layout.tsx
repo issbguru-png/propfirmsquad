@@ -8,7 +8,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'PropFirmSquad — Compare Prop Trading Firms with Real Data',
+    default: 'PropFirmSquad: Compare Prop Trading Firms with Real Data',
     template: '%s | PropFirmSquad',
   },
   description:
@@ -87,7 +87,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <p className="max-w-(--container-prose)">
               Trading funded accounts involves risk, and evaluation fees are generally
               non-refundable unless stated. PropFirmSquad may earn a commission when you buy a
-              challenge through our links — it never affects scores or rankings. See our{' '}
+              challenge through our links; it never affects scores or rankings. See our{' '}
               <Link href="/methodology" className="underline hover:text-on-dark">
                 methodology
               </Link>

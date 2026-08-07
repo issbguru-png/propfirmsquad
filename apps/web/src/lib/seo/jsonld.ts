@@ -98,7 +98,7 @@ export function offerLd(promo: Promo, firm: Firm): JsonLdObject {
     url,
     name:
       promo.discountPct != null
-        ? `${firm.name} promo code — ${promo.discountPct}% off`
+        ? `${firm.name} promo code: ${promo.discountPct}% off`
         : `${firm.name} promo code`,
     ...(promo.description ? { description: promo.description } : {}),
     ...(promo.endDate ? { availabilityEnds: promo.endDate } : {}),

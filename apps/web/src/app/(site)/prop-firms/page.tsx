@@ -41,7 +41,7 @@ export async function generateMetadata({
       : `Prop Firm Directory ${CURRENT_YEAR}: Every Firm, Compared`,
     description: label
       ? `All ${label} prop trading firms compared by review score, max funding, programs, and payout data.`
-      : `The full directory of prop trading firms — compare review scores, funding, programs, rules, and payouts side by side.`,
+      : `The full directory of prop trading firms: compare review scores, funding, programs, rules, and payouts side by side.`,
     // One filterable URL; filtered views canonical to the base directory.
     alternates: { canonical: '/prop-firms' },
   }
