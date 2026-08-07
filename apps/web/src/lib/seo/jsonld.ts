@@ -111,6 +111,27 @@ export function offerLd(promo: Promo, firm: Firm): JsonLdObject {
   }
 }
 
+export type ItemListEntry = { name: string; path: string }
+
+/**
+ * ItemList of ranked items (e.g. firms on a /best/[list] hub) — entries are
+ * in rank order; `path` is site-relative ('/prop-firms/ftmo').
+ */
+export function itemListLd(items: ItemListEntry[]): JsonLdObject {
+  return {
+    '@context': CONTEXT,
+    '@type': 'ItemList',
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: items.length,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  }
+}
+
 export type BreadcrumbItem = { name: string; path: string }
 
 /** BreadcrumbList — `path` is site-relative ('/prop-firms/ftmo'). */

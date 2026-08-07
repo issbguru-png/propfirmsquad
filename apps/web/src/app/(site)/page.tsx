@@ -15,15 +15,11 @@ export function generateMetadata(): Metadata {
   }
 }
 
-/*
- * /best/{list} hubs are lane-C phase work but none exist yet — per the
- * "render only hubs that exist" rule we link category views of the directory
- * instead, and this list flips to /best hubs as they ship.
- */
+/* /best/{list} hubs shipped — link them directly (config: best/_lib/lists.ts). */
 const CATEGORY_LINKS = [
-  { href: '/prop-firms?type=cfd', label: 'CFD / Forex prop firms' },
-  { href: '/prop-firms?type=futures', label: 'Futures prop firms' },
-  { href: '/prop-firms?type=crypto', label: 'Crypto prop firms' },
+  { href: '/best/cfd-prop-firms', label: 'CFD / Forex prop firms' },
+  { href: '/best/futures-prop-firms', label: 'Futures prop firms' },
+  { href: '/best/crypto-prop-firms', label: 'Crypto prop firms' },
   { href: '/deals', label: 'Active promo codes' },
 ] as const
 

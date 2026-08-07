@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { organizationLd } from '@/lib/seo/jsonld'
+import { MarketSwitcher } from './best/_lib/MarketSwitcher'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -45,6 +46,9 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                 ))}
               </ul>
             </nav>
+          </div>
+          <div className="mx-auto max-w-(--container-page) px-4 pb-3">
+            <MarketSwitcher />
           </div>
         </header>
         <main className="mx-auto max-w-(--container-page) px-4 py-10">{children}</main>
