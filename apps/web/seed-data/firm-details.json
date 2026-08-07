@@ -1,0 +1,472 @@
+{
+  "fundednext": {
+    "sources": [
+      "https://fundednext.com/",
+      "https://proptradingvibes.com/blog/fundednext-pricing",
+      "https://velotrade.com/blog/fundednext-review"
+    ],
+    "challenges": [
+      { "name": "Stellar 2-Step 6K", "steps": "2-step", "accountSize": 6000, "price": 59.99 },
+      { "name": "Stellar 2-Step 15K", "steps": "2-step", "accountSize": 15000, "price": 119.99 },
+      { "name": "Stellar 2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 199.99 },
+      { "name": "Stellar 2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 299.99 },
+      { "name": "Stellar 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 549.99 },
+      { "name": "Stellar 2-Step 200K", "steps": "2-step", "accountSize": 200000, "price": 1099.99 },
+      { "name": "Stellar 1-Step 6K", "steps": "1-step", "accountSize": 6000, "price": 59.99 },
+      { "name": "Stellar 1-Step 15K", "steps": "1-step", "accountSize": 15000, "price": 119.99 },
+      { "name": "Stellar 1-Step 25K", "steps": "1-step", "accountSize": 25000, "price": 199.99 },
+      { "name": "Stellar 1-Step 50K", "steps": "1-step", "accountSize": 50000, "price": 299.99 },
+      { "name": "Stellar 1-Step 100K", "steps": "1-step", "accountSize": 100000, "price": 549.99 },
+      { "name": "Stellar 1-Step 200K", "steps": "1-step", "accountSize": 200000, "price": 1099.99 },
+      { "name": "Stellar Lite 2-Step 5K", "steps": "2-step", "accountSize": 5000, "price": 32.99 },
+      { "name": "Stellar Lite 2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 59.99 },
+      { "name": "Stellar Lite 2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 139.99 },
+      { "name": "Stellar Lite 2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 229.99 },
+      { "name": "Stellar Lite 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 399.99 },
+      { "name": "Stellar Lite 2-Step 200K", "steps": "2-step", "accountSize": 200000, "price": 798.99 },
+      { "name": "Stellar Instant 2K", "steps": "instant", "accountSize": 2000, "price": 59 },
+      { "name": "Stellar Instant 5K", "steps": "instant", "accountSize": 5000, "price": 149 },
+      { "name": "Stellar Instant 10K", "steps": "instant", "accountSize": 10000, "price": 299 },
+      { "name": "Stellar Instant 20K", "steps": "instant", "accountSize": 20000, "price": 599 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": true,
+      "minTradingDays": 5
+    },
+    "payout": {
+      "frequency": "on-demand (24h processing guarantee)",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 2
+    },
+    "verdictText": "FundedNext is a Dubai-based CFD prop firm selling Stellar 2-step and 1-step evaluations from $59.99 (6K) to $1,099.99 (200K), plus a cheaper Stellar Lite line from $32.99 and instant-funding accounts from $59. Funded traders start at an 80% profit split (up to 95% via paid add-on) and the flagship Stellar 2-step uses a static 10% maximum drawdown with a 5% daily limit and no consistency rule. The firm advertises a 24-hour payout guarantee backed by a $1,000 penalty, with an average processing time it reports at around 40 hours or less. News trading is not restricted in its public terms. [Draft verdict — pending editorial review.]"
+  },
+  "the-5-ers": {
+    "sources": [
+      "https://the5ers.com/high-stakes/",
+      "https://the5ers.com/hyper-growth/",
+      "https://fundedtrading.com/propfirm/the5ers/",
+      "https://www.quantvps.com/blog/the5ers-payout-rules"
+    ],
+    "challenges": [
+      { "name": "High Stakes 2-Step 5K", "steps": "2-step", "accountSize": 5000, "price": 39 },
+      { "name": "High Stakes 2-Step 20K", "steps": "2-step", "accountSize": 20000, "price": 165 },
+      { "name": "High Stakes 2-Step 60K", "steps": "2-step", "accountSize": 60000, "price": 300 },
+      { "name": "High Stakes 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 495 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": false,
+      "minTradingDays": 3
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer", "other"],
+      "frequency": "every 14 days",
+      "profitSplitPct": 80
+    },
+    "verdictText": "The5ers is one of the longer-standing CFD prop firms, best known for its High Stakes 2-step program priced from $39 (5K) to $495 (100K) with a static 10% maximum loss and 5% daily limit. High Stakes traders start on an 80% profit split that can scale to 100%, with a minimum of 3 profitable days and payouts every 14 days via Rise, crypto, or bank transfer. Trading in a 2-minute window around high-impact news is not allowed on High Stakes accounts. The firm also runs Hyper Growth instant-funding and Bootcamp programs with different terms. [Draft verdict — pending editorial review.]"
+  },
+  "brightfunded": {
+    "sources": [
+      "https://proptradingvibes.com/prop-firms/brightfunded",
+      "https://velotrade.com/blog/brightfunded-review",
+      "https://fundedtrading.com/propfirm/bright-funded/"
+    ],
+    "challenges": [
+      { "name": "2-Step 5K", "steps": "2-step", "accountSize": 5000, "price": 55, "currency": "EUR" },
+      { "name": "2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 105, "currency": "EUR" },
+      { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 225, "currency": "EUR" },
+      { "name": "2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 315, "currency": "EUR" },
+      { "name": "2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 495, "currency": "EUR" },
+      { "name": "2-Step 200K", "steps": "2-step", "accountSize": 200000, "price": 975, "currency": "EUR" }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": false,
+      "eaAllowed": true,
+      "minTradingDays": 5
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer"],
+      "frequency": "bi-weekly (weekly via add-on)",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 1
+    },
+    "verdictText": "BrightFunded is a 2-step-only CFD prop firm with challenges priced in euros from €55 (5K) to €975 (200K), using a static 10% maximum drawdown, 5% daily limit, and 8%/5% phase targets. Funded traders start on an 80% profit split, rising to 90% and then 100% through scale-ups every four months, and there is no consistency rule at any stage. Payouts run bi-weekly by default (weekly via a paid add-on) in USDT or bank transfer, with a 24-hour processing guarantee and the challenge fee refunded on the first payout. Trading is blocked in a 10-minute window around high-impact news. [Draft verdict — pending editorial review.]"
+  },
+  "e8-markets": {
+    "sources": [
+      "https://velotrade.com/blog/e8-markets-review",
+      "https://propnavi.io/en/blog/e8-markets-review/",
+      "https://www.propfirmscompared.com/prop-firms/e8-markets",
+      "https://proptradingvibes.com/blog/e8-one-review"
+    ],
+    "challenges": [
+      { "name": "E8 Signature 2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 130 },
+      { "name": "E8 Signature 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 260 },
+      { "name": "E8 Signature 2-Step 150K", "steps": "2-step", "accountSize": 150000, "price": 390 }
+    ],
+    "rules": {
+      "drawdownType": "trailing-eod"
+    },
+    "payout": {
+      "frequency": "every 14 days (first payout after 8 days)",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 2
+    },
+    "verdictText": "E8 Markets is a US-founded prop firm whose current lineup centers on the customizable E8 One 1-step evaluation ($5K to $500K, with selectable drawdown from 4% to 14% and profit split of 80%, 90%, or 100%) alongside the E8 Signature 2-step at $130 (50K), $260 (100K), and $390 (150K). Because fees scale with the chosen risk parameters, E8 One pricing varies per configuration; drawdown is trailing with an end-of-day option as the default characterization. The base profit split is 80% with paid upgrades to 90-100%, payouts run every 14 days with the first available after 8 days, and processing is reported at 1-2 days. [Draft verdict — pending editorial review.]"
+  },
+  "hola-prime": {
+    "sources": [
+      "https://www.fxempire.com/prop-firms/holaprime",
+      "https://www.propfirmscompared.com/prop-firms/hola-prime"
+    ],
+    "challenges": [
+      { "name": "2-Step Prime 5K", "steps": "2-step", "accountSize": 5000, "price": 39 },
+      { "name": "2-Step Prime 10K", "steps": "2-step", "accountSize": 10000, "price": 69 },
+      { "name": "2-Step Prime 25K", "steps": "2-step", "accountSize": 25000, "price": 159 },
+      { "name": "2-Step Prime 50K", "steps": "2-step", "accountSize": 50000, "price": 319 },
+      { "name": "2-Step Prime 100K", "steps": "2-step", "accountSize": 100000, "price": 569 },
+      { "name": "2-Step Prime 200K", "steps": "2-step", "accountSize": 200000, "price": 939 },
+      { "name": "1-Step Prime 5K", "steps": "1-step", "accountSize": 5000, "price": 49 },
+      { "name": "1-Step Prime 10K", "steps": "1-step", "accountSize": 10000, "price": 89 },
+      { "name": "1-Step Prime 25K", "steps": "1-step", "accountSize": 25000, "price": 169 },
+      { "name": "1-Step Prime 50K", "steps": "1-step", "accountSize": 50000, "price": 329 },
+      { "name": "1-Step Prime 100K", "steps": "1-step", "accountSize": 100000, "price": 579 },
+      { "name": "1-Step Prime 200K", "steps": "1-step", "accountSize": 200000, "price": 1049 },
+      { "name": "1-Step Prime 300K", "steps": "1-step", "accountSize": 300000, "price": 1599 },
+      { "name": "Direct 5K", "steps": "instant", "accountSize": 5000, "price": 89 },
+      { "name": "Direct 10K", "steps": "instant", "accountSize": 10000, "price": 132 },
+      { "name": "Direct 25K", "steps": "instant", "accountSize": 25000, "price": 369 },
+      { "name": "Direct 50K", "steps": "instant", "accountSize": 50000, "price": 689 },
+      { "name": "Direct 100K", "steps": "instant", "accountSize": 100000, "price": 1049 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": true,
+      "eaAllowed": true,
+      "minTradingDays": 3
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer", "other"],
+      "frequency": "weekly, bi-weekly, or monthly (65/80/95% split)",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 1
+    },
+    "verdictText": "Hola Prime, launched in 2024, sells 1-step, 2-step, and instant (Direct) accounts from $2K to $300K, with 2-Step Prime challenges priced from $39 (5K) to $939 (200K). Its headline feature is payout speed: withdrawals are processed within one hour via RiseWorks, crypto, or bank transfer, and the profit split depends on the chosen payout cycle - 65% weekly, 80% bi-weekly, or 95% monthly. Prime challenge accounts use static drawdowns, allow news trading and EAs, and require 3 minimum trading days per phase, while Direct instant accounts use trailing drawdowns with a 20% consistency rule. [Draft verdict — pending editorial review.]"
+  },
+  "crypto-fund-trader": {
+    "sources": [
+      "https://cryptofundtrader.com/",
+      "https://www.propfirmscompared.com/prop-firms/crypto-fund-trader",
+      "https://velotrade.com/blog/crypto-fund-trader-review"
+    ],
+    "challenges": [
+      { "name": "Two-Phase 5K", "steps": "2-step", "accountSize": 5000, "price": 80 },
+      { "name": "Two-Phase 10K", "steps": "2-step", "accountSize": 10000, "price": 90 },
+      { "name": "Two-Phase 25K", "steps": "2-step", "accountSize": 25000, "price": 225 },
+      { "name": "Two-Phase 50K", "steps": "2-step", "accountSize": 50000, "price": 450 },
+      { "name": "Two-Phase 100K", "steps": "2-step", "accountSize": 100000, "price": 899 },
+      { "name": "Two-Phase 200K", "steps": "2-step", "accountSize": 200000, "price": 1798 },
+      { "name": "One-Phase 5K", "steps": "1-step", "accountSize": 5000, "price": 40 },
+      { "name": "One-Phase 10K", "steps": "1-step", "accountSize": 10000, "price": 80 },
+      { "name": "One-Phase 25K", "steps": "1-step", "accountSize": 25000, "price": 219 },
+      { "name": "One-Phase 50K", "steps": "1-step", "accountSize": 50000, "price": 369 },
+      { "name": "One-Phase 100K", "steps": "1-step", "accountSize": 100000, "price": 619 },
+      { "name": "One-Phase 200K", "steps": "1-step", "accountSize": 200000, "price": 1199 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": true,
+      "eaAllowed": true,
+      "minTradingDays": 0
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer"],
+      "frequency": "every 15 days",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 2
+    },
+    "verdictText": "Crypto Fund Trader is a Spain-based, crypto-first prop firm (founded 2022) offering two-phase evaluations from $80 (5K) to $1,798 (200K) and cheaper one-phase accounts from $40, with direct Bybit integration as its standout feature. Two-phase accounts target 8% then 5% with a static 10% maximum loss and 5% daily limit; one-phase accounts use a tighter 6% overall drawdown, and the live profit split on one-phase accounts scales from 50% up to 90% by size. News trading and EAs are allowed and there are no minimum trading days on the main challenges. Note that reviewers report a 2024 FINMA warning and discretionary payout language in its terms, which warrants caution. [Draft verdict — pending editorial review.]"
+  },
+  "goat-funded-trader": {
+    "sources": [
+      "https://proptradingvibes.com/prop-firms/goat-funded-trader",
+      "https://velotrade.com/blog/goat-funded-trader-review"
+    ],
+    "challenges": [
+      { "name": "2-Step GOAT 5K", "steps": "2-step", "accountSize": 5000, "price": 22 },
+      { "name": "2-Step GOAT 100K", "steps": "2-step", "accountSize": 100000, "price": 263 },
+      { "name": "2-Step GOAT 200K", "steps": "2-step", "accountSize": 200000, "price": 448 },
+      { "name": "2-Step Standard 5K", "steps": "2-step", "accountSize": 5000, "price": 33 },
+      { "name": "2-Step Standard 200K", "steps": "2-step", "accountSize": 200000, "price": 730 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "consistencyRulePct": 15,
+      "newsTradingAllowed": false
+    },
+    "payout": {
+      "methods": ["crypto", "other"],
+      "frequency": "bi-weekly",
+      "profitSplitPct": 80
+    },
+    "verdictText": "Goat Funded Trader (founded 2023, Hong Kong) runs one of the broadest challenge menus in the space - 1-step, 2-step in GOAT/Standard/Pro variants, 3-step, and instant accounts from $5K to $400K - with 2-Step GOAT pricing from $22 (5K) to $448 (200K). The base profit split is 80% with paid upgrades toward 100%, payouts run bi-weekly via Rise, crypto, or Skrill, and challenge drawdowns are static. Funded accounts carry a 15% best-day consistency rule (20% on Instant Pro) and profit made within 5 minutes of high-impact news is capped at 1%. Reviewers also flag payout caps on early withdrawals and strict limits on third-party EAs, so read the funded-account terms closely. [Draft verdict — pending editorial review.]"
+  },
+  "atmos-funded": {
+    "sources": [
+      "https://thetrustedprop.com/prop-firms/atmos-funded",
+      "https://brokeranalysis.com/prop-trading-firms/atmos-funded/",
+      "https://tradingfinder.com/props/atmos-funded/"
+    ],
+    "challenges": [
+      { "name": "1-Step Standard 5K", "steps": "1-step", "accountSize": 5000, "price": 63 },
+      { "name": "1-Step Standard 50K", "steps": "1-step", "accountSize": 50000, "price": 329 },
+      { "name": "1-Step Standard 200K", "steps": "1-step", "accountSize": 200000, "price": 1020 },
+      { "name": "2-Step Standard 50K", "steps": "2-step", "accountSize": 50000, "price": 429 },
+      { "name": "2-Step Standard 200K", "steps": "2-step", "accountSize": 200000, "price": 989 },
+      { "name": "Instant Funding 5K", "steps": "instant", "accountSize": 5000, "price": 75 },
+      { "name": "Instant Funding 100K", "steps": "instant", "accountSize": 100000, "price": 649 }
+    ],
+    "rules": {
+      "drawdownType": "hybrid",
+      "newsTradingAllowed": false,
+      "eaAllowed": true,
+      "minTradingDays": 3
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer", "other"],
+      "frequency": "bi-weekly",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 3
+    },
+    "verdictText": "Atmos Funded offers 1-step, 2-step, 1-step Plus, and instant accounts from $5K to $200K, with full 1-Step Standard pricing from $63 (5K) to $1,020 (200K). Drawdown handling is mixed: the 1-step uses a 6% trailing maximum with a 3% daily limit, while the 2-step uses a static 10% maximum with 5% daily. Profit split runs 80-90%, payouts are bi-weekly with 2-5 business days of processing via bank wire, crypto, or a Taurex account transfer, and 3 minimum trading days apply to evaluations. News trading is permitted during challenges but restricted within 2 minutes of high-impact events on funded accounts. [Draft verdict — pending editorial review.]"
+  },
+  "alpha-capital-group": {
+    "sources": [
+      "https://thepropjournalist.com/reviews/alpha-capital/",
+      "https://alphacapitalgroup.uk/",
+      "https://www.fxempire.com/prop-firms/alphacapitalgroup"
+    ],
+    "challenges": [
+      { "name": "Alpha Pro 2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 97 },
+      { "name": "Alpha Pro 2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 197 },
+      { "name": "Alpha Pro 2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 297 },
+      { "name": "Alpha Pro 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 497 },
+      { "name": "Alpha Pro 2-Step 200K", "steps": "2-step", "accountSize": 200000, "price": 997 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": false,
+      "minTradingDays": 3
+    },
+    "payout": {
+      "methods": ["bank-transfer", "wise", "other"],
+      "frequency": "bi-weekly or on-demand",
+      "profitSplitPct": 80
+    },
+    "verdictText": "Alpha Capital Group is a UK-based prop firm whose flagship Alpha Pro 2-step evaluation runs $97 (10K) to $997 (200K), using a static 10% maximum drawdown with a 5% balance-based daily limit and 10%/5% phase targets. It also sells Alpha One (1-step, 6% trailing), Alpha Swing (weekend holding permitted), and Alpha Three (3-step) variants. The performance split is 80% (90% via paid add-on), payouts are bi-weekly or on-demand via Rise, Wise, or bank transfer, and on-demand withdrawals require a 40% best-day rule plus at least 2% profit. News trading is restricted in 2-5 minute windows on funded accounts and 3 minimum trading days apply per phase. [Draft verdict — pending editorial review.]"
+  },
+  "aquafunded": {
+    "sources": [
+      "https://brokeranalysis.com/prop-trading-firms/aqua-funded/pricing/",
+      "https://help.aquafunded.com/en/articles/10476456-2-step-models",
+      "https://velotrade.com/blog/aqua-funded-review"
+    ],
+    "challenges": [
+      { "name": "2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 99 },
+      { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 199 },
+      { "name": "2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 299 },
+      { "name": "2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 499 },
+      { "name": "2-Step 200K", "steps": "2-step", "accountSize": 200000, "price": 999 }
+    ],
+    "rules": {
+      "drawdownType": "static"
+    },
+    "payout": {
+      "frequency": "every 14 days",
+      "profitSplitPct": 90,
+      "avgPayoutDays": 2
+    },
+    "verdictText": "AquaFunded sells 1-step and 2-step evaluations up to $200K, with 2-step pricing from $99 (10K) to $999 (200K) and an 8%/5% two-phase target structure. Its 2-Step Standard accounts use static drawdowns (5% daily, 8% maximum from starting balance), while the 2-Step Pro variant applies trailing logic with a 10% maximum. The standard profit split is 90% with an optional 100% upgrade, and payouts run every 14 days with roughly 48-hour processing. Fee refunds are tied to multiple compliant payouts rather than the first one, and some funded pathways carry consistency requirements, so check the plan-specific terms. [Draft verdict — pending editorial review.]"
+  },
+  "trade-the-pool": {
+    "sources": [
+      "https://tradingfinder.com/props/trade-the-pool/",
+      "https://tradingfinder.com/props/trade-the-pool/rules/",
+      "https://thetrustedprop.com/prop-firms/trade-the-pool"
+    ],
+    "challenges": [
+      { "name": "Day Trade Flexible 5K", "steps": "1-step", "accountSize": 5000, "price": 59 },
+      { "name": "Day Trade Flexible 25K", "steps": "1-step", "accountSize": 25000, "price": 120 },
+      { "name": "Day Trade Flexible 50K", "steps": "1-step", "accountSize": 50000, "price": 285 },
+      { "name": "Day Trade Flexible 100K", "steps": "1-step", "accountSize": 100000, "price": 545 },
+      { "name": "Day Trade Flexible 200K", "steps": "1-step", "accountSize": 200000, "price": 1475 },
+      { "name": "Day Trade Disciplined 5K", "steps": "1-step", "accountSize": 5000, "price": 47 },
+      { "name": "Day Trade Disciplined 25K", "steps": "1-step", "accountSize": 25000, "price": 97 },
+      { "name": "Day Trade Disciplined 50K", "steps": "1-step", "accountSize": 50000, "price": 230 },
+      { "name": "Day Trade Disciplined 100K", "steps": "1-step", "accountSize": 100000, "price": 435 },
+      { "name": "Day Trade Disciplined 200K", "steps": "1-step", "accountSize": 200000, "price": 1100 },
+      { "name": "Swing Flexible 2K", "steps": "1-step", "accountSize": 2000, "price": 87 },
+      { "name": "Swing Flexible 10K", "steps": "1-step", "accountSize": 10000, "price": 420 },
+      { "name": "Swing Flexible 20K", "steps": "1-step", "accountSize": 20000, "price": 670 },
+      { "name": "Swing Flexible 40K", "steps": "1-step", "accountSize": 40000, "price": 1240 },
+      { "name": "Swing Disciplined 2K", "steps": "1-step", "accountSize": 2000, "price": 69 },
+      { "name": "Swing Disciplined 10K", "steps": "1-step", "accountSize": 10000, "price": 297 },
+      { "name": "Swing Disciplined 20K", "steps": "1-step", "accountSize": 20000, "price": 447 },
+      { "name": "Swing Disciplined 40K", "steps": "1-step", "accountSize": 40000, "price": 800 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": true,
+      "eaAllowed": false
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer"],
+      "frequency": "every 14 days (weekly for swing accounts)",
+      "profitSplitPct": 70
+    },
+    "verdictText": "Trade The Pool is the rare prop firm focused on real US stocks and ETFs (12,000+ symbols via its trading environment) rather than CFDs, with Day Trade evaluations from $47 (5K buying power) to $1,475 (200K) and separate Swing programs from $69. Drawdowns are static - roughly 2-3% daily and 4% max on Day Trade, 7% max on Swing - and the profit split is 70% (with day-trade/swing payout splits of 70/30 and 50/50 respectively). Payouts run every 14 days for day-trading accounts (weekly for swing) via Rise or crypto, with a $300 minimum. News trading is fully allowed, but EAs and automated trading are strictly prohibited. [Draft verdict — pending editorial review.]"
+  },
+  "blue-guardian": {
+    "sources": [
+      "https://www.brokeranalysis.com/prop-trading-firms/blue-guardian/pricing/",
+      "https://help.blueguardian.com/en/articles/14061082-instant-standard-account-rules",
+      "https://thetrustedprop.com/blogs/blue-guardian-max-daily-loss-and-max-drawdown-explained",
+      "https://coinspot.io/en/prop-trading-firms/blue-guardian/"
+    ],
+    "challenges": [
+      { "name": "2-Step Standard 10K", "steps": "2-step", "accountSize": 10000, "price": 112 },
+      { "name": "2-Step Standard 25K", "steps": "2-step", "accountSize": 25000, "price": 229 },
+      { "name": "2-Step Standard 50K", "steps": "2-step", "accountSize": 50000, "price": 345 },
+      { "name": "2-Step Standard 100K", "steps": "2-step", "accountSize": 100000, "price": 579 },
+      { "name": "2-Step Standard 200K", "steps": "2-step", "accountSize": 200000, "price": 1162 },
+      { "name": "2-Step Pro 10K", "steps": "2-step", "accountSize": 10000, "price": 79 },
+      { "name": "2-Step Pro 25K", "steps": "2-step", "accountSize": 25000, "price": 141 },
+      { "name": "2-Step Pro 50K", "steps": "2-step", "accountSize": 50000, "price": 250 },
+      { "name": "2-Step Pro 100K", "steps": "2-step", "accountSize": 100000, "price": 464 },
+      { "name": "2-Step Pro 200K", "steps": "2-step", "accountSize": 200000, "price": 921 }
+    ],
+    "rules": {
+      "drawdownType": "hybrid",
+      "consistencyRulePct": 15
+    },
+    "payout": {
+      "frequency": "bi-weekly (weekly via add-on)",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 1
+    },
+    "verdictText": "Blue Guardian offers instant, 1-step, 2-step, and 3-step accounts from $5K to $400K, with 2-Step Standard pricing from $112 (10K) to $1,162 (200K) and a cheaper Pro line from $79. Its maximum drawdown is a 6% trailing model that locks in at the starting balance (plus a 1% buffer) once the account gains 6% - effectively a hybrid - alongside a roughly 4% daily limit, and consistency rules of 15-25% apply depending on the plan. The profit split starts at 80% rising to 90%, and payouts are bi-weekly by default with a 24-hour processing guarantee that pays 100% of profits if missed. Reviewers caution that terms vary considerably across its many account models, including the Guardian Shield breach rule, so verify the plan-specific rules before buying. [Draft verdict — pending editorial review.]"
+  },
+  "maven-trading": {
+    "sources": [
+      "https://dealpropfirm.com/prop-firms/maven-trading",
+      "https://brokeranalysis.com/prop-trading-firms/maven-trading/",
+      "https://lunefi.com/blog/maven-trading-complete-guide-to-rules-and-payouts"
+    ],
+    "challenges": [
+      { "name": "1-Step 2K", "steps": "1-step", "accountSize": 2000, "price": 25 },
+      { "name": "1-Step 5K", "steps": "1-step", "accountSize": 5000, "price": 45 },
+      { "name": "1-Step 10K", "steps": "1-step", "accountSize": 10000, "price": 85 },
+      { "name": "1-Step 25K", "steps": "1-step", "accountSize": 25000, "price": 175 },
+      { "name": "1-Step 50K", "steps": "1-step", "accountSize": 50000, "price": 290 },
+      { "name": "1-Step 100K", "steps": "1-step", "accountSize": 100000, "price": 495 },
+      { "name": "2-Step 2K", "steps": "2-step", "accountSize": 2000, "price": 20 },
+      { "name": "2-Step 5K", "steps": "2-step", "accountSize": 5000, "price": 40 },
+      { "name": "2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 75 },
+      { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 155 },
+      { "name": "2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 260 },
+      { "name": "2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 450 },
+      { "name": "3-Step 2K", "steps": "3-step", "accountSize": 2000, "price": 15 },
+      { "name": "3-Step 5K", "steps": "3-step", "accountSize": 5000, "price": 35 },
+      { "name": "3-Step 10K", "steps": "3-step", "accountSize": 10000, "price": 65 },
+      { "name": "3-Step 25K", "steps": "3-step", "accountSize": 25000, "price": 135 },
+      { "name": "3-Step 50K", "steps": "3-step", "accountSize": 50000, "price": 230 },
+      { "name": "3-Step 100K", "steps": "3-step", "accountSize": 100000, "price": 395 },
+      { "name": "Instant 2K", "steps": "instant", "accountSize": 2000, "price": 35 },
+      { "name": "Instant 5K", "steps": "instant", "accountSize": 5000, "price": 75 },
+      { "name": "Instant 10K", "steps": "instant", "accountSize": 10000, "price": 135 },
+      { "name": "Instant 25K", "steps": "instant", "accountSize": 25000, "price": 285 },
+      { "name": "Instant 50K", "steps": "instant", "accountSize": 50000, "price": 470 },
+      { "name": "Instant 100K", "steps": "instant", "accountSize": 100000, "price": 540 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": true,
+      "eaAllowed": true,
+      "minTradingDays": 3
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer"],
+      "frequency": "bi-weekly",
+      "profitSplitPct": 80
+    },
+    "verdictText": "Maven Trading is one of the cheapest entry points in the funded-account market, with challenges from $15 (2K 3-step) up to $495 (100K 1-step) across 1-step, 2-step, 3-step, instant, and mini programs spanning $2K to $100K. The flagship 2-step uses a static 8% maximum loss with a 4% daily limit and 8%/5% targets, funded traders keep 80% (70% on instant, 75% on mini), and 3 minimum trading days apply. Payouts run bi-weekly with a $50 minimum via bank wire or crypto, news trading is unrestricted, and standard algorithmic strategies are allowed while HFT and latency arbitrage are banned. [Draft verdict — pending editorial review.]"
+  },
+  "fundedelite": {
+    "sources": [
+      "https://thetrustedprop.com/prop-firms/fundedelite",
+      "https://tradingfinder.com/props/fundedelite/"
+    ],
+    "challenges": [
+      { "name": "2-Step 7K", "steps": "2-step", "accountSize": 7000, "price": 89 },
+      { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 219 },
+      { "name": "2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 438 },
+      { "name": "2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 750 },
+      { "name": "2-Step 300K", "steps": "2-step", "accountSize": 300000, "price": 1499 },
+      { "name": "1-Step 7K", "steps": "1-step", "accountSize": 7000, "price": 90 },
+      { "name": "Lite 2-Step 5K", "steps": "2-step", "accountSize": 5000, "price": 19 },
+      { "name": "Lite 2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 190 },
+      { "name": "Lite 2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 475 },
+      { "name": "Lite 2-Step 100K", "steps": "2-step", "accountSize": 100000, "price": 899 }
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": true,
+      "minTradingDays": 3
+    },
+    "payout": {
+      "methods": ["crypto", "other"],
+      "frequency": "every 14-21 days",
+      "profitSplitPct": 80
+    },
+    "verdictText": "FundedElite offers 1-step, 2-step, Lite, and instant accounts from $5K to $300K, with 2-step pricing from $89 (7K) to $1,499 (300K) and budget Lite 2-step entries from $19; note that fees vary with the leverage and parameter options chosen at checkout. Standard challenges use static drawdowns (5% daily, 8-10% maximum) with an 80% profit split that can reach 95%, while instant accounts run a trailing equity drawdown at a 70% base split. Payouts are bi-weekly (roughly every 14-21 days) via Rise or crypto, 3 minimum trading days apply, and news trading is permitted within the firm's strategy rules. [Draft verdict — pending editorial review.]"
+  },
+  "ftmo": {
+    "sources": [
+      "https://ftmo.com/en/faq/how-do-i-withdraw-my-profits/",
+      "https://ftmo.com/en/faq/what-payment-methods-are-available/",
+      "https://propfirmproof.com/blog/ftmo-review/",
+      "https://lunefi.com/blog/ftmo-payouts"
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": false,
+      "eaAllowed": true,
+      "minTradingDays": 4
+    },
+    "payout": {
+      "methods": ["bank-transfer", "crypto", "other"],
+      "frequency": "on demand after 14 days",
+      "profitSplitPct": 80,
+      "avgPayoutDays": 2
+    }
+  },
+  "funding-pips": {
+    "sources": [
+      "https://proptradingvibes.com/blog/fundingpips-rules",
+      "https://tradingfinder.com/props/funding-pips/rules/",
+      "https://www.quantvps.com/blog/fundingpips-payout-rules"
+    ],
+    "rules": {
+      "drawdownType": "static",
+      "newsTradingAllowed": false
+    },
+    "payout": {
+      "methods": ["crypto", "bank-transfer", "other"],
+      "frequency": "weekly to on-demand (varies by plan)",
+      "profitSplitPct": 90,
+      "avgPayoutDays": 1
+    }
+  }
+}
