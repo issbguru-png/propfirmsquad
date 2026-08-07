@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import React from 'react'
+import { JsonLd } from '@/lib/seo/json-ld'
+import { organizationLd } from '@/lib/seo/jsonld'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -23,6 +25,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <JsonLd data={organizationLd()} />
         <header className="bg-nav text-on-dark">
           <div className="mx-auto flex max-w-(--container-page) flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4">
             <Link href="/" className="text-lg font-extrabold tracking-tight">

@@ -26,6 +26,10 @@ import {
   yearOf,
 } from '../../_lib/format'
 import { Badge, EmptyNote, FirmCard, FirmMark, SectionCard, td, th } from '../../_lib/ui'
+import { RatingStars, TrendChart } from '@/components'
+import { JsonLd } from '@/lib/seo/json-ld'
+import { breadcrumbLd, faqLd, firmLd } from '@/lib/seo/jsonld'
+import { firmProfileMeta } from '@/lib/seo/metadata'
 
 export const dynamic = 'force-dynamic'
 
@@ -46,19 +50,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params
   const firm = await getFirmBySlug(slug)
   if (!firm) return { title: 'Firm not found' }
-
-  const score = firm.reviewScore != null ? ` (${firm.reviewScore}★)` : ''
-  const est = yearOf(firm.dateEstablished)
-  return {
-    title:
-      firm.seo?.metaTitle ||
-      `${firm.name} Review ${CURRENT_YEAR}: Rules, Payouts & Real Trader Data${score}`,
-    description:
-      firm.seo?.metaDescription ||
-      `Is ${firm.name} legit? ${firm.reviewsCount ? `${firm.reviewsCount.toLocaleString('en-US')} trader reviews, ` : ''}challenge pricing, drawdown rules, payout data${est ? `, and company facts since ${est}` : ' and company facts'} — verified and updated.`,
-    alternates: { canonical: `/prop-firms/${firm.slug}` },
-    robots: firm.seo?.indexable === false ? { index: false, follow: true } : undefined,
-  }
+  return firmProfileMeta(firm)
 }
 
 const isDbChallenge = (c: Challenge | FixtureChallenge): c is Challenge => 'id' in c
@@ -102,6 +94,14 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
 
   return (
     <div>
+      <JsonLd data={firmLd(firm)} />
+      <JsonLd data={faqLd(faqs)} />
+      <JsonLd
+        data={breadcrumbLd([
+          { name: 'Prop Firms', path: '/prop-firms' },
+          { name: firm.name, path: `/prop-firms/${firm.slug}` },
+        ])}
+      />
       {/* ————— Header ————— */}
       <div className="mb-6 flex flex-wrap items-center gap-4">
         <FirmMark firm={firm} size="lg" />
@@ -155,6 +155,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                 {firm.reviewScore != null ? firm.reviewScore : '—'}
                 <span className="text-2xl text-accent">★</span>
               </div>
+              {firm.reviewScore != null ? <RatingStars rating={firm.reviewScore} /> : null}
               <div className="text-xs text-ink-3">
                 {firm.reviewsCount
                   ? `${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
@@ -446,27 +447,10 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
               </tbody>
             </table>
           </div>
-          {(firm.trustpilotHistory ?? []).length > 0 ? (
+          {(firm.trustpilotHistory ?? []).length > 1 ? (
             <div className="mt-6">
               <h3 className="mb-3 text-lg font-extrabold">Trustpilot trend (tracked weekly)</h3>
-              <div className="overflow-x-auto rounded-sm border border-line">
-                <table className="w-full min-w-[320px] border-collapse text-sm">
-                  <thead className="border-b border-line bg-page">
-                    <tr>
-                      <th scope="col" className={th}>Date</th>
-                      <th scope="col" className={th}>Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(firm.trustpilotHistory ?? []).map((h) => (
-                      <tr key={h.id ?? h.date} className="border-b border-line last:border-0">
-                        <td className={td}>{formatDate(h.date)}</td>
-                        <td className={td}>{h.score}/5</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <TrendChart history={firm.trustpilotHistory} />
             </div>
           ) : null}
           <p className="mt-4 flex flex-wrap gap-4 text-sm font-semibold">

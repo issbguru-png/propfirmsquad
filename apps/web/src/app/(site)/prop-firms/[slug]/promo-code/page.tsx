@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation'
 import { getFirmBySlug, getPromosForFirm } from '../../../_lib/data'
 import { formatDate, monthYear } from '../../../_lib/format'
 import { Badge, EmptyNote, FirmMark } from '../../../_lib/ui'
+import { JsonLd } from '@/lib/seo/json-ld'
+import { breadcrumbLd, offerLd } from '@/lib/seo/jsonld'
+import { promoPageMeta } from '@/lib/seo/metadata'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,20 +18,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!firm) return { title: 'Firm not found' }
 
   const promos = await getPromosForFirm(firm.id)
-  const best = Math.max(0, ...promos.map((p) => p.discountPct ?? 0))
+  const best = promos.slice().sort((a, b) => (b.discountPct ?? 0) - (a.discountPct ?? 0))[0]
+  if (best) return promoPageMeta(firm, best)
   return {
-    title:
-      best > 0
-        ? `${firm.name} Promo Code ${monthYear()}: ${best}% Off (Verified)`
-        : `${firm.name} Promo Code ${monthYear()} (Verified)`,
-    description:
-      promos.length > 0
-        ? `Working ${firm.name} promo code${promos.length > 1 ? 's' : ''} for ${monthYear()}: ${promos
-            .map((p) => p.code)
-            .join(', ')} — ${best > 0 ? `up to ${best}% off challenges, ` : ''}checked and verified before listing.`
-        : `Looking for a ${firm.name} promo code? We track and verify every active discount — see current status for ${monthYear()}.`,
+    title: `${firm.name} Promo Code ${monthYear()} (Verified)`,
+    description: `Looking for a ${firm.name} promo code? We track and verify every active discount — see current status for ${monthYear()}.`,
     alternates: { canonical: `/prop-firms/${firm.slug}/promo-code` },
-    robots: firm.seo?.indexable === false ? { index: false, follow: true } : undefined,
+    robots: { index: false, follow: true },
   }
 }
 
@@ -41,6 +37,16 @@ export default async function PromoCodePage({ params }: { params: Params }) {
 
   return (
     <div className="max-w-(--container-prose)">
+      {promos.map((p) => (
+        <JsonLd key={p.id} data={offerLd(p, firm)} />
+      ))}
+      <JsonLd
+        data={breadcrumbLd([
+          { name: 'Prop Firms', path: '/prop-firms' },
+          { name: firm.name, path: `/prop-firms/${firm.slug}` },
+          { name: 'Promo code', path: `/prop-firms/${firm.slug}/promo-code` },
+        ])}
+      />
       <p className="mb-2 text-xs font-bold tracking-widest text-accent uppercase">
         Verified {monthYear()}
       </p>
