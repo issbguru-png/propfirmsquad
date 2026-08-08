@@ -30,6 +30,12 @@ type ChallengeRow = {
 
 type FirmDetails = {
   sources: string[]
+  /**
+   * Field paths whose value came ONLY from an aggregator/third party and was
+   * NOT confirmed on the firm's own site. Documentation for human reviewers —
+   * the importer does not read it.
+   */
+  needsVerification?: string[]
   challenges?: ChallengeRow[]
   rules?: {
     drawdownType?: 'static' | 'trailing-eod' | 'trailing-intraday' | 'hybrid'

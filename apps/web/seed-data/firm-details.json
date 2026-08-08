@@ -8,7 +8,8 @@
       "https://help.fundednext.com/en/articles/10701685-is-news-trading-allowed-in-the-stellar-2-step-account",
       "https://help.fundednext.com/en/articles/8020084-how-can-i-withdraw-my-profits",
       "https://proptradingvibes.com/blog/fundednext-pricing",
-      "https://velotrade.com/blog/fundednext-review"
+      "https://velotrade.com/blog/fundednext-review",
+      "https://www.trustpilot.com/review/fundednext.com"
     ],
     "needsVerification": [],
     "challenges": [
@@ -162,7 +163,8 @@
       "https://holaprime.com/forex/forex-trading-rules/",
       "https://holaprime.com/",
       "https://www.fxempire.com/prop-firms/holaprime",
-      "https://www.propfirmscompared.com/prop-firms/hola-prime"
+      "https://www.propfirmscompared.com/prop-firms/hola-prime",
+      "https://www.trustpilot.com/review/holaprime.com"
     ],
     "needsVerification": ["rules.eaAllowed"],
     "challenges": [
@@ -205,9 +207,10 @@
       "https://cryptofundtrader.com/",
       "https://cryptofundtrader.com/faq",
       "https://www.propfirmscompared.com/prop-firms/crypto-fund-trader",
-      "https://velotrade.com/blog/crypto-fund-trader-review"
+      "https://velotrade.com/blog/crypto-fund-trader-review",
+      "https://www.trustpilot.com/review/cryptofundtrader.com"
     ],
-    "needsVerification": [],
+    "needsVerification": ["payout.profitSplitPct", "rules.minTradingDays"],
     "challenges": [
       { "name": "Two-Phase 5K", "steps": "2-step", "accountSize": 5000, "price": 80 },
       { "name": "Two-Phase 10K", "steps": "2-step", "accountSize": 10000, "price": 90 },
@@ -245,7 +248,8 @@
       "https://help.goatfundedtrader.com/en/articles/10742264-how-payouts-work-eligibility-request-processing-and-arrival",
       "https://help.goatfundedtrader.com/en/articles/9549359-all-about-rewards-and-profit-splits",
       "https://proptradingvibes.com/prop-firms/goat-funded-trader",
-      "https://velotrade.com/blog/goat-funded-trader-review"
+      "https://velotrade.com/blog/goat-funded-trader-review",
+      "https://www.trustpilot.com/review/goatfundedtrader.com"
     ],
     "needsVerification": [],
     "challenges": [
@@ -310,7 +314,8 @@
       "https://help.alphacapitalgroup.uk/en/articles/8420429-alpha-pro-8-10",
       "https://help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news",
       "https://thepropjournalist.com/reviews/alpha-capital/",
-      "https://www.fxempire.com/prop-firms/alphacapitalgroup"
+      "https://www.fxempire.com/prop-firms/alphacapitalgroup",
+      "https://www.trustpilot.com/review/alphacapitalgroup.uk"
     ],
     "needsVerification": [],
     "challenges": [
@@ -346,7 +351,8 @@
       "https://help.aquafunded.com/en/articles/9250960-what-platforms-are-available",
       "https://brokeranalysis.com/prop-trading-firms/aqua-funded/pricing/",
       "https://help.aquafunded.com/en/articles/10476456-2-step-models",
-      "https://velotrade.com/blog/aqua-funded-review"
+      "https://velotrade.com/blog/aqua-funded-review",
+      "https://www.trustpilot.com/review/aquafunded.com"
     ],
     "needsVerification": [],
     "challenges": [
@@ -423,7 +429,8 @@
       "https://help.blueguardian.com/en/articles/9660857-how-do-payouts-work",
       "https://help.blueguardian.com/en/articles/9661525-platform-rules",
       "https://help.blueguardian.com/en/articles/15618204-general-information-rules",
-      "https://help.blueguardian.com/en/articles/14187958-24-hours-payout-guarantee"
+      "https://help.blueguardian.com/en/articles/14187958-24-hours-payout-guarantee",
+      "https://www.trustpilot.com/review/blueguardian.com"
     ],
     "needsVerification": ["rulesSummary.consistencyRulePct"],
     "challenges": [
@@ -459,9 +466,10 @@
       "https://maventrading.com/",
       "https://dealpropfirm.com/prop-firms/maven-trading",
       "https://brokeranalysis.com/prop-trading-firms/maven-trading/",
-      "https://lunefi.com/blog/maven-trading-complete-guide-to-rules-and-payouts"
+      "https://lunefi.com/blog/maven-trading-complete-guide-to-rules-and-payouts",
+      "https://www.trustpilot.com/review/maventrading.com"
     ],
-    "needsVerification": ["payout.avgPayoutDays", "payout.methods (crypto)"],
+    "needsVerification": ["payout.methods (crypto leg)"],
     "challenges": [
       { "name": "1-Step 2K", "steps": "1-step", "accountSize": 2000, "price": 25 },
       { "name": "1-Step 5K", "steps": "1-step", "accountSize": 5000, "price": 45 },
@@ -510,9 +518,10 @@
       "https://faq.fundedelite.com/en/articles/12675058-payouts-process-and-profit-split",
       "https://faq.fundedelite.com/en/articles/12682106-strategy-risk-limits",
       "https://thetrustedprop.com/prop-firms/fundedelite",
-      "https://tradingfinder.com/props/fundedelite/"
+      "https://tradingfinder.com/props/fundedelite/",
+      "https://www.trustpilot.com/review/fundedelite.com"
     ],
-    "needsVerification": ["payout.avgPayoutDays"],
+    "needsVerification": [],
     "challenges": [
       { "name": "2-Step 7K", "steps": "2-step", "accountSize": 7000, "price": 89 },
       { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 219 },
