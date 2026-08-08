@@ -4,13 +4,14 @@
  * hand-rolled <title> strings in route files.
  *
  * Title templates (frozen, founder-approved):
- *   Profile:    {Firm} Review {Year}: Rules, Payouts & Real Trader Data ({rating}★)
+ *   Profile:    {Firm} Review {Year}: Rules, Payouts & Real Trader Data ({squad score}★)
  *   Promo page: {Firm} Promo Code {Month} {Year}: {X}% Off (Verified)
  */
 
 import type { Metadata } from 'next'
 import type { Firm, Promo } from '@/payload-types'
 import { SITE_DESCRIPTION, SITE_NAME, absoluteUrl } from './site'
+import { squadScore } from '@/app/(site)/_lib/profile'
 
 const MONTHS = [
   'January',
@@ -71,12 +72,15 @@ function build({ title, description, path, index, ogType = 'website' }: BuildArg
 /** /prop-firms/[slug] — the mega-profile. */
 export function firmProfileMeta(firm: Firm, now: Date = new Date()): Metadata {
   const year = now.getFullYear()
-  const rating = firm.reviewScore != null ? ` (${formatRating(firm.reviewScore)}★)` : ''
+  // The squad score, not firm.reviewScore: the latter was seeded from
+  // propfirmmatch's API, so putting it in our title advertised their rating.
+  const score = squadScore(firm)
+  const rating = score != null ? ` (${formatRating(score)}★)` : ''
   const title =
     firm.seo?.metaTitle || `${firm.name} Review ${year}: Rules, Payouts & Real Trader Data${rating}`
   const description =
     firm.seo?.metaDescription ||
-    `${firm.name} rules, payouts, challenge pricing and rule-change history: verified data and real trader reviews, updated ${MONTHS[now.getMonth()]} ${year}.`
+    `${firm.name} rules, payouts, challenge pricing and rule-change history: verified data, scored against a published methodology, updated ${MONTHS[now.getMonth()]} ${year}.`
   return build({
     title,
     description,

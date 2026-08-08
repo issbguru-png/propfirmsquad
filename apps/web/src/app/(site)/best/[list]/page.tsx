@@ -5,7 +5,7 @@ import { getAllActivePromos, getChallengesForFirms, getFirms } from '../../_lib/
 import { CURRENT_YEAR, FIRM_TYPE_LABELS } from '../../_lib/format'
 import { EmptyNote } from '../../_lib/ui'
 import { FirmTable, bestPromoByFirm } from '../../_lib/FirmTable'
-import { cheapestByFirm } from '../../_lib/profile'
+import { cheapestByFirm, squadScore } from '../../_lib/profile'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, itemListLd } from '@/lib/seo/jsonld'
 import { bestListMeta } from '@/lib/seo/metadata'
@@ -40,7 +40,6 @@ export default async function BestListPage({ params }: { params: Params }) {
   const cheapest = cheapestByFirm(challenges)
   const promoByFirm = bestPromoByFirm(activePromos)
   const otherLists = BEST_LISTS.filter((l) => l.slug !== cfg.slug)
-  const totalReviews = firms.reduce((n, f) => n + (f.reviewsCount ?? 0), 0)
 
   return (
     <div className="space-y-12">
@@ -69,24 +68,24 @@ export default async function BestListPage({ params }: { params: Params }) {
         <h1 className="mb-4 max-w-3xl text-4xl font-black tracking-tight sm:text-5xl">{cfg.h1}</h1>
         {topThree.length > 0 ? (
           <p className="max-w-(--container-prose) text-lg text-ink-2">
-            {cfg.intro} Based on {totalReviews.toLocaleString('en-US')} verified trader reviews and
-            tracked payout data, the best right now are{' '}
+            {cfg.intro} Scored on pricing, rule fairness, payout reliability, support and
+            platforms, the best right now are{' '}
             {topThree.map((f, i) => (
               <span key={f.id}>
                 {i > 0 ? (i === topThree.length - 1 ? ' and ' : ', ') : ''}
                 <Link href={`/prop-firms/${f.slug}`} className="font-semibold text-accent-dark underline">
                   {f.name}
                 </Link>
-                {f.reviewScore != null ? ` (${f.reviewScore}★)` : ''}
+                {squadScore(f) != null ? ` (${squadScore(f)}★)` : ''}
               </span>
             ))}
-            . We rank on verified reviews, rule fairness, and real payout speed, never on
-            commission size.
+            . The five scores behind each rating are published on the firm&apos;s page, so you
+            can check ours. Commission size is not one of them.
           </p>
         ) : (
           <p className="max-w-(--container-prose) text-lg text-ink-2">
-            {cfg.intro} We rank on verified reviews, rule fairness, and real payout speed, never on
-            commission size.
+            {cfg.intro} We rank on pricing, rule fairness, payout reliability, support and
+            platforms, never on commission size.
           </p>
         )}
       </section>

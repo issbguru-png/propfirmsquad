@@ -18,6 +18,7 @@ import {
   computeTypeRank,
   leverageMatrix,
   scoreBreakdown,
+  squadScore,
   timeLimitSummary,
 } from '../../_lib/profile'
 import {
@@ -243,6 +244,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
   const pros = (firm.prosCons?.pros ?? []).map((p) => p.text).filter(Boolean)
   const cons = (firm.prosCons?.cons ?? []).map((c) => c.text).filter(Boolean)
   const breakdown = scoreBreakdown(firm.scores)
+  const trustpilotWarning = publishableWarning(firm)
 
   // ── Availability (restrictedCountries populated at depth 1) ──
   const restrictedIso2 = (firm.restrictedCountries ?? [])
@@ -255,7 +257,13 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
   const compareFirms = [firm, ...compareAlts]
   const cheapestFor = (f: Firm) => (f.id === firm.id ? currentCheapest : altCheapest.get(f.id))
   const compareRows: { label: string; render: (f: Firm) => string }[] = [
-    { label: 'Review score', render: (f) => (f.reviewScore != null ? `${f.reviewScore}/5` : '—') },
+    {
+      label: 'Squad score',
+      render: (f) => {
+        const v = squadScore(f)
+        return v != null ? `${v}/5` : '—'
+      },
+    },
     {
       label: 'Trustpilot',
       render: (f) => (f.trustPilotScore != null ? `${f.trustPilotScore}/5` : '—'),
@@ -406,53 +414,51 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             <div className="lg:col-span-2">
               <div className="rounded-lg border border-line bg-page/60 p-4">
                 <p className="text-[11px] font-bold tracking-wide text-ink-3 uppercase">
-                  Trader rating
+                  Squad score
                 </p>
-                {firm.reviewScore != null ? (
+                {/* The headline number is ours: the average of the five
+                    subscores broken down immediately below, so the reader can
+                    check the arithmetic without leaving the card. */}
+                {breakdown ? (
                   <div className="mt-1 flex items-end gap-3">
                     <span className="text-5xl leading-none font-black tabular-nums text-accent-dark">
-                      {firm.reviewScore}
+                      {breakdown.overall.toFixed(1)}
                     </span>
                     <span className="pb-1">
-                      <RatingStars rating={firm.reviewScore} />
+                      <RatingStars rating={breakdown.overall} />
                       <span className="mt-0.5 block text-xs text-ink-3">
-                        {firm.reviewsCount
-                          ? `${firm.reviewsCount.toLocaleString('en-US')} verified reviews`
-                          : 'no reviews yet'}
+                        averaged from {breakdown.rows.length} scores
                       </span>
                     </span>
                   </div>
-                ) : firm.trustPilotScore != null ? (
-                  <div className="mt-1 flex items-end gap-3">
-                    <span className="text-5xl leading-none font-black tabular-nums text-accent-dark">
-                      {firm.trustPilotScore}
-                    </span>
-                    <span className="pb-1 text-xs text-ink-3">Trustpilot score</span>
-                  </div>
                 ) : (
-                  <p className="mt-1 text-sm text-ink-3">Not yet rated</p>
+                  <p className="mt-1 text-sm text-ink-3">Not yet scored</p>
                 )}
 
-                {firm.reviewScore != null && firm.trustPilotScore != null ? (
-                  <p className="mt-3 border-t border-line pt-3 text-sm text-ink-2">
-                    Trustpilot:{' '}
+                {/* Trustpilot is a third-party cross-check, kept visually
+                    subordinate so it is never mistaken for our rating. */}
+                <p className="mt-3 border-t border-line pt-3 text-sm text-ink-2">
+                  Trustpilot:{' '}
+                  {trustpilotWarning ? (
+                    <a href="#trust" className="font-bold text-negative underline">
+                      rating restricted
+                    </a>
+                  ) : firm.trustPilotScore != null ? (
                     <span className="font-bold tabular-nums text-ink">
                       {firm.trustPilotScore}/5
                     </span>
-                  </p>
-                ) : null}
+                  ) : (
+                    <span className="text-ink-3">not tracked yet</span>
+                  )}
+                </p>
 
                 {breakdown ? (
                   <div className="mt-4 border-t border-line pt-4">
-                    <div className="mb-3 flex items-baseline justify-between gap-3">
-                      <span className="text-[11px] font-bold tracking-wide text-ink-3 uppercase">
-                        Our editorial score
-                      </span>
-                      <span className="text-lg font-black tabular-nums text-ink">
-                        {breakdown.overall.toFixed(1)}
-                        <span className="text-xs font-bold text-ink-3">/5</span>
-                      </span>
-                    </div>
+                    {/* The overall is already the headline above, so repeating
+                        it here read as two competing ratings. */}
+                    <p className="mb-3 text-[11px] font-bold tracking-wide text-ink-3 uppercase">
+                      What makes up that score
+                    </p>
                     <dl className="space-y-2.5">
                       {breakdown.rows.map((r) => (
                         <div key={r.key} className="flex items-center gap-3">
@@ -511,9 +517,9 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                   {(firm.firmTypes ?? []).map((t) => FIRM_TYPE_LABELS[t]).join(' and ')} prop firm
                   {est ? ` operating since ${est}` : ''}
                   {firm.country ? `, based in ${countryName(firm.country)}` : ''}.{' '}
-                  {firm.reviewScore != null && firm.reviewsCount
-                    ? `It scores ${firm.reviewScore}/5 from ${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
-                    : 'It has not yet accumulated enough reviews for a rating'}
+                  {breakdown
+                    ? `It scores ${breakdown.overall.toFixed(1)}/5 across our ${breakdown.rows.length} scoring criteria`
+                    : 'It has not yet been scored against our criteria'}
                   {firm.trustPilotScore != null
                     ? ` and holds ${firm.trustPilotScore}/5 on Trustpilot`
                     : ''}
@@ -1026,23 +1032,24 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                     label: 'Trustpilot score',
                     // A suppressed rating is not a missing rating, and saying
                     // "not tracked" would hide the more interesting fact.
-                    value: publishableWarning(firm)
+                    value: trustpilotWarning
                       ? 'Restricted by Trustpilot (see notice above)'
                       : firm.trustPilotScore != null
                         ? `${firm.trustPilotScore}/5`
                         : 'Not tracked yet',
                   },
                   {
-                    label: 'Trader review score',
-                    value:
-                      firm.reviewScore != null
-                        ? `${firm.reviewScore}/5 (${(firm.reviewsCount ?? 0).toLocaleString('en-US')} reviews)`
-                        : 'No reviews yet',
+                    label: 'Squad score',
+                    value: breakdown
+                      ? `${breakdown.overall.toFixed(1)}/5 across ${breakdown.rows.length} criteria`
+                      : 'Not scored yet',
                   },
                   { label: 'Max allocation', value: compactMoney(firm.maxAllocation) },
                   {
                     label: 'Status',
-                    value: firm.underReview ? 'Under review (see notice above)' : 'Listed in good standing',
+                    // "Good standing" would sit oddly next to a Trustpilot
+                    // restriction notice, and it is a claim we cannot support.
+                    value: firm.underReview ? 'Under review (see notice above)' : 'Listed',
                   },
                   { label: 'Data last verified', value: formatDate(firm.lastVerifiedAt) },
                 ].map((row) => (

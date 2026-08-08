@@ -50,12 +50,12 @@ const FAQS: FaqItem[] = [
   {
     question: 'Can a prop firm pay to rank higher on PropFirmSquad?',
     answer:
-      'No. List order is decided by the trader rating first, then by the number of reviews, then by Trustpilot score, with unrated firms always placed last. There is no commercial field anywhere in that sort. Affiliate commissions pay for the research time and change nothing about scores, order, or what we publish about a firm.',
+      'No. List order is decided by the squad score first, with unscored firms always placed last, and ties broken by Trustpilot score and then review volume. The squad score is the plain average of five subscores we publish on every profile, so the sort key is a number you can recompute yourself. There is no commercial field anywhere in that sort. Affiliate commissions pay for the research time and change nothing about scores, order, or what we publish about a firm.',
   },
   {
-    question: 'What is the difference between the trader rating and the editorial score?',
+    question: 'What is the difference between the squad score and the Trustpilot score?',
     answer:
-      'They are two separate numbers, both on a 0 to 5 scale, and they are shown side by side rather than blended. The trader rating reflects what traders report about a firm. The editorial score is our own assessment across pricing and value, rules fairness, payout reliability, support, and platforms. A firm can score well on one and badly on the other, and that gap is usually the most useful thing on the page.',
+      'The squad score is ours: the average of five subscores covering pricing and value, rules fairness, payout reliability, support, and platforms, all printed on the firm profile. The Trustpilot score is a third party\u2019s, shown next to it as a cross-check and never blended in. A firm can score well on one and badly on the other, and that gap is usually the most useful thing on the page. Where Trustpilot has restricted a firm\u2019s rating for a guidelines breach, we say so with the date we checked and a link to the profile.',
   },
   {
     question: 'What happens when you cannot verify a piece of prop firm data?',
@@ -117,7 +117,7 @@ export default function MethodologyPage() {
       <dl className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
         {[
           ['Who scores', 'Ayub Rana, Chartered Accountant and forex trader since 2018'],
-          ['Scale', '0 to 5, on both the trader rating and the editorial score'],
+          ['Scale', '0 to 5, on the squad score and on each of its five subscores'],
           ['Formula', 'Plain average of five subscores, no weights, all published'],
           ['Paid placement', 'Not sold, at any price'],
         ].map(([label, value]) => (
@@ -255,18 +255,21 @@ export default function MethodologyPage() {
             <Link href="/best" className="font-semibold text-accent-dark underline">
               best-of lists
             </Link>{' '}
-            is not the editorial score. It is a fixed four-step sort:
+            is a fixed four-step sort, applied identically to every firm:
           </p>
           <ol className="space-y-3 border-l-2 border-accent/30 pl-5">
             {[
-              ['Trader rating, highest first.', 'The firm traders rate best goes to the top.'],
+              ['Squad score, highest first.', 'The average of the five subscores published on the firm profile.'],
               [
-                'Firms with no trader rating yet sort last, always.',
-                'A new or thinly reviewed firm never floats to the top of a list on the strength of missing data. It sits at the bottom until traders have rated it, however good its pricing looks.',
+                'Firms we have not scored yet sort last, always.',
+                'A new or thinly researched firm never floats to the top of a list on the strength of missing data. It sits at the bottom until it has been scored, however good its pricing looks.',
               ],
-              ['Ties broken by review count, highest first.', 'A 4.6 from 900 traders outranks a 4.6 from nine.'],
               [
-                'Still tied, broken by Trustpilot score.',
+                'Ties broken by Trustpilot score.',
+                'Where Trustpilot has restricted a firm\u2019s public rating, we use the score it is hiding rather than treating it as zero, so a warning is published as evidence but never applied as an automatic demotion.',
+              ],
+              [
+                'Still tied, broken by review volume.',
                 'The last resort, so the order is deterministic rather than arbitrary.',
               ],
             ].map(([head, body], i) => (

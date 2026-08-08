@@ -136,3 +136,63 @@ export function scoreBreakdown(
     Math.round((rows.reduce((sum, r) => sum + r.value, 0) / rows.length) * 10) / 10
   return { rows, overall }
 }
+
+/**
+ * The site's headline rating: the average of Ayub's five published subscores.
+ *
+ * This is THE score. It is deliberately not `firm.reviewScore`, which was
+ * seeded from propfirmmatch's API and describes reviews left on their site by
+ * their users. Ranking our own listings by a competitor's number, while
+ * /methodology promised "no commercial field anywhere in that sort", was the
+ * single biggest credibility hole in the build.
+ *
+ * Every input to this number is published on the firm's profile, so a reader
+ * can add up the five bars and check we arrived at the same figure. Returns
+ * null when a firm has no subscores yet, and null sorts last.
+ */
+export function squadScore(firm: Pick<Firm, 'scores'>): number | null {
+  return scoreBreakdown(firm.scores)?.overall ?? null
+}
+
+/**
+ * Ranking order for firm listings: squad score desc, unscored LAST.
+ *
+ * The squad score is the average of Ayub's five published subscores, so the
+ * sort key is something we authored and a reader can recheck from the bars on
+ * the profile page. It replaced `reviewScore`, which had been seeded from
+ * propfirmmatch's API: ranking our listings by a commission-earning
+ * competitor's number contradicted the promise on /methodology that there is
+ * no commercial field anywhere in this sort.
+ *
+ * Ties break on Trustpilot score, then on review volume, both of which are
+ * third-party signals and so are only ever tiebreakers, never the key.
+ * Unscored firms sort last: `sort: '-...'` in Postgres puts nulls first, which
+ * once ranked an unrated FTMO #1 sitewide, hence the explicit JS sort.
+ */
+export function compareFirmsByRating(a: Firm, b: Firm): number {
+  const sa = squadScore(a)
+  const sb = squadScore(b)
+  if (sa != null || sb != null) {
+    if (sa == null) return 1
+    if (sb == null) return -1
+    if (sb !== sa) return sb - sa
+  }
+  const byTrustpilot = effectiveTrustpilot(b) - effectiveTrustpilot(a)
+  if (byTrustpilot !== 0) return byTrustpilot
+  return (b.reviewsCount ?? 0) - (a.reviewsCount ?? 0)
+}
+
+/**
+ * Trustpilot score for tiebreak purposes, falling back to the score Trustpilot
+ * is currently hiding.
+ *
+ * When a profile carries a guidelines warning the public star rating is
+ * suppressed, so `trustPilotScore` scraped as null. Treating that null as 0
+ * would push every flagged firm to the bottom of any tie, which is an
+ * automatic rank penalty for carrying a warning. We deliberately do not apply
+ * one: the warning is published as evidence and readers weigh it themselves.
+ * Using the underlying score keeps the tiebreak measuring what it claims to.
+ */
+function effectiveTrustpilot(firm: Firm): number {
+  return firm.trustPilotScore ?? firm.trustpilotWarning?.underlyingScore ?? 0
+}

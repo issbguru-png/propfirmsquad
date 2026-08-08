@@ -6,26 +6,14 @@
 import { getPayload, type Where } from 'payload'
 import config from '@payload-config'
 import type { Challenge, Firm, Promo, RuleChange } from '@/payload-types'
+import { compareFirmsByRating } from './profile'
+
+export { compareFirmsByRating }
 
 async function db() {
   return getPayload({ config })
 }
 
-/**
- * Ranking order for firm listings: reviewScore desc with null (unrated) LAST —
- * Postgres `sort: '-reviewScore'` puts nulls first, which ranked unrated firms
- * #1 sitewide. Ties break on reviewsCount desc, then trustPilotScore desc.
- */
-export function compareFirmsByRating(a: Firm, b: Firm): number {
-  if (a.reviewScore != null || b.reviewScore != null) {
-    if (a.reviewScore == null) return 1
-    if (b.reviewScore == null) return -1
-    if (b.reviewScore !== a.reviewScore) return b.reviewScore - a.reviewScore
-  }
-  const byReviews = (b.reviewsCount ?? 0) - (a.reviewsCount ?? 0)
-  if (byReviews !== 0) return byReviews
-  return (b.trustPilotScore ?? 0) - (a.trustPilotScore ?? 0)
-}
 
 /**
  * Ranked firms for every public listing surface (homepage top-10, /best hubs,
@@ -45,11 +33,12 @@ export async function getFirms(opts?: { firmType?: string }): Promise<Firm[]> {
     const res = await payload.find({
       collection: 'firms',
       where,
-      sort: '-reviewScore',
+      sort: '-name', // stable base order; the real ranking is compareFirmsByRating in JS
       limit: 200,
       depth: 1, // populate `logo` media for listing cards
     })
-    // Re-sort in JS: Postgres puts null reviewScore first; we want unrated last.
+    // The real sort happens in JS: the squad score is an average across five
+    // columns, so Postgres cannot order by it without a computed column.
     return res.docs.slice().sort(compareFirmsByRating)
   } catch {
     return []
@@ -204,7 +193,7 @@ export async function getAlternatives(firm: Firm, limit = 3): Promise<Firm[]> {
         // Same allow-list as getFirms: never suggest a delisted/risk-register firm.
         and: [{ slug: { not_equals: firm.slug } }, { listingType: { equals: 'listed' } }],
       },
-      sort: '-reviewScore',
+      sort: '-name', // stable base order; the real ranking is compareFirmsByRating in JS
       limit: limit + 5,
       depth: 1, // populate `logo` media for alternative-firm cards
     })

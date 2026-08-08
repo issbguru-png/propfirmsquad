@@ -5,7 +5,7 @@ import { CURRENT_YEAR } from './_lib/format'
 import { Badge, EmptyNote, FirmCard } from './_lib/ui'
 import { RISK_STATUS, pickPrimaryDocument, riskStatusOf, topRiskEntries } from './_lib/risk'
 import { FirmTable, bestPromoByFirm } from './_lib/FirmTable'
-import { cheapestByFirm } from './_lib/profile'
+import { cheapestByFirm, squadScore } from './_lib/profile'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { personLd } from '@/lib/seo/jsonld'
 
@@ -66,19 +66,19 @@ export default async function HomePage() {
         </h1>
         {topThree.length > 0 ? (
           <p className="max-w-(--container-prose) text-lg text-ink-2">
-            Based on {firms.reduce((n, f) => n + (f.reviewsCount ?? 0), 0).toLocaleString('en-US')}{' '}
-            verified trader reviews and tracked payout data, the best prop firms right now are{' '}
+            Every firm is scored on five things we can evidence: pricing, rule fairness, payout
+            reliability, support and platforms. On that basis the best prop firms right now are{' '}
             {topThree.map((f, i) => (
               <span key={f.id}>
                 {i > 0 ? (i === topThree.length - 1 ? ' and ' : ', ') : ''}
                 <Link href={`/prop-firms/${f.slug}`} className="font-semibold text-accent-dark underline">
                   {f.name}
                 </Link>
-                {f.reviewScore != null ? ` (${f.reviewScore}★)` : ''}
+                {squadScore(f) != null ? ` (${squadScore(f)}★)` : ''}
               </span>
             ))}
-            . We rank on verified reviews, rule fairness, and real payout speed, never on
-            commission size.
+            . The five scores behind each rating are published on the firm&apos;s page, so you can
+            add them up and check ours. Commission size is not one of them.
           </p>
         ) : (
           <p className="max-w-(--container-prose) text-lg text-ink-2">

@@ -21,12 +21,23 @@ export function generateMetadata(): Metadata {
 async function getStats() {
   try {
     const payload = await getPayload({ config })
-    const [firms, challenges, countries, risk, promos] = await Promise.all([
+    const [firms, challenges, countries, risk, promos, flagged] = await Promise.all([
       payload.count({ collection: 'firms', where: { listingType: { equals: 'listed' } } }),
       payload.count({ collection: 'challenges', where: { isActive: { equals: true } } }),
       payload.count({ collection: 'countries' }),
       payload.count({ collection: 'firms', where: { listingType: { equals: 'delisted' } } }),
       payload.count({ collection: 'promos', where: { active: { equals: true } } }),
+      // Counted live rather than written into the copy: the number moves
+      // whenever Trustpilot lifts or applies a warning.
+      payload.count({
+        collection: 'firms',
+        where: {
+          and: [
+            { listingType: { equals: 'listed' } },
+            { 'trustpilotWarning.active': { equals: true } },
+          ],
+        },
+      }),
     ])
     return {
       firms: firms.totalDocs,
@@ -34,6 +45,7 @@ async function getStats() {
       countries: countries.totalDocs,
       risk: risk.totalDocs,
       promos: promos.totalDocs,
+      flagged: flagged.totalDocs,
     }
   } catch {
     return null
@@ -74,13 +86,14 @@ export default async function AboutPage() {
 
       {/* Live stats */}
       {stats ? (
-        <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {[
             { label: 'Firms reviewed', value: stats.firms },
             { label: 'Challenges priced', value: stats.challenges },
             { label: 'Countries tracked', value: stats.countries },
             { label: 'Codes verified', value: stats.promos },
             { label: 'Firms on the risk list', value: stats.risk },
+            { label: 'Trustpilot warnings', value: stats.flagged },
           ].map((s) => (
             <li key={s.label} className="rounded-lg border border-line bg-card px-4 py-3">
               <span className="block text-2xl font-black tabular-nums">{s.value}</span>
@@ -189,9 +202,17 @@ export default async function AboutPage() {
               },
               {
                 title: 'Published subscores',
-                body: 'Five scores per firm with the arithmetic shown, so you can average them yourself and check our number matches.',
+                body: 'Five scores per firm with the arithmetic shown, so you can average them yourself and check our number matches. That average is also what orders the rankings.',
                 href: '/prop-firms',
                 cta: 'Browse the firms',
+              },
+              {
+                title: 'Trustpilot warnings, published',
+                body: `Where Trustpilot has restricted a firm’s rating for a guidelines breach, we say so with the date we checked and a link.${
+                  stats?.flagged ? ` ${stats.flagged} of the firms we list currently carry one.` : ''
+                }`,
+                href: '/methodology',
+                cta: 'How we handle it',
               },
               {
                 title: 'The fine print, surfaced',
@@ -235,9 +256,10 @@ export default async function AboutPage() {
               applies.
             </p>
             <p>
-              What it does not do is move anything. List order comes from the trader rating, review
-              count and Trustpilot score, and there is no commercial field anywhere in that sort. If
-              a firm offered to pay for a higher position, the answer would be no, and we would
+              What it does not do is move anything. List order comes from the squad score, which is
+              the average of five subscores printed on every firm profile, so the sort key is a
+              number you can recompute yourself. There is no commercial field anywhere in it. If a
+              firm offered to pay for a higher position, the answer would be no, and we would
               publish the request.
             </p>
             <p>

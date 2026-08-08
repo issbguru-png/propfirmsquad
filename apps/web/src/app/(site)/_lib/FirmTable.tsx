@@ -19,7 +19,9 @@ import Link from 'next/link'
 import type { Firm, Promo } from '@/payload-types'
 import type { CheapestEntry } from './profile'
 import { DRAWDOWN_LABELS, money } from './format'
+import { squadScore } from './profile'
 import { TrustpilotFlag } from './TrustpilotNotice'
+import { publishableWarning } from './trustpilot'
 import { FirmMark } from './ui'
 
 const th = 'px-3 py-3 text-left text-xs font-bold tracking-wide text-ink-2 uppercase sm:px-4'
@@ -79,6 +81,7 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
           const price = cheapest.get(firm.id)
           const size = shortSize(price?.accountSize)
           const split = firm.payout?.profitSplitPct
+          const score = squadScore(firm)
           return (
             <li key={firm.id} className="rounded-lg border border-line bg-card p-4">
               <div className="flex items-start gap-3">
@@ -92,18 +95,16 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
                     {firm.name}
                   </Link>
                   <p className="mt-0.5 text-sm text-ink-2">
-                    {firm.reviewScore != null ? (
+                    {score != null ? (
                       <>
                         <span className="font-bold text-ink tabular-nums">
-                          {firm.reviewScore}
+                          {score}
                           <span className="text-accent"> ★</span>
                         </span>
-                        {firm.reviewsCount
-                          ? ` · ${firm.reviewsCount.toLocaleString('en-US')} reviews`
-                          : ''}
+                        {' squad score'}
                       </>
                     ) : (
-                      'Not rated'
+                      'Not scored yet'
                     )}
                   </p>
                   <TrustpilotFlag firm={firm} className="mt-1.5" />
@@ -151,7 +152,7 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
                 Firm
               </th>
               <th scope="col" className={th}>
-                Rating
+                Squad score
               </th>
               <th scope="col" className={`${th} hidden sm:table-cell`}>
                 From
@@ -171,6 +172,8 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
             {firms.map((firm, i) => {
               const price = cheapest.get(firm.id)
               const promo = promos.get(firm.id)
+              const score = squadScore(firm)
+              const warning = publishableWarning(firm)
               const size = shortSize(price?.accountSize)
               const split = firm.payout?.profitSplitPct
               const dd = firm.rulesSummary?.drawdownType
@@ -189,22 +192,25 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
                   </th>
 
                   <td className={td}>
-                    {firm.reviewScore != null ? (
-                      <>
-                        <span className="font-bold tabular-nums">
-                          {firm.reviewScore}
-                          <span className="text-accent"> ★</span>
-                        </span>
-                        <span className="block text-xs text-ink-3">
-                          {firm.reviewsCount
-                            ? `${firm.reviewsCount.toLocaleString('en-US')} reviews`
-                            : 'no reviews yet'}
-                        </span>
-                      </>
+                    {score != null ? (
+                      <span className="font-bold tabular-nums">
+                        {score}
+                        <span className="text-accent"> ★</span>
+                      </span>
                     ) : (
-                      <span className="text-sm text-ink-3">Not rated</span>
+                      <span className="text-sm text-ink-3">Not scored yet</span>
                     )}
-                    <TrustpilotFlag firm={firm} className="mt-1" />
+                    {/* Trustpilot as the secondary, third-party signal. Two
+                        independent readings in one column is the point. */}
+                    {warning ? (
+                      <span className="mt-0.5 block text-xs font-semibold text-negative">
+                        Trustpilot restricted
+                      </span>
+                    ) : firm.trustPilotScore != null ? (
+                      <span className="mt-0.5 block text-xs text-ink-3">
+                        Trustpilot {firm.trustPilotScore}
+                      </span>
+                    ) : null}
                   </td>
 
                   <td className={`${td} hidden sm:table-cell`}>

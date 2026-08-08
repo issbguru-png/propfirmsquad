@@ -10,6 +10,7 @@ import {
   countryName,
   yearOf,
 } from '../_lib/format'
+import { squadScore } from '../_lib/profile'
 import { Badge, EmptyNote, FirmMark, Score } from '../_lib/ui'
 
 export const dynamic = 'force-dynamic'
@@ -125,10 +126,10 @@ export default async function PropFirmsPage({ searchParams }: { searchParams: Se
                 </span>
                 <span className="ml-auto text-right">
                   <span className="block text-lg">
-                    <Score value={firm.reviewScore} />
+                    <Score value={squadScore(firm)} />
                   </span>
                   <span className="block text-xs text-ink-3">
-                    {firm.reviewsCount ? `${firm.reviewsCount.toLocaleString('en-US')} reviews` : 'no reviews yet'}
+                    {squadScore(firm) != null ? 'squad score' : 'not scored yet'}
                   </span>
                 </span>
               </Link>
