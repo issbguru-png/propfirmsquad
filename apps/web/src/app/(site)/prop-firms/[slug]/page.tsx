@@ -160,6 +160,41 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
     }
   })
 
+  // ── Quick rule facts for the verdict pills ──
+  // Check = trader-friendly, cross = a restriction. Only rendered where the
+  // field is actually audited; unverified fields are omitted, never guessed.
+  const ruleFacts: { label: string; ok: boolean }[] = []
+  {
+    const r = firm.rulesSummary
+    const audited = Boolean(r?.drawdownType) // proxy for "we have reviewed this firm's rules"
+    if (r?.newsTradingAllowed != null) {
+      ruleFacts.push({
+        label: r.newsTradingAllowed ? 'News trading allowed' : 'News trading restricted',
+        ok: r.newsTradingAllowed,
+      })
+    }
+    if (r?.eaAllowed != null) {
+      ruleFacts.push({
+        label: r.eaAllowed ? 'EAs allowed' : 'EAs not allowed',
+        ok: r.eaAllowed,
+      })
+    }
+    if (r?.consistencyRulePct != null) {
+      ruleFacts.push({ label: `${r.consistencyRulePct}% consistency cap`, ok: false })
+    } else if (audited) {
+      ruleFacts.push({ label: 'No consistency rule', ok: true })
+    }
+    if (r?.minTradingDays != null) {
+      ruleFacts.push({
+        label:
+          r.minTradingDays === 0
+            ? 'No minimum trading days'
+            : `${r.minTradingDays} minimum trading days`,
+        ok: r.minTradingDays === 0,
+      })
+    }
+  }
+
   // ── Editorial pros/cons + score breakdown ──
   const pros = (firm.prosCons?.pros ?? []).map((p) => p.text).filter(Boolean)
   const cons = (firm.prosCons?.cons ?? []).map((c) => c.text).filter(Boolean)
@@ -432,6 +467,38 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                     with code {bestPromo.code} →
                   </Link>
                 </p>
+              ) : null}
+
+              {/* Rules at a glance: the constraints that decide whether you pass */}
+              {ruleFacts.length > 0 ? (
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {ruleFacts.map((f) => (
+                    <li
+                      key={f.label}
+                      className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold ${
+                        f.ok
+                          ? 'bg-positive-pale text-positive'
+                          : 'bg-negative-pale text-negative'
+                      }`}
+                    >
+                      <svg
+                        aria-hidden
+                        width={13}
+                        height={13}
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={3}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="shrink-0"
+                      >
+                        {f.ok ? <path d="M5 13l4 4L19 7" /> : <path d="M6 6l12 12M18 6L6 18" />}
+                      </svg>
+                      {f.label}
+                    </li>
+                  ))}
+                </ul>
               ) : null}
             </div>
           </div>
