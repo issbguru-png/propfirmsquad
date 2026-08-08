@@ -155,6 +155,47 @@ export const Firms: CollectionConfig = {
     // ── Trust & workflow ──────────────────────────────────────
     { name: 'underReview', type: 'checkbox', defaultValue: false },
     { name: 'underReviewNote', type: 'text' },
+    // ── Risk register (powers /firms-to-avoid) ────────────────
+    // LEGAL: every non-`none` riskStatus MUST be backed by ≥1 riskEvents row
+    // with a working public sourceUrl. Neutral, factual wording only — state
+    // what happened and when; never characterise in our own voice.
+    {
+      name: 'riskStatus',
+      type: 'select',
+      defaultValue: 'none',
+      options: [
+        { label: 'None', value: 'none' },
+        { label: 'Under review', value: 'watch' },
+        { label: 'Ceased operations', value: 'ceased' },
+        { label: 'Regulatory action', value: 'regulatory' },
+        { label: 'Acquired / rebranded', value: 'rebranded' },
+      ],
+      admin: {
+        description:
+          'Only set above "none" when a dated, publicly verifiable source exists in riskEvents.',
+      },
+    },
+    {
+      name: 'riskSummary',
+      type: 'text',
+      localized: true,
+      admin: { description: 'One factual sentence: what happened and when. No characterisation.' },
+    },
+    {
+      name: 'riskEvents',
+      type: 'array',
+      admin: { description: 'Dated public record. Each row REQUIRES a source URL.' },
+      fields: [
+        { name: 'date', type: 'date', required: true },
+        { name: 'event', type: 'text', required: true, localized: true },
+        {
+          name: 'sourceUrl',
+          type: 'text',
+          required: true,
+          admin: { description: 'Public, verifiable URL (regulator, court, or firm announcement).' },
+        },
+      ],
+    },
     {
       name: 'lastVerifiedAt',
       type: 'date',

@@ -11,7 +11,14 @@ import { useEffect, useState } from 'react'
 import { detectCountry } from './geo'
 import { COUNTRY_NAMES, flagEmoji } from './countries'
 
-export function AvailabilityChip({ restrictedIso2 }: { restrictedIso2: string[] }) {
+export function AvailabilityChip({
+  restrictedIso2,
+  href = '#trust',
+}: {
+  restrictedIso2: string[]
+  /** Where the chip links for the full country list (the promo page has no #trust section). */
+  href?: string
+}) {
   const [iso2, setIso2] = useState<string | null>(null)
 
   useEffect(() => {
@@ -26,7 +33,7 @@ export function AvailabilityChip({ restrictedIso2 }: { restrictedIso2: string[] 
   return (
     <li className="sm:min-w-40">
       <a
-        href="#trust"
+        href={href}
         className={`group block h-full rounded-lg border px-4 py-3 transition-colors ${
           restricted
             ? 'border-negative/30 bg-negative-pale hover:border-negative'

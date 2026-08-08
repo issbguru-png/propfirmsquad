@@ -244,6 +244,28 @@ export interface Firm {
   underReview?: boolean | null;
   underReviewNote?: string | null;
   /**
+   * Only set above "none" when a dated, publicly verifiable source exists in riskEvents.
+   */
+  riskStatus?: ('none' | 'watch' | 'ceased' | 'regulatory' | 'rebranded') | null;
+  /**
+   * One factual sentence: what happened and when. No characterisation.
+   */
+  riskSummary?: string | null;
+  /**
+   * Dated public record. Each row REQUIRES a source URL.
+   */
+  riskEvents?:
+    | {
+        date: string;
+        event: string;
+        /**
+         * Public, verifiable URL (regulator, court, or firm announcement).
+         */
+        sourceUrl: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Auto-set on every save
    */
   lastVerifiedAt?: string | null;
@@ -651,6 +673,16 @@ export interface FirmsSelect<T extends boolean = true> {
   restrictedCountries?: T;
   underReview?: T;
   underReviewNote?: T;
+  riskStatus?: T;
+  riskSummary?: T;
+  riskEvents?:
+    | T
+    | {
+        date?: T;
+        event?: T;
+        sourceUrl?: T;
+        id?: T;
+      };
   lastVerifiedAt?: T;
   seo?:
     | T
