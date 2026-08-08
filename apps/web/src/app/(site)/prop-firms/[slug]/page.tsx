@@ -35,6 +35,7 @@ import {
   compactMoney,
   countryName,
   formatDate,
+  limitLabel,
   money,
   richTextToParagraphs,
   splitDraftMarker,
@@ -81,6 +82,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 }
 
 const isDbChallenge = (c: Challenge | FixtureChallenge): c is Challenge => 'id' in c
+
+/** Fixtures carry no currency, so they are USD by construction. */
+const challengeCurrency = (c: Challenge | FixtureChallenge): string =>
+  isDbChallenge(c) ? (c.currency ?? 'USD') : 'USD'
 
 /** Right-aligned variants for numeric table columns. */
 const thNum = `${th} text-right`
@@ -160,7 +165,24 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
   }
 
   // ── Pricing footnotes (challenge feeNote, e.g. staged fees) ──
-  const FOOTNOTE_MARKS = ['†', '‡', '§']
+  // Traditional footnote order, then the doubled forms. Three was enough for
+  // CFD firms; futures firms price per account size with a distinct fee note
+  // on each row (Tradeify alone needs nine), and the old `*4` fallback read
+  // like a rendering bug.
+  const FOOTNOTE_MARKS = [
+    '†',
+    '‡',
+    '§',
+    '‖',
+    '¶',
+    '#',
+    '††',
+    '‡‡',
+    '§§',
+    '‖‖',
+    '¶¶',
+    '##',
+  ]
   const feeNotes: string[] = []
   const noteMarkFor = new Map<number, string>()
   challenges.forEach((c, i) => {
@@ -705,12 +727,31 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                       </td>
                       <td className={tdNum}>
                         {(c.profitTargets ?? []).length > 0
-                          ? (c.profitTargets ?? []).map((t) => `${t.targetPct}%`).join(' / ')
+                          ? (c.profitTargets ?? [])
+                              .map(
+                                (t) =>
+                                  limitLabel(
+                                    t.targetPct,
+                                    'targetAmount' in t ? t.targetAmount : null,
+                                    challengeCurrency(c),
+                                  ) ?? '—',
+                              )
+                              .join(' / ')
                           : 'None'}
                       </td>
-                      <td className={tdNum}>{c.maxDailyLossPct != null ? `${c.maxDailyLossPct}%` : '—'}</td>
                       <td className={tdNum}>
-                        {c.maxTotalDrawdownPct != null ? `${c.maxTotalDrawdownPct}%` : '—'}
+                        {limitLabel(
+                          c.maxDailyLossPct,
+                          'maxDailyLossAmount' in c ? c.maxDailyLossAmount : null,
+                          challengeCurrency(c),
+                        ) ?? '—'}
+                      </td>
+                      <td className={tdNum}>
+                        {limitLabel(
+                          c.maxTotalDrawdownPct,
+                          'maxTotalDrawdownAmount' in c ? c.maxTotalDrawdownAmount : null,
+                          challengeCurrency(c),
+                        ) ?? '—'}
                       </td>
                       <td className={td}>{c.drawdownType ? DRAWDOWN_LABELS[c.drawdownType] : '—'}</td>
                       {showTimeLimitColumn ? (

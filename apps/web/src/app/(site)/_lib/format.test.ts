@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatDate, splitDraftMarker, yearOf } from './format'
+import { formatDate, splitDraftMarker, yearOf, limitLabel } from './format'
 import { formatDate as kitFormatDate } from '@/components/utils'
 
 describe('yearOf', () => {
@@ -80,5 +80,31 @@ describe('splitDraftMarker', () => {
   it('ignores a marker that is not at the end', () => {
     const input = ['[Draft verdict — pending editorial review.] Then real copy follows.']
     expect(splitDraftMarker(input)).toEqual({ paragraphs: input, isDraft: false })
+  })
+})
+
+describe('limitLabel', () => {
+  it('prefers the absolute amount over a percentage', () => {
+    // A futures trader searching Topstep's site finds "$2,000", never "4%".
+    expect(limitLabel(4, 2000)).toBe('$2,000')
+  })
+
+  it('falls back to the percentage when no amount is held', () => {
+    expect(limitLabel(6, null)).toBe('6%')
+  })
+
+  it('returns null when neither is held, so callers can render a dash', () => {
+    // Distinct from zero: Take Profit Trader removed its daily loss limit, and
+    // we hold no value rather than a value of nothing.
+    expect(limitLabel(null, null)).toBeNull()
+    expect(limitLabel(undefined, undefined)).toBeNull()
+  })
+
+  it('does not treat a zero amount as absent', () => {
+    expect(limitLabel(5, 0)).toBe('$0')
+  })
+
+  it('honours a non-USD challenge currency', () => {
+    expect(limitLabel(null, 2000, 'EUR')).toBe('€2,000')
   })
 })

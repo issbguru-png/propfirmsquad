@@ -24,16 +24,29 @@ export const Challenges: CollectionConfig = {
     { name: 'accountSize', type: 'number', required: true },
     { name: 'price', type: 'number', required: true },
     { name: 'currency', type: 'text', defaultValue: 'USD' },
+    // ── Targets and limits: percent OR absolute ───────────────
+    // CFD firms quote these as a percentage of account size; futures firms
+    // quote flat dollar amounts ("$2,000 trailing drawdown"). Both are stored
+    // as published, and the renderer prefers the absolute figure when present,
+    // because converting a futures firm's $2,000 into "4%" would print a
+    // number the trader will not find anywhere on the firm's own site.
     {
       name: 'profitTargets',
       type: 'array',
       fields: [
         { name: 'phase', type: 'number', required: true },
-        { name: 'targetPct', type: 'number', required: true },
+        { name: 'targetPct', type: 'number' },
+        {
+          name: 'targetAmount',
+          type: 'number',
+          admin: { description: 'Absolute target in the challenge currency (futures convention)' },
+        },
       ],
     },
     { name: 'maxDailyLossPct', type: 'number' },
+    { name: 'maxDailyLossAmount', type: 'number' },
     { name: 'maxTotalDrawdownPct', type: 'number' },
+    { name: 'maxTotalDrawdownAmount', type: 'number' },
     {
       name: 'drawdownType',
       type: 'select',

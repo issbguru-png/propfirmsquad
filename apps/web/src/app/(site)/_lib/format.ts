@@ -168,3 +168,22 @@ export function richTextToParagraphs(value: Firm['verdict']): string[] {
   }
   return paragraphs
 }
+
+/**
+ * A challenge target or loss limit, as the firm publishes it.
+ *
+ * CFD firms quote a percentage of account size, futures firms quote a flat
+ * dollar figure. Prefer whichever we actually hold, absolute first: a futures
+ * trader looking for Topstep's "$2,000" will not recognise "4%", and printing
+ * a converted number invites the reader to check it against the firm's site
+ * and find a mismatch.
+ */
+export function limitLabel(
+  pct: number | null | undefined,
+  amount: number | null | undefined,
+  currency = 'USD',
+): string | null {
+  if (amount != null) return money(amount, currency)
+  if (pct != null) return `${pct}%`
+  return null
+}

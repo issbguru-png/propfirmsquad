@@ -505,12 +505,18 @@ export interface Challenge {
   profitTargets?:
     | {
         phase: number;
-        targetPct: number;
+        targetPct?: number | null;
+        /**
+         * Absolute target in the challenge currency (futures convention)
+         */
+        targetAmount?: number | null;
         id?: string | null;
       }[]
     | null;
   maxDailyLossPct?: number | null;
+  maxDailyLossAmount?: number | null;
   maxTotalDrawdownPct?: number | null;
+  maxTotalDrawdownAmount?: number | null;
   drawdownType?: ('static' | 'trailing-eod' | 'trailing-intraday' | 'hybrid') | null;
   profitSplitPct?: number | null;
   /**
@@ -917,10 +923,13 @@ export interface ChallengesSelect<T extends boolean = true> {
     | {
         phase?: T;
         targetPct?: T;
+        targetAmount?: T;
         id?: T;
       };
   maxDailyLossPct?: T;
+  maxDailyLossAmount?: T;
   maxTotalDrawdownPct?: T;
+  maxTotalDrawdownAmount?: T;
   drawdownType?: T;
   profitSplitPct?: T;
   timeLimitDays?: T;
