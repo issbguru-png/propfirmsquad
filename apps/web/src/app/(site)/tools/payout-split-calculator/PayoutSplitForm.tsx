@@ -82,7 +82,7 @@ export function PayoutSplitForm() {
             <button
               type="button"
               onClick={() => setTiers((prev) => [...prev, { afterPayouts: '', splitPct: '' }])}
-              className="rounded-sm bg-accent-pale px-3 py-2 text-xs font-bold text-accent-dark hover:bg-accent hover:text-white sm:px-2 sm:py-1"
+              className="rounded-sm bg-accent-pale px-3 py-3 text-xs font-bold text-accent-dark hover:bg-accent hover:text-white sm:px-2 sm:py-1"
             >
               + Add tier
             </button>

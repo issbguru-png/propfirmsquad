@@ -98,7 +98,7 @@ export function SectionNav({
           {promo ? (
             <Link
               href={promo.href}
-              className="my-1.5 shrink-0 rounded-sm border border-accent/30 bg-accent-pale px-2.5 py-2 text-xs font-bold whitespace-nowrap text-accent-dark transition-colors hover:border-accent sm:py-1"
+              className="my-1.5 shrink-0 rounded-sm border border-accent/30 bg-accent-pale px-2.5 py-3 text-xs font-bold whitespace-nowrap text-accent-dark transition-colors hover:border-accent sm:py-1"
             >
               {promo.code}
               {promo.discountPct != null ? `: ${promo.discountPct}% off` : ''} →

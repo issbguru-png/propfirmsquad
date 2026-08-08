@@ -297,12 +297,26 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             ))}
             {est ? <span>Est. {est}</span> : null}
             <span>{countryName(firm.country)}</span>
+            {/*
+              The leading "·" reads as a separator only while these flex items
+              share a line. On a phone each item wraps onto its own line and the
+              bullet lands at the start of it, which looks like a typo; the gap
+              already separates them there. Desktop keeps the bullets.
+            */}
             {firm.lastVerifiedAt ? (
-              <span>· data verified {formatDate(firm.lastVerifiedAt)}</span>
+              <span>
+                <span aria-hidden className="max-sm:hidden">
+                  ·{' '}
+                </span>
+                data verified {formatDate(firm.lastVerifiedAt)}
+              </span>
             ) : null}
             {rankInfo ? (
               <span className="font-semibold text-ink">
-                · #{rankInfo.rank} of {rankInfo.total} {FIRM_TYPE_LABELS[rankInfo.type]} firms ·
+                <span aria-hidden className="max-sm:hidden">
+                  ·{' '}
+                </span>
+                #{rankInfo.rank} of {rankInfo.total} {FIRM_TYPE_LABELS[rankInfo.type]} firms ·
                 Reviewed by{' '}
                 <Link href="/#author-h" className="underline decoration-accent hover:text-accent-dark">
                   Ayub Rana, CA

@@ -94,7 +94,7 @@ export function CopyCode({ code, size = 'lg' }: { code: string; size?: 'lg' | 's
           onClick={copy}
           aria-label={`Copy promo code ${code}`}
           className={`inline-flex items-center gap-1.5 rounded-sm border border-accent/40 bg-card font-bold text-accent-dark transition-colors hover:bg-accent hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
-            big ? 'px-4 py-3 text-sm sm:py-2' : 'px-3 py-2.5 text-xs sm:py-1.5'
+            big ? 'px-4 py-3 text-sm sm:py-2' : 'px-3 py-3 text-xs sm:py-1.5'
           }`}
         >
           {state === 'copied' ? 'Copied' : 'Copy code'}
