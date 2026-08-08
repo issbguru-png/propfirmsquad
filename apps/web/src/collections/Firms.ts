@@ -101,7 +101,17 @@ export const Firms: CollectionConfig = {
               name: 'asset',
               type: 'select',
               required: true,
-              options: ['fx', 'indices', 'metals', 'energy', 'crypto', 'stocks', 'other-commodities'],
+              options: [
+                { label: 'All assets', value: 'all' },
+                'fx',
+                'indices',
+                'metals',
+                'energy',
+                'crypto',
+                'stocks',
+                'other-commodities',
+              ],
+              admin: { description: '"all" = the firm publishes one account-wide leverage figure' },
             },
             {
               name: 'programType',

@@ -57,6 +57,7 @@
       "https://the5ers.com/bootcamp/",
       "https://the5ers.com/faqs/how-much-does-the-bootcamp-cost-in-total-and-how-much-is-it-to-start/",
       "https://the5ers.com/challenge-programs-bootcamp-high-stakes-hyper-growth-explained/",
+      "https://the5ers.com/2-step-challenge/",
       "https://propfirmmatch.com/prop-firm-challenges/the-5-ers-hyper-growth-program-1-step-5k",
       "https://fundedtrading.com/propfirm/the5ers/",
       "https://www.quantvps.com/blog/the5ers-payout-rules"
@@ -77,16 +78,30 @@
       { "name": "Bootcamp 3-Step 100K", "steps": "3-step", "accountSize": 100000, "price": 95 },
       { "name": "Bootcamp 3-Step 250K", "steps": "3-step", "accountSize": 250000, "price": 225 }
     ],
+    "needsVerification": [
+      "trading.leverage (1-step) — the Pro Growth 1:30 figure comes from the5ers.com's own programs explainer; the dedicated Pro Growth product page was unreachable"
+    ],
     "rules": {
       "drawdownType": "static",
       "newsTradingAllowed": false,
       "eaAllowed": true,
-      "minTradingDays": 3
+      "minTradingDays": 3,
+      "weekendHolding": "allowed",
+      "timeLimitsVerified": true
+    },
+    "trading": {
+      "leverage": [
+        { "asset": "all", "programType": "2-step", "ratio": "1:100" },
+        { "asset": "all", "programType": "1-step", "ratio": "1:30" },
+        { "asset": "all", "programType": "3-step", "ratio": "1:30" },
+        { "asset": "all", "programType": "instant", "ratio": "1:30" }
+      ]
     },
     "payout": {
       "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "every 14 days",
-      "profitSplitPct": 80
+      "profitSplitPct": 80,
+      "splitScaling": "80% at funding, 85% once the account scales past $175K, 90% past $250K, and 100% plus a fixed payout past $350K."
     },
     "verdictText": "The5ers is one of the longer-standing CFD prop firms, best known for its High Stakes 2-step program priced from $39 (5K) to $495 (100K) with a static 10% maximum loss and 5% daily limit. High Stakes traders start on an 80% profit split that can scale to 100%, with a minimum of 3 profitable days and payouts every 14 days via Rise, crypto, or bank transfer. Trading in a 2-minute window around high-impact news is not allowed on High Stakes accounts. The firm also runs Hyper Growth instant-funding and Bootcamp programs with different terms. [Draft verdict — pending editorial review.]"
   },
@@ -96,7 +111,17 @@
       "https://velotrade.com/blog/brightfunded-review",
       "https://fundedtrading.com/propfirm/bright-funded/",
       "https://brightfunded.com/",
-      "https://brightfunded.com/1-step"
+      "https://brightfunded.com/1-step",
+      "https://help.brightfunded.com/en/articles/9268380-what-is-the-leverage-in-brightfunded-s-simulated-trading-environment",
+      "https://help.brightfunded.com/en/articles/9268221-what-are-the-commissions-in-the-simulated-environment-of-brightfunded",
+      "https://help.brightfunded.com/en/articles/9268283-where-does-brightfunded-s-data-feed-come-from",
+      "https://help.brightfunded.com/en/articles/9268323-is-it-allowed-to-hold-positions-over-the-weekend",
+      "https://help.brightfunded.com/en/articles/9241709-is-copy-trading-allowed",
+      "https://help.brightfunded.com/en/articles/9268736-how-does-my-reward-split-work-on-my-funded-account"
+    ],
+    "needsVerification": [
+      "paymentMethods — only crypto payment is documented in the help centre; the full checkout method list is not published there",
+      "rulesSummary.copyTradingAllowed — permitted only between accounts held by the same person"
     ],
     "challenges": [
       { "name": "1-Step 5K", "steps": "1-step", "accountSize": 5000, "price": 49, "currency": "EUR" },
@@ -116,13 +141,34 @@
       "drawdownType": "static",
       "newsTradingAllowed": false,
       "eaAllowed": true,
-      "minTradingDays": 5
+      "minTradingDays": 5,
+      "weekendHolding": "allowed",
+      "copyTradingAllowed": true
+    },
+    "trading": {
+      "broker": "None — BrightFunded states it is not a broker and is not connected to a liquidity provider; pricing comes from aggregated third-party data feeds",
+      "leverage": [
+        { "asset": "fx", "programType": "all", "ratio": "1:100" },
+        { "asset": "metals", "programType": "all", "ratio": "1:40" },
+        { "asset": "other-commodities", "programType": "all", "ratio": "1:40" },
+        { "asset": "indices", "programType": "all", "ratio": "1:20" },
+        { "asset": "crypto", "programType": "all", "ratio": "1:5" }
+      ],
+      "commissions": [
+        { "asset": "fx", "cost": "$3 per lot" },
+        { "asset": "indices", "cost": "None" },
+        { "asset": "crypto", "cost": "0.024% of volume (0.012% per side)" },
+        { "asset": "other-commodities", "cost": "0.0010% of volume" }
+      ]
     },
     "payout": {
       "methods": ["crypto", "bank-transfer"],
       "frequency": "bi-weekly (weekly via add-on)",
       "profitSplitPct": 80,
-      "avgPayoutDays": 1
+      "avgPayoutDays": 1,
+      "firstPayoutDays": 30,
+      "minPayoutAmount": 0,
+      "splitScaling": "80% by default, 90% immediately with the paid add-on, and up to 100% through the scaling plan."
     },
     "verdictText": "BrightFunded is a 2-step-only CFD prop firm with challenges priced in euros from €55 (5K) to €975 (200K), using a static 10% maximum drawdown, 5% daily limit, and 8%/5% phase targets. Funded traders start on an 80% profit split, rising to 90% and then 100% through scale-ups every four months, and there is no consistency rule at any stage. Payouts run bi-weekly by default (weekly via a paid add-on) in USDT or bank transfer, with a 24-hour processing guarantee and the challenge fee refunded on the first payout. Trading is blocked in a 10-minute window around high-impact news. [Draft verdict — pending editorial review.]"
   },
@@ -136,7 +182,15 @@
       "https://www.quantvps.com/blog/e8-markets-payout-rules",
       "https://thetrustedprop.com/prop-firms/e8-markets",
       "https://proptradingvibes.com/prop-firms/e8-markets",
-      "https://tradingfinder.com/props/e8-markets/"
+      "https://tradingfinder.com/props/e8-markets/",
+      "https://help.e8markets.com/en/articles/5514982-how-much-leverage-do-you-offer",
+      "https://help.e8markets.com/en/articles/11775980-e8-one",
+      "https://help.e8markets.com/en/articles/11755943-e8-signature-forex",
+      "https://help.e8markets.com/en/articles/5514977-what-instruments-are-allowed-to-be-traded-spreads"
+    ],
+    "needsVerification": [
+      "trading.commissions — E8 sells both raw-spread-with-commission and zero-commission variants of each product, so there is no single published rate",
+      "trading.leverage — Forex products; E8's dedicated Crypto products run 1:5 on BTC/ETH and 1:2 on other crypto"
     ],
     "challenges": [
       { "name": "E8 Signature 2-Step 50K", "steps": "2-step", "accountSize": 50000, "price": 130 },
@@ -148,13 +202,25 @@
       "consistencyRulePct": 35,
       "newsTradingAllowed": false,
       "eaAllowed": true,
-      "minTradingDays": 0
+      "minTradingDays": 0,
+      "copyTradingAllowed": true,
+      "timeLimitsVerified": true
+    },
+    "trading": {
+      "leverage": [
+        { "asset": "fx", "programType": "all", "ratio": "1:30" },
+        { "asset": "indices", "programType": "all", "ratio": "1:15" },
+        { "asset": "metals", "programType": "all", "ratio": "1:15" },
+        { "asset": "energy", "programType": "all", "ratio": "1:15" },
+        { "asset": "crypto", "programType": "all", "ratio": "1:1" }
+      ]
     },
     "payout": {
       "methods": ["crypto", "bank-transfer"],
       "frequency": "every 14 days (first payout after 8 days)",
       "profitSplitPct": 80,
-      "avgPayoutDays": 2
+      "avgPayoutDays": 2,
+      "minPayoutAmount": 100
     },
     "verdictText": "E8 Markets is a US-founded prop firm whose current lineup centers on the customizable E8 One 1-step evaluation ($5K to $500K, with selectable drawdown from 4% to 14% and profit split of 80%, 90%, or 100%) alongside the E8 Signature 2-step at $130 (50K), $260 (100K), and $390 (150K). Because fees scale with the chosen risk parameters, E8 One pricing varies per configuration; drawdown is trailing with an end-of-day option as the default characterization. The base profit split is 80% with paid upgrades to 90-100%, payouts run every 14 days with the first available after 8 days, and processing is reported at 1-2 days. [Draft verdict — pending editorial review.]"
   },
@@ -270,7 +336,8 @@
       "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "bi-weekly",
       "profitSplitPct": 80,
-      "avgPayoutDays": 2
+      "avgPayoutDays": 2,
+      "minPayoutAmount": 100
     },
     "verdictText": "Goat Funded Trader (founded 2023, Hong Kong) runs one of the broadest challenge menus in the space - 1-step, 2-step in GOAT/Standard/Pro variants, 3-step, and instant accounts from $5K to $400K - with 2-Step GOAT pricing from $22 (5K) to $448 (200K). The base profit split is 80% with paid upgrades toward 100%, payouts run bi-weekly via Rise, crypto, or Skrill, and challenge drawdowns are static. Funded accounts carry a 15% best-day consistency rule (20% on Instant Pro) and profit made within 5 minutes of high-impact news is capped at 1%. Reviewers also flag payout caps on early withdrawals and strict limits on third-party EAs, so read the funded-account terms closely. [Draft verdict — pending editorial review.]"
   },
@@ -280,7 +347,19 @@
       "https://brokeranalysis.com/prop-trading-firms/atmos-funded/",
       "https://tradingfinder.com/props/atmos-funded/",
       "https://atmosfunded.com/",
-      "https://lunefi.com/blog/atmos-funded-complete-guide-to-rules-and-payouts"
+      "https://lunefi.com/blog/atmos-funded-complete-guide-to-rules-and-payouts",
+      "https://help.atmosfunded.com/en/articles/12394478-leverage",
+      "https://help.atmosfunded.com/en/articles/12380630-spreads-commissions-slippage-explained",
+      "https://help.atmosfunded.com/en/articles/12381252-can-i-hold-trades-overnight-and-over-weekends",
+      "https://help.atmosfunded.com/en/articles/12607162-what-is-the-copy-trading-rule",
+      "https://help.atmosfunded.com/en/articles/12381281-what-are-prohibited-strategies",
+      "https://help.atmosfunded.com/en/articles/12380605-how-payouts-work",
+      "https://help.atmosfunded.com/en/articles/12380612-profit-split-explained",
+      "https://help.atmosfunded.com/en/articles/12380823-which-payment-methods-do-you-support"
+    ],
+    "needsVerification": [
+      "trading.commissions — Atmos states \"$5 per round lot on FX\" as an example figure rather than a fee schedule",
+      "rulesSummary.copyTradingAllowed — permitted only between the trader's own Atmos accounts"
     ],
     "challenges": [
       { "name": "1-Step Standard 5K", "steps": "1-step", "accountSize": 5000, "price": 63 },
@@ -295,13 +374,28 @@
       "drawdownType": "hybrid",
       "newsTradingAllowed": false,
       "eaAllowed": true,
-      "minTradingDays": 3
+      "minTradingDays": 3,
+      "weekendHolding": "allowed",
+      "copyTradingAllowed": true,
+      "hftAllowed": false
     },
+    "trading": {
+      "leverage": [
+        { "asset": "fx", "programType": "all", "ratio": "1:50" },
+        { "asset": "metals", "programType": "all", "ratio": "1:15" },
+        { "asset": "indices", "programType": "all", "ratio": "1:10" },
+        { "asset": "crypto", "programType": "all", "ratio": "1:2" }
+      ],
+      "commissions": [{ "asset": "fx", "cost": "$5 per round-turn lot" }]
+    },
+    "paymentMethods": ["card", "apple-pay", "google-pay", "paypal", "crypto", "other"],
     "payout": {
       "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "bi-weekly",
       "profitSplitPct": 80,
-      "avgPayoutDays": 3
+      "avgPayoutDays": 3,
+      "firstPayoutDays": 14,
+      "splitScaling": "80% at funding, scaling to 90% for consistent performers."
     },
     "verdictText": "Atmos Funded offers 1-step, 2-step, 1-step Plus, and instant accounts from $5K to $200K, with full 1-Step Standard pricing from $63 (5K) to $1,020 (200K). Drawdown handling is mixed: the 1-step uses a 6% trailing maximum with a 3% daily limit, while the 2-step uses a static 10% maximum with 5% daily. Profit split runs 80-90%, payouts are bi-weekly with 2-5 business days of processing via bank wire, crypto, or a Taurex account transfer, and 3 minimum trading days apply to evaluations. News trading is permitted during challenges but restricted within 2 minutes of high-impact events on funded accounts. [Draft verdict — pending editorial review.]"
   },
@@ -354,7 +448,9 @@
       "https://velotrade.com/blog/aqua-funded-review",
       "https://www.trustpilot.com/review/aquafunded.com"
     ],
-    "needsVerification": [],
+    "needsVerification": [
+      "trading.leverage — figures are the evaluation-phase maximums; AquaFunded reduces funded-account leverage to FX 1:50, indices 1:10, commodities 1:10"
+    ],
     "challenges": [
       { "name": "2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 99 },
       { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 199 },
@@ -368,11 +464,20 @@
       "eaAllowed": true,
       "minTradingDays": 3
     },
+    "trading": {
+      "leverage": [
+        { "asset": "fx", "programType": "all", "ratio": "1:100" },
+        { "asset": "indices", "programType": "all", "ratio": "1:20" },
+        { "asset": "other-commodities", "programType": "all", "ratio": "1:20" },
+        { "asset": "crypto", "programType": "all", "ratio": "1:2" }
+      ]
+    },
     "payout": {
       "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "every 14 days",
       "profitSplitPct": 90,
-      "avgPayoutDays": 2
+      "avgPayoutDays": 2,
+      "firstPayoutDays": 7
     },
     "verdictText": "AquaFunded sells 1-step and 2-step evaluations up to $200K, with 2-step pricing from $99 (10K) to $999 (200K) and an 8%/5% two-phase target structure. Its 2-Step Standard accounts use static drawdowns (5% daily, 8% maximum from starting balance), while the 2-Step Pro variant applies trailing logic with a 10% maximum. The standard profit split is 90% with an optional 100% upgrade, and payouts run every 14 days with roughly 48-hour processing. Fee refunds are tied to multiple compliant payouts rather than the first one, and some funded pathways carry consistency requirements, so check the plan-specific terms. [Draft verdict — pending editorial review.]"
   },
@@ -404,17 +509,31 @@
       { "name": "Swing Disciplined 20K", "steps": "1-step", "accountSize": 20000, "price": 447 },
       { "name": "Swing Disciplined 40K", "steps": "1-step", "accountSize": 40000, "price": 800 }
     ],
+    "needsVerification": [
+      "rulesSummary.copyTradingAllowed — permitted only between two accounts of specified sizes, and the copying must be done by the trader",
+      "challenge time limits — TTP publishes 60/100-day MAX evaluation periods and an unlimited FLEX period, but our challenge names do not map cleanly onto those products"
+    ],
     "rules": {
       "drawdownType": "static",
       "consistencyRulePct": 30,
       "newsTradingAllowed": true,
       "eaAllowed": false,
-      "minTradingDays": 0
+      "minTradingDays": 0,
+      "weekendHolding": "swing-only",
+      "copyTradingAllowed": true
+    },
+    "trading": {
+      "broker": "Interactive Brokers, Saxo Bank and other liquidity partners",
+      "commissions": [
+        { "asset": "stocks", "cost": "Half a cent per share, minimum $0.75 per filled order" }
+      ]
     },
     "payout": {
       "methods": ["crypto", "bank-transfer"],
       "frequency": "every 14 days (weekly for swing accounts)",
-      "profitSplitPct": 70
+      "profitSplitPct": 70,
+      "firstPayoutDays": 14,
+      "minPayoutAmount": 300
     },
     "verdictText": "Trade The Pool is the rare prop firm focused on real US stocks and ETFs (12,000+ symbols via its trading environment) rather than CFDs, with Day Trade evaluations from $47 (5K buying power) to $1,475 (200K) and separate Swing programs from $69. Drawdowns are static - roughly 2-3% daily and 4% max on Day Trade, 7% max on Swing - and the profit split is 70% (with day-trade/swing payout splits of 70/30 and 50/50 respectively). Payouts run every 14 days for day-trading accounts (weekly for swing) via Rise or crypto, with a $300 minimum. News trading is fully allowed, but EAs and automated trading are strictly prohibited. [Draft verdict — pending editorial review.]"
   },
@@ -456,7 +575,9 @@
       "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "bi-weekly (weekly via add-on)",
       "profitSplitPct": 85,
-      "avgPayoutDays": 1
+      "avgPayoutDays": 1,
+      "firstPayoutDays": 7,
+      "minPayoutAmount": 100
     },
     "verdictText": "Blue Guardian offers instant, 1-step, 2-step, and 3-step accounts from $5K to $400K, with 2-Step Standard pricing from $112 (10K) to $1,162 (200K) and a cheaper Pro line from $79. Its maximum drawdown is a 6% trailing model that locks in at the starting balance (plus a 1% buffer) once the account gains 6% - effectively a hybrid - alongside a roughly 4% daily limit, and consistency rules of 15-25% apply depending on the plan. The profit split starts at 80% rising to 90%, and payouts are bi-weekly by default with a 24-hour processing guarantee that pays 100% of profits if missed. Reviewers caution that terms vary considerably across its many account models, including the Guardian Shield breach rule, so verify the plan-specific rules before buying. [Draft verdict — pending editorial review.]"
   },
@@ -469,7 +590,10 @@
       "https://lunefi.com/blog/maven-trading-complete-guide-to-rules-and-payouts",
       "https://www.trustpilot.com/review/maventrading.com"
     ],
-    "needsVerification": ["payout.methods (crypto leg)"],
+    "needsVerification": [
+      "payout.methods (crypto leg)",
+      "trading.leverage — Maven publishes one Forex figure (75:1); leverage on indices, commodities and crypto is not stated"
+    ],
     "challenges": [
       { "name": "1-Step 2K", "steps": "1-step", "accountSize": 2000, "price": 25 },
       { "name": "1-Step 5K", "steps": "1-step", "accountSize": 5000, "price": 45 },
@@ -500,7 +624,18 @@
       "drawdownType": "static",
       "newsTradingAllowed": false,
       "eaAllowed": false,
-      "minTradingDays": 3
+      "minTradingDays": 3,
+      "weekendHolding": "allowed",
+      "copyTradingAllowed": false,
+      "hftAllowed": false
+    },
+    "trading": {
+      "leverage": [{ "asset": "fx", "programType": "all", "ratio": "1:75" }],
+      "commissions": [
+        { "asset": "fx", "cost": "$2 per side ($4 round turn)" },
+        { "asset": "indices", "cost": "None" },
+        { "asset": "other-commodities", "cost": "None" }
+      ]
     },
     "payout": {
       "methods": ["crypto", "bank-transfer", "other"],
@@ -551,37 +686,101 @@
     "sources": [
       "https://ftmo.com/en/faq/how-do-i-withdraw-my-profits/",
       "https://ftmo.com/en/faq/what-payment-methods-are-available/",
+      "https://ftmo.com/en/symbols/",
+      "https://ftmo.com/en/2-step-challenge/",
+      "https://ftmo.com/en/1-step-challenge/",
+      "https://ftmo.com/en/faq/do-i-have-to-close-my-positions-overnight-or-before-the-weekend/",
+      "https://ftmo.com/en/about/",
       "https://propfirmproof.com/blog/ftmo-review/",
       "https://lunefi.com/blog/ftmo-payouts"
+    ],
+    "needsVerification": [
+      "leadership.ceoRole — ftmo.com/en/about names Otakar Suffner as a co-founder; the CEO title itself is not stated there",
+      "trading.leverage — figures are the Standard account type; the Swing account type runs lower (FX 1:30, metals/indices 1:15, crypto 1:1) and our schema does not model it"
     ],
     "rules": {
       "drawdownType": "static",
       "newsTradingAllowed": false,
       "eaAllowed": true,
-      "minTradingDays": 4
+      "minTradingDays": 4,
+      "weekendHolding": "swing-only",
+      "timeLimitsVerified": true
     },
+    "trading": {
+      "leverage": [
+        { "asset": "fx", "programType": "all", "ratio": "1:100" },
+        { "asset": "metals", "programType": "all", "ratio": "1:50" },
+        { "asset": "indices", "programType": "all", "ratio": "1:50" },
+        { "asset": "crypto", "programType": "all", "ratio": "1:3.33" },
+        { "asset": "stocks", "programType": "all", "ratio": "1:3.33" }
+      ],
+      "commissions": [
+        { "asset": "fx", "cost": "$5 per lot" },
+        { "asset": "metals", "cost": "0.0014% of volume" },
+        { "asset": "indices", "cost": "None" },
+        { "asset": "crypto", "cost": "0.065% of volume" },
+        { "asset": "stocks", "cost": "0.004% of volume" }
+      ]
+    },
+    "paymentMethods": [
+      "card",
+      "apple-pay",
+      "google-pay",
+      "paypal",
+      "crypto",
+      "bank-transfer",
+      "other"
+    ],
+    "leadership": { "ceoName": "Otakar Suffner", "ceoRole": "Co-founder" },
     "payout": {
       "methods": ["bank-transfer", "crypto", "other"],
       "frequency": "on demand after 14 days",
       "profitSplitPct": 80,
-      "avgPayoutDays": 2
+      "avgPayoutDays": 2,
+      "firstPayoutDays": 14,
+      "minPayoutAmount": 20,
+      "splitScaling": "80% on the 2-step, rising to 90% through the Scaling Plan or Premium Programme. The 1-step pays 90% from the start."
     }
   },
   "funding-pips": {
     "sources": [
+      "https://help.fundingpips.com/hc/en-us/articles/34501809112081-2-Step-Standard",
       "https://proptradingvibes.com/blog/fundingpips-rules",
       "https://tradingfinder.com/props/funding-pips/rules/",
       "https://www.quantvps.com/blog/fundingpips-payout-rules"
     ],
+    "needsVerification": [
+      "rulesSummary.weekendHolding — FundingPips describes the weekend-hold ban as a temporary measure on Master accounts, not a permanent rule",
+      "trading.leverage / trading.commissions — figures are the 2 Step Standard model on a standard (non swap-free) account; other models differ"
+    ],
     "rules": {
       "drawdownType": "static",
-      "newsTradingAllowed": false
+      "newsTradingAllowed": false,
+      "weekendHolding": "not-allowed",
+      "timeLimitsVerified": true
+    },
+    "trading": {
+      "leverage": [
+        { "asset": "fx", "programType": "2-step", "ratio": "1:100" },
+        { "asset": "metals", "programType": "2-step", "ratio": "1:20" },
+        { "asset": "indices", "programType": "2-step", "ratio": "1:20" },
+        { "asset": "energy", "programType": "2-step", "ratio": "1:10" },
+        { "asset": "crypto", "programType": "2-step", "ratio": "1:2" }
+      ],
+      "commissions": [
+        { "asset": "fx", "cost": "$5 per lot" },
+        { "asset": "metals", "cost": "$5 per lot" },
+        { "asset": "indices", "cost": "None" },
+        { "asset": "energy", "cost": "None" },
+        { "asset": "crypto", "cost": "0.04% of volume" }
+      ]
     },
     "payout": {
       "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "weekly to on-demand (varies by plan)",
       "profitSplitPct": 90,
-      "avgPayoutDays": 1
+      "avgPayoutDays": 1,
+      "splitScaling": "The split follows the reward cycle you choose: 60% weekly, 80% bi-weekly, 90% on demand, 100% monthly."
     }
   }
 }

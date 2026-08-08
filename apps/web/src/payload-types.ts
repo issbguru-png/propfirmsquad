@@ -175,7 +175,10 @@ export interface Firm {
      */
     leverage?:
       | {
-          asset: 'fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities';
+          /**
+           * "all" = the firm publishes one account-wide leverage figure
+           */
+          asset: 'all' | 'fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities';
           /**
            * "all" = same leverage across every program
            */

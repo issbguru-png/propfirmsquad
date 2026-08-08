@@ -26,7 +26,11 @@ type ChallengeRow = {
   accountSize: number
   price: number
   currency?: string
+  /** Omit entirely when the firm advertises no time limit (see Challenges.timeLimitDays). */
+  timeLimitDays?: number
 }
+
+type Asset = 'fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities'
 
 type FirmDetails = {
   sources: string[]
@@ -43,12 +47,34 @@ type FirmDetails = {
     newsTradingAllowed?: boolean
     eaAllowed?: boolean
     minTradingDays?: number
+    weekendHolding?: 'allowed' | 'not-allowed' | 'swing-only'
+    copyTradingAllowed?: boolean
+    hftAllowed?: boolean
+    timeLimitsVerified?: boolean
   }
+  trading?: {
+    broker?: string
+    leverage?: { asset: Asset | 'all'; programType?: 'all' | Steps; ratio: string }[]
+    commissions?: { asset: Asset; cost: string }[]
+  }
+  paymentMethods?: (
+    | 'card'
+    | 'apple-pay'
+    | 'google-pay'
+    | 'paypal'
+    | 'crypto'
+    | 'bank-transfer'
+    | 'other'
+  )[]
+  leadership?: { ceoName?: string; ceoRole?: string; ceoLinkedinUrl?: string }
   payout?: {
     methods?: ('crypto' | 'bank-transfer' | 'wise' | 'paypal' | 'other')[]
     frequency?: string
     profitSplitPct?: number
     avgPayoutDays?: number
+    firstPayoutDays?: number
+    minPayoutAmount?: number
+    splitScaling?: string
   }
   verdictText?: string
 }
@@ -137,7 +163,18 @@ try {
         where: { and: [{ firm: { equals: firm.id } }, { name: { equals: row.name } }] },
         limit: 1,
       })
-      if (existing.docs[0]) continue
+      if (existing.docs[0]) {
+        // Time limits are researched after the initial import, so backfill them
+        // onto rows that already exist. Absent in JSON = no time limit = null.
+        if (existing.docs[0].timeLimitDays !== (row.timeLimitDays ?? null)) {
+          await payload.update({
+            collection: 'challenges',
+            id: existing.docs[0].id,
+            data: { timeLimitDays: row.timeLimitDays ?? null },
+          })
+        }
+        continue
+      }
       await payload.create({
         collection: 'challenges',
         data: {
@@ -147,17 +184,23 @@ try {
           accountSize: row.accountSize,
           price: row.price,
           currency: row.currency ?? 'USD',
+          timeLimitDays: row.timeLimitDays ?? null,
           isActive: true,
         },
       })
       created++
     }
 
-    // ── rules + payout merge ──
+    // ── rules + payout + trading merge ──
     const rulesSummary = mergeGroup(firm.rulesSummary ?? undefined, details.rules)
     const payout = mergeGroup(firm.payout ?? undefined, details.payout)
+    const trading = mergeGroup(firm.trading ?? undefined, details.trading)
 
-    const updateData: Record<string, unknown> = { rulesSummary, payout }
+    const updateData: Record<string, unknown> = { rulesSummary, payout, trading }
+    if (details.paymentMethods?.length) updateData.paymentMethods = details.paymentMethods
+    if (details.leadership) {
+      updateData.leadership = mergeGroup(firm.leadership ?? undefined, details.leadership)
+    }
 
     // ── verdict only when empty ──
     let verdictSet = false
