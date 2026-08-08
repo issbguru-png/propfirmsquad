@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { getAllActivePromos, getChallengesForFirms, getFirms, getRiskFirms } from './_lib/data'
 import { CURRENT_YEAR } from './_lib/format'
 import { Badge, EmptyNote, FirmCard } from './_lib/ui'
-import { RISK_STATUS, riskStatusOf } from './_lib/risk'
+import { RISK_STATUS, pickPrimaryDocument, riskStatusOf, topRiskEntries } from './_lib/risk'
 import { FirmTable, bestPromoByFirm } from './_lib/FirmTable'
 import { cheapestByFirm } from './_lib/profile'
 import { JsonLd } from '@/lib/seo/json-ld'
@@ -40,6 +40,9 @@ export default async function HomePage() {
   ])
   const top = firms.slice(0, 10)
   const topThree = firms.slice(0, 3)
+  // Five rows, not the whole register: the founder wants a record on the page,
+  // not a section that competes with the ranking it sits under.
+  const riskEntries = topRiskEntries(riskFirms, 5)
 
   // Comparison-table data: cheapest challenge + best promo per ranked firm.
   const cheapest = cheapestByFirm(await getChallengesForFirms(top.map((f) => f.id)))
@@ -251,54 +254,72 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      {/* Risk register teaser — deliberately calm. This is context, not a scare-box:
-          plain card idiom, semantic negative/neutral badges only, no orange accent
-          (that stays on its normal duties), and rebrands sit alongside closures so
-          the section reads as "what changed", not "who to fear". Full sourcing and
-          the what-this-does-not-mean framing live on /firms-to-avoid. */}
-      {riskFirms.length > 0 ? (
+      {/* Risk register — a record, not a warning list. Deliberately calm: the
+          house table idiom, semantic negative/neutral badges only, no orange
+          accent (that stays on its normal duties). Every row links the primary
+          document, because the whole defence of naming a company is that the
+          reader can open the source and check us. Rows without a document never
+          reach here (getRiskFirms + pickPrimaryDocument both drop them). */}
+      {riskEntries.length > 0 ? (
         <section aria-labelledby="risk-h">
           <h2 id="risk-h" className="mb-1 text-2xl font-extrabold tracking-tight">
-            Firms that closed, rebranded, or drew regulatory action
+            Firms that closed or drew regulatory action
           </h2>
           <p className="mb-4 max-w-(--container-prose) text-sm text-ink-2">
-            We also keep a dated record of firms that shut down, changed hands, or were named in a
-            regulator&apos;s filing. Every entry links to a public source. Being listed is not an
-            allegation by us, and some entries describe situations that have since resolved.
+            A factual record, not an accusation: each row states a documented, dated event and links
+            the primary source, including where a case was later dismissed.
           </p>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {riskFirms.slice(0, 4).map((firm) => {
-              const status = riskStatusOf(firm)
-              if (!status) return null
-              const meta = RISK_STATUS[status]
-              return (
-                <li key={firm.id}>
-                  <Link
-                    href="/firms-to-avoid"
-                    className="flex h-full flex-col rounded-sm border border-line bg-card p-4 transition-colors hover:border-ink-3"
-                  >
-                    <span className="mb-1.5 block truncate font-bold">{firm.name}</span>
-                    <span className="mb-2 block">
-                      <Badge tone={meta.tone}>{meta.label}</Badge>
-                    </span>
-                    {/* No `block` on the clamp span: it would override
-                        line-clamp's display:-webkit-box and defeat the clamp. */}
-                    {firm.riskSummary ? (
-                      <span className="line-clamp-3 text-sm text-ink-2">{firm.riskSummary}</span>
-                    ) : null}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-          <p className="mt-3 text-sm text-ink-2">
-            <Link
-              href="/firms-to-avoid"
-              className="font-semibold text-accent-dark hover:underline"
-            >
-              See all {riskFirms.length} entries with sources →
-            </Link>
-          </p>
+          <div className="overflow-x-auto rounded-lg border border-line bg-card">
+            <table className="w-full border-collapse text-base">
+              <caption className="sr-only">
+                Prop firms that closed, changed hands, or were named in a regulator&apos;s filing,
+                each with a link to the primary document.
+              </caption>
+              <thead className="border-b border-line bg-page">
+                <tr>
+                  <th scope="col" className={thTop}>
+                    Firm
+                  </th>
+                  <th scope="col" className={thTop}>
+                    What happened
+                  </th>
+                  <th scope="col" className={thTop}>
+                    Document
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {riskEntries.map((firm) => {
+                  const meta = RISK_STATUS[riskStatusOf(firm)!]
+                  const doc = pickPrimaryDocument(firm)!
+                  return (
+                    <tr key={firm.id} className="border-b border-line last:border-0">
+                      <th scope="row" className={`${tdTop} text-left align-top`}>
+                        <span className="block font-bold">{firm.name}</span>
+                        <span className="mt-1 block font-normal">
+                          <Badge tone={meta.tone}>{meta.label}</Badge>
+                        </span>
+                      </th>
+                      <td className={`${tdTop} align-top text-sm text-ink-2`}>
+                        {firm.riskSummary}
+                      </td>
+                      <td className={`${tdTop} align-top`}>
+                        <a
+                          href={doc.url}
+                          target="_blank"
+                          rel="nofollow noopener"
+                          className="text-sm font-semibold text-accent-dark hover:underline"
+                        >
+                          {doc.label}
+                        </a>
+                        <span className="mt-0.5 block text-xs text-ink-3">{doc.host}</span>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
         </section>
       ) : null}
 
