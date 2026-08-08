@@ -19,7 +19,6 @@ const STATIC_PATHS = [
   '/',
   '/prop-firms',
   '/deals',
-  '/firms-to-avoid',
   '/methodology',
   '/about',
   '/contact',

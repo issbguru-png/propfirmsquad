@@ -32,8 +32,8 @@ export function compareFirmsByRating(a: Firm, b: Firm): number {
  * /prop-firms directory).
  *
  * The `listingType: 'listed'` filter is load-bearing: the firms collection also
- * holds `delisted` records that exist ONLY as the sourced risk register behind
- * /firms-to-avoid (closed, rebranded, or regulator-charged firms). Those must
+ * holds `delisted` records that exist ONLY as the sourced risk register on the
+ * homepage (closed, rebranded, or regulator-charged firms). Those must
  * never appear in a ranking — an allow-list (`equals: 'listed'`) rather than a
  * deny-list, so a future listingType value can't silently leak into rankings.
  */
@@ -57,7 +57,7 @@ export async function getFirms(opts?: { firmType?: string }): Promise<Firm[]> {
 }
 
 /**
- * The risk register behind /firms-to-avoid: firms with a non-`none` riskStatus.
+ * The risk register shown on the homepage: firms with a non-`none` riskStatus.
  *
  * LEGAL GATE (see Firms.ts): a record is only returned when it carries at least
  * one riskEvent that has BOTH a date and a source URL. An unsourced entry is
