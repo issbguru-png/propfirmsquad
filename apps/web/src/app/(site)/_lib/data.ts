@@ -27,10 +27,20 @@ export function compareFirmsByRating(a: Firm, b: Firm): number {
   return (b.trustPilotScore ?? 0) - (a.trustPilotScore ?? 0)
 }
 
+/**
+ * Ranked firms for every public listing surface (homepage top-10, /best hubs,
+ * /prop-firms directory).
+ *
+ * The `listingType: 'listed'` filter is load-bearing: the firms collection also
+ * holds `delisted` records that exist ONLY as the sourced risk register behind
+ * /firms-to-avoid (closed, rebranded, or regulator-charged firms). Those must
+ * never appear in a ranking — an allow-list (`equals: 'listed'`) rather than a
+ * deny-list, so a future listingType value can't silently leak into rankings.
+ */
 export async function getFirms(opts?: { firmType?: string }): Promise<Firm[]> {
   try {
     const payload = await db()
-    const where: Where = { listingType: { not_equals: 'delisted' } }
+    const where: Where = { listingType: { equals: 'listed' } }
     if (opts?.firmType) where.firmTypes = { contains: opts.firmType }
     const res = await payload.find({
       collection: 'firms',
@@ -44,6 +54,39 @@ export async function getFirms(opts?: { firmType?: string }): Promise<Firm[]> {
   } catch {
     return []
   }
+}
+
+/**
+ * The risk register behind /firms-to-avoid: firms with a non-`none` riskStatus.
+ *
+ * LEGAL GATE (see Firms.ts): a record is only returned when it carries at least
+ * one riskEvent that has BOTH a date and a source URL. An unsourced entry is
+ * dropped rather than rendered — we never publish a status claim about a named
+ * company that a reader cannot verify from the page. Newest event first.
+ */
+export async function getRiskFirms(): Promise<Firm[]> {
+  try {
+    const payload = await db()
+    const res = await payload.find({
+      collection: 'firms',
+      where: { riskStatus: { not_in: ['none'] } },
+      limit: 100,
+      depth: 1, // populate `logo` media for the entry cards
+    })
+    return res.docs
+      .filter((f) => (f.riskEvents ?? []).some((e) => e?.date && e?.sourceUrl))
+      .sort((a, b) => latestRiskEventTime(b) - latestRiskEventTime(a))
+  } catch {
+    return []
+  }
+}
+
+/** Epoch ms of a firm's most recent dated risk event (0 when it has none). */
+export function latestRiskEventTime(firm: Firm): number {
+  return (firm.riskEvents ?? []).reduce((max, e) => {
+    const t = e?.date ? new Date(e.date).getTime() : NaN
+    return Number.isFinite(t) && t > max ? t : max
+  }, 0)
 }
 
 export async function getFirmBySlug(slug: string): Promise<Firm | null> {
@@ -158,7 +201,8 @@ export async function getAlternatives(firm: Firm, limit = 3): Promise<Firm[]> {
     const res = await payload.find({
       collection: 'firms',
       where: {
-        and: [{ slug: { not_equals: firm.slug } }, { listingType: { not_equals: 'delisted' } }],
+        // Same allow-list as getFirms: never suggest a delisted/risk-register firm.
+        and: [{ slug: { not_equals: firm.slug } }, { listingType: { equals: 'listed' } }],
       },
       sort: '-reviewScore',
       limit: limit + 5,
