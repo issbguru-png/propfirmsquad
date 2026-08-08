@@ -5,7 +5,8 @@
  * Server passes the firm's restricted-country ISO2 list; the trader picks
  * their country and gets an instant available / restricted answer.
  */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { detectCountry } from './geo'
 
 /** ~40 common trader countries (ISO2 → display name). */
 const COUNTRIES: [string, string][] = [
@@ -60,6 +61,17 @@ export function AvailabilityChecker({
   restrictedIso2: string[]
 }) {
   const [selected, setSelected] = useState('')
+  const [autoDetected, setAutoDetected] = useState(false)
+
+  // Detect after mount so server and client HTML match (no hydration mismatch).
+  useEffect(() => {
+    const guess = detectCountry(new Set(COUNTRIES.map(([iso2]) => iso2)))
+    if (guess) {
+      setSelected(guess)
+      setAutoDetected(true)
+    }
+  }, [])
+
   const restricted = new Set(restrictedIso2.map((c) => c.toUpperCase()))
   const name = COUNTRIES.find(([iso2]) => iso2 === selected)?.[1]
   const noneRecorded = restricted.size === 0
@@ -72,7 +84,10 @@ export function AvailabilityChecker({
       <select
         id="availability-country"
         value={selected}
-        onChange={(e) => setSelected(e.target.value)}
+        onChange={(e) => {
+          setSelected(e.target.value)
+          setAutoDetected(false)
+        }}
         className="w-full max-w-xs rounded-sm border border-line bg-card px-3 py-2 text-sm font-semibold"
       >
         <option value="">Select your country…</option>
@@ -82,6 +97,12 @@ export function AvailabilityChecker({
           </option>
         ))}
       </select>
+      {autoDetected ? (
+        <p className="mt-1.5 text-xs text-ink-3">
+          Detected from your device&apos;s time zone. Change it above if that is wrong. We do not
+          look up your IP address, and nothing leaves your browser.
+        </p>
+      ) : null}
       {selected && name ? (
         restricted.has(selected) ? (
           <p role="status" className="mt-3 text-sm font-bold text-negative">
