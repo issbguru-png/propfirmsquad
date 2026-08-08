@@ -474,7 +474,12 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                         </div>
                       ))}
                     </dl>
-                    <p className="mt-3 text-[11px] leading-snug text-ink-3">
+                    {/*
+                      The only run of real sentence copy on the site under 12px,
+                      and it carries a link. 12px on phones, unchanged at 11px
+                      from sm up where the eye is further from the text.
+                    */}
+                    <p className="mt-3 text-xs leading-snug text-ink-3 sm:text-[11px]">
                       Scored by {' '}
                       <a href="/#author-h" className="underline hover:text-accent-dark">
                         Ayub Rana
