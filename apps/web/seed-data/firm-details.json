@@ -146,7 +146,7 @@
       "copyTradingAllowed": true
     },
     "trading": {
-      "broker": "None — BrightFunded states it is not a broker and is not connected to a liquidity provider; pricing comes from aggregated third-party data feeds",
+      "broker": "None. BrightFunded states it is not a broker and is not connected to a liquidity provider; pricing comes from aggregated third-party data feeds",
       "leverage": [
         { "asset": "fx", "programType": "all", "ratio": "1:100" },
         { "asset": "metals", "programType": "all", "ratio": "1:40" },
