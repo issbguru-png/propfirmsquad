@@ -15,7 +15,15 @@ export type SitemapSegment = (typeof SITEMAP_SEGMENTS)[number]
 type Entry = MetadataRoute.Sitemap[number]
 
 /** Hand-maintained static routes (lane C pages). */
-const STATIC_PATHS = ['/', '/prop-firms', '/deals', '/methodology', '/about', '/contact']
+const STATIC_PATHS = [
+  '/',
+  '/prop-firms',
+  '/deals',
+  '/firms-to-avoid',
+  '/methodology',
+  '/about',
+  '/contact',
+]
 
 /** The 5 calculators (lane D routes; slugs frozen in ROUTES.md/packages/calc). */
 export const TOOL_SLUGS = [

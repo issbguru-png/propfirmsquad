@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getAllActivePromos, getChallengesForFirms, getFirms } from './_lib/data'
+import { getAllActivePromos, getChallengesForFirms, getFirms, getRiskFirms } from './_lib/data'
 import { CURRENT_YEAR } from './_lib/format'
-import { EmptyNote, FirmCard } from './_lib/ui'
+import { Badge, EmptyNote, FirmCard } from './_lib/ui'
+import { RISK_STATUS, riskStatusOf } from './_lib/risk'
 import { FirmTable, bestPromoByFirm } from './_lib/FirmTable'
 import { cheapestByFirm } from './_lib/profile'
 import { JsonLd } from '@/lib/seo/json-ld'
@@ -32,7 +33,11 @@ const thTop = 'px-4 py-3 text-left text-xs font-bold tracking-wide text-ink-2 up
 const tdTop = 'px-4 py-4 align-middle'
 
 export default async function HomePage() {
-  const [firms, promos] = await Promise.all([getFirms(), getAllActivePromos()])
+  const [firms, promos, riskFirms] = await Promise.all([
+    getFirms(),
+    getAllActivePromos(),
+    getRiskFirms(),
+  ])
   const top = firms.slice(0, 10)
   const topThree = firms.slice(0, 3)
 
@@ -243,6 +248,57 @@ export default async function HomePage() {
               </li>
             ))}
           </ul>
+        </section>
+      ) : null}
+
+      {/* Risk register teaser — deliberately calm. This is context, not a scare-box:
+          plain card idiom, semantic negative/neutral badges only, no orange accent
+          (that stays on its normal duties), and rebrands sit alongside closures so
+          the section reads as "what changed", not "who to fear". Full sourcing and
+          the what-this-does-not-mean framing live on /firms-to-avoid. */}
+      {riskFirms.length > 0 ? (
+        <section aria-labelledby="risk-h">
+          <h2 id="risk-h" className="mb-1 text-2xl font-extrabold tracking-tight">
+            Firms that closed, rebranded, or drew regulatory action
+          </h2>
+          <p className="mb-4 max-w-(--container-prose) text-sm text-ink-2">
+            We also keep a dated record of firms that shut down, changed hands, or were named in a
+            regulator&apos;s filing. Every entry links to a public source. Being listed is not an
+            allegation by us, and some entries describe situations that have since resolved.
+          </p>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {riskFirms.slice(0, 4).map((firm) => {
+              const status = riskStatusOf(firm)
+              if (!status) return null
+              const meta = RISK_STATUS[status]
+              return (
+                <li key={firm.id}>
+                  <Link
+                    href="/firms-to-avoid"
+                    className="flex h-full flex-col rounded-sm border border-line bg-card p-4 transition-colors hover:border-ink-3"
+                  >
+                    <span className="mb-1.5 block truncate font-bold">{firm.name}</span>
+                    <span className="mb-2 block">
+                      <Badge tone={meta.tone}>{meta.label}</Badge>
+                    </span>
+                    {/* No `block` on the clamp span: it would override
+                        line-clamp's display:-webkit-box and defeat the clamp. */}
+                    {firm.riskSummary ? (
+                      <span className="line-clamp-3 text-sm text-ink-2">{firm.riskSummary}</span>
+                    ) : null}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+          <p className="mt-3 text-sm text-ink-2">
+            <Link
+              href="/firms-to-avoid"
+              className="font-semibold text-accent-dark hover:underline"
+            >
+              See all {riskFirms.length} entries with sources →
+            </Link>
+          </p>
         </section>
       ) : null}
 
