@@ -17,6 +17,7 @@ Any change to this file requires founder approval. Lanes build ONLY these routes
 | `/news` + `/news/[slug]` + `/rule-changes` | phase 3 | News engine |
 | `/payouts` | phase 3 | Payout analytics hub |
 | `/deals` | C | Single offers hub |
+| `/firms-to-avoid` | C | Sourced register of firms that closed, rebranded, or drew regulatory action. Every entry requires a dated public source URL (see the legal frame in the route file); firms live in `firms` as `listingType: 'delisted'` so they never enter a ranking |
 | `/learn/[slug]` | E | MDX pipeline |
 | `/methodology`, `/about`, `/contact`, legal | C | Static |
 | `/hi/*`, `/es/*` | phase 3 | next-intl subpaths, mirror above |
