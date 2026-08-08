@@ -4,12 +4,12 @@ import { notFound } from 'next/navigation'
 import type { Country, Promo } from '@/payload-types'
 import { getChallengesForFirms, getFirmBySlug, getPromosForFirm } from '../../../_lib/data'
 import { cheapestByFirm } from '../../../_lib/profile'
-import { isAffiliateLink, outboundUrl, rankPromos } from '../../../_lib/promo'
+import { discountLabel, isAffiliateLink, outboundUrl, rankPromos } from '../../../_lib/promo'
 import { DRAWDOWN_LABELS, compactMoney, formatDate, money, monthYear } from '../../../_lib/format'
 import { Badge, EmptyNote, FirmMark, SectionCard } from '../../../_lib/ui'
 import { Button, SectionKicker } from '@/components'
 import { AvailabilityChip } from '../AvailabilityChip'
-import { CopyCode } from './CopyCode'
+import { CopyCode } from '@/components/CopyCode'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, offerLd } from '@/lib/seo/jsonld'
 import { promoPageMeta } from '@/lib/seo/metadata'
@@ -31,11 +31,6 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     alternates: { canonical: `/prop-firms/${firm.slug}/promo-code` },
     robots: { index: false, follow: true },
   }
-}
-
-/** Discount headline for a promo card, e.g. "45% off" or "Special offer". */
-function discountLabel(promo: Pick<Promo, 'discountPct'>): string {
-  return promo.discountPct != null ? `${promo.discountPct}% off` : 'Special offer'
 }
 
 /** Expiry / exclusivity badges. Never invents a countdown; states the plain date. */

@@ -10,6 +10,12 @@
  * Copy path degrades: async Clipboard API → execCommand('copy') on a hidden
  * textarea → an honest "select it above" message. It never claims success it
  * did not achieve.
+ *
+ * Shared by /deals and /prop-firms/[slug]/promo-code. Deliberately NOT
+ * re-exported from ./index.ts: that barrel is server-component-only, and
+ * pulling a 'use client' module into it would drag the boundary into every
+ * page that imports any component. Import it directly from
+ * '@/components/CopyCode'.
  */
 import { useEffect, useRef, useState } from 'react'
 
