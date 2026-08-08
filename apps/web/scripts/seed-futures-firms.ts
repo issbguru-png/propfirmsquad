@@ -10,14 +10,22 @@
  *     markets are India, Pakistan and Indonesia, so most of our readers cannot
  *     load it. Everything we hold is from archived pages and must be re-read
  *     from a US connection before publishing.
- *   - **MyFundedFutures**: its Disclaimer states "All accounts (including
- *     evaluation and funded accounts) operate in a simulated, non-executing
- *     environment. No real capital is deployed at any stage" (verified verbatim
- *     2026-08-08), while the Pro plan page was reported to sell "a real
- *     brokerage account at Blue Row Capital, real money". That second quote
- *     could not be reproduced the same day: /pro redirects to a challenge page
- *     without it. Publishing a self-contradiction claim requires both halves
- *     to be re-confirmed, and Blue Row Capital returns no NFA BASIC record.
+ * MyFundedFutures was held back for one round and is now seeded. The hold was
+ * my error, not a finding: I looked for the live-capital claim at /pro, which
+ * has been retired and redirects. It lives at /plans/pro and /plans/builder.
+ * Both halves of the contradiction were then read directly, same day:
+ *
+ *   Disclaimer: "All accounts (including evaluation and funded accounts)
+ *   operate in a simulated, non-executing environment. No real capital is
+ *   deployed at any stage."
+ *   /plans/pro: "Approved traders move to a real brokerage account at Blue Row
+ *   Capital ... daily payouts, real money, 80/20 split."
+ *
+ * That is publishable the way everything contentious here is published: both
+ * quotations, both dated, both linked, no characterisation in our own voice.
+ * It is carried as the first `con` on the firm. Blue Row Capital returns no
+ * NFA BASIC record, which is also stated as fact rather than as an inference
+ * about what the arrangement is.
  *
  * ── WHAT IS NOT SET, AND WHY ─────────────────────────────────────────────────
  * `scores` are left null on purpose. The squad score is Ayub's editorial
@@ -44,8 +52,8 @@ import type { Firm } from '../src/payload-types'
 const DATA_PATH =
   '/Users/warissalmanshah/Desktop/PF/propfirmmatch-seo-data/futures-firms-data.json'
 
-/** Only these three publish. See the header for why the other two are held. */
-const SEED_SLUGS = ['topstep', 'take-profit-trader', 'tradeify'] as const
+/** Apex stays out until a human on a US connection re-reads it. See header. */
+const SEED_SLUGS = ['topstep', 'take-profit-trader', 'tradeify', 'myfundedfutures'] as const
 
 type Json = Record<string, any>
 
