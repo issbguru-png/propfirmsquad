@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { enforceClaimSourcing } from '../payload/claimSourcing'
 import { enforceDataDensityGate } from '../payload/dataDensity'
 import { revalidateFirmAfterChange, revalidateFirmAfterDelete } from '../payload/revalidate'
 
@@ -24,6 +25,8 @@ export const Firms: CollectionConfig = {
       },
       // noindex until data-density threshold met (CONTRACTS.md publishing gate)
       enforceDataDensityGate,
+      // reject reputational/marketing claims that arrive without a date + source
+      enforceClaimSourcing,
     ],
     afterChange: [revalidateFirmAfterChange],
     afterDelete: [revalidateFirmAfterDelete],
@@ -168,6 +171,57 @@ export const Firms: CollectionConfig = {
         { name: 'score', type: 'number', required: true, min: 0, max: 5 },
       ],
     },
+    // Trustpilot applies this label when its systems detect a breach of its
+    // business guidelines, most commonly review manipulation, and it suppresses
+    // the public star rating. It cannot be bought off and it correlates with
+    // almost nothing else we track, which is what makes it worth storing.
+    //
+    // LEGAL: this is publishable ONLY as a dated observation of what Trustpilot
+    // displayed, with the profile URL, never as our own accusation about the
+    // firm's conduct. `checkedAt` and `profileUrl` are therefore required in
+    // practice: see enforceTrustpilotWarningSourcing.
+    {
+      name: 'trustpilotWarning',
+      type: 'group',
+      admin: {
+        description:
+          'Trustpilot "rating unavailable due to a breach of our guidelines" state. Only ever rendered as a dated, sourced observation.',
+      },
+      fields: [
+        {
+          name: 'active',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: { description: 'Warning was visible on the profile when last checked' },
+        },
+        {
+          name: 'checkedAt',
+          type: 'date',
+          admin: { description: 'Date a human actually looked at the profile. Required when active.' },
+        },
+        {
+          name: 'profileUrl',
+          type: 'text',
+          admin: { description: 'Trustpilot profile URL. Required when active.' },
+        },
+        {
+          name: 'underlyingScore',
+          type: 'number',
+          min: 0,
+          max: 5,
+          admin: {
+            description:
+              'TrustScore still present in the page data but hidden from visitors by the warning.',
+          },
+        },
+        { name: 'underlyingReviews', type: 'number' },
+        {
+          name: 'reviewsLast12m',
+          type: 'number',
+          admin: { description: 'Recent flow vs lifetime total exposes a contracting firm' },
+        },
+      ],
+    },
     { name: 'likesCount', type: 'number', defaultValue: 0 },
     // ── Editorial (localized) ─────────────────────────────────
     { name: 'verdict', type: 'richText', localized: true },
@@ -244,6 +298,27 @@ export const Firms: CollectionConfig = {
           type: 'number',
           admin: { description: 'Minimum withdrawable amount, in the firm currency. null = none stated.' },
         },
+        // No firm in this sector publishes an audited payout total, so this is
+        // stored and rendered as a marketing claim with a date against it,
+        // never as a verified figure. The three fields move together.
+        {
+          name: 'totalPaidClaimed',
+          type: 'number',
+          admin: {
+            description:
+              'Total paid out as claimed BY THE FIRM, in firm currency. Never present as verified.',
+          },
+        },
+        {
+          name: 'totalPaidClaimedAt',
+          type: 'date',
+          admin: { description: 'Date we read the claim. Required when totalPaidClaimed is set.' },
+        },
+        {
+          name: 'totalPaidSourceUrl',
+          type: 'text',
+          admin: { description: 'Where the firm makes the claim. Required when set.' },
+        },
         {
           name: 'splitScaling',
           type: 'text',
@@ -252,6 +327,36 @@ export const Firms: CollectionConfig = {
             description:
               'How the split grows, e.g. "80% base, 90% after 3 consecutive payouts". Leave empty when the split is flat.',
           },
+        },
+      ],
+    },
+    // ── Legal entity ──────────────────────────────────────────
+    // Who you actually contract with. Cheap to verify from a public registry
+    // and one of the sharpest discriminators in the sector: a firm whose parent
+    // owns a regulated broker sits very differently to one whose contracting
+    // entity is registered in an offshore jurisdiction with masked licence
+    // numbers. Registry-verified values only.
+    {
+      name: 'legalEntity',
+      type: 'group',
+      admin: { description: 'The contracting entity, as filed with a public registry.' },
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          admin: { description: 'Registered name, e.g. "Alpha Capital Group Ltd"' },
+        },
+        { name: 'registrationNumber', type: 'text' },
+        {
+          name: 'registry',
+          type: 'text',
+          admin: { description: 'e.g. "Companies House (UK)", "NFA BASIC"' },
+        },
+        { name: 'jurisdiction', type: 'text', admin: { description: 'ISO2 where incorporated' } },
+        {
+          name: 'sourceUrl',
+          type: 'text',
+          admin: { description: 'Public registry record. No source, do not fill the fields above.' },
         },
       ],
     },

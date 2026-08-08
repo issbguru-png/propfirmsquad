@@ -221,6 +221,32 @@ export interface Firm {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Trustpilot "rating unavailable due to a breach of our guidelines" state. Only ever rendered as a dated, sourced observation.
+   */
+  trustpilotWarning?: {
+    /**
+     * Warning was visible on the profile when last checked
+     */
+    active?: boolean | null;
+    /**
+     * Date a human actually looked at the profile. Required when active.
+     */
+    checkedAt?: string | null;
+    /**
+     * Trustpilot profile URL. Required when active.
+     */
+    profileUrl?: string | null;
+    /**
+     * TrustScore still present in the page data but hidden from visitors by the warning.
+     */
+    underlyingScore?: number | null;
+    underlyingReviews?: number | null;
+    /**
+     * Recent flow vs lifetime total exposes a contracting firm
+     */
+    reviewsLast12m?: number | null;
+  };
   likesCount?: number | null;
   verdict?: {
     root: {
@@ -283,9 +309,43 @@ export interface Firm {
      */
     minPayoutAmount?: number | null;
     /**
+     * Total paid out as claimed BY THE FIRM, in firm currency. Never present as verified.
+     */
+    totalPaidClaimed?: number | null;
+    /**
+     * Date we read the claim. Required when totalPaidClaimed is set.
+     */
+    totalPaidClaimedAt?: string | null;
+    /**
+     * Where the firm makes the claim. Required when set.
+     */
+    totalPaidSourceUrl?: string | null;
+    /**
      * How the split grows, e.g. "80% base, 90% after 3 consecutive payouts". Leave empty when the split is flat.
      */
     splitScaling?: string | null;
+  };
+  /**
+   * The contracting entity, as filed with a public registry.
+   */
+  legalEntity?: {
+    /**
+     * Registered name, e.g. "Alpha Capital Group Ltd"
+     */
+    name?: string | null;
+    registrationNumber?: string | null;
+    /**
+     * e.g. "Companies House (UK)", "NFA BASIC"
+     */
+    registry?: string | null;
+    /**
+     * ISO2 where incorporated
+     */
+    jurisdiction?: string | null;
+    /**
+     * Public registry record. No source, do not fill the fields above.
+     */
+    sourceUrl?: string | null;
   };
   /**
    * Only publicly named, firm-confirmed people.
@@ -736,6 +796,16 @@ export interface FirmsSelect<T extends boolean = true> {
         score?: T;
         id?: T;
       };
+  trustpilotWarning?:
+    | T
+    | {
+        active?: T;
+        checkedAt?: T;
+        profileUrl?: T;
+        underlyingScore?: T;
+        underlyingReviews?: T;
+        reviewsLast12m?: T;
+      };
   likesCount?: T;
   verdict?: T;
   rulesSummary?:
@@ -760,7 +830,19 @@ export interface FirmsSelect<T extends boolean = true> {
         avgPayoutDays?: T;
         firstPayoutDays?: T;
         minPayoutAmount?: T;
+        totalPaidClaimed?: T;
+        totalPaidClaimedAt?: T;
+        totalPaidSourceUrl?: T;
         splitScaling?: T;
+      };
+  legalEntity?:
+    | T
+    | {
+        name?: T;
+        registrationNumber?: T;
+        registry?: T;
+        jurisdiction?: T;
+        sourceUrl?: T;
       };
   leadership?:
     | T

@@ -40,6 +40,8 @@ import {
   yearOf,
 } from '../../_lib/format'
 import { Badge, EmptyNote, FirmCard, FirmMark, SectionCard, td, th } from '../../_lib/ui'
+import { TrustpilotNotice } from '../../_lib/TrustpilotNotice'
+import { publishableWarning } from '../../_lib/trustpilot'
 import { Button, RatingStars, SectionKicker, TrendChart, VerdictBox } from '@/components'
 import { SectionNav } from './SectionNav'
 import { AuthorByline } from './AuthorByline'
@@ -975,6 +977,12 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           title={`Is ${firm.name} legit? Trust & company facts`}
           intro={`Who runs ${firm.name}, how long they have operated, and what independent review platforms say. Check availability for your country below.`}
         >
+          {/* Sits above the facts table: it changes how the scores in that
+              table should be read, so it has to be seen first. */}
+          <div className="mb-5 empty:mb-0">
+            <TrustpilotNotice firm={firm} />
+          </div>
+
           <div className="overflow-x-auto rounded-sm border border-line">
             <table className="w-full min-w-[480px] border-collapse text-sm">
               <caption className="sr-only">{firm.name} company facts</caption>
@@ -1002,10 +1010,25 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                         },
                       ]
                     : []),
+                  // Registry-verified entity. Answers "who am I actually
+                  // contracting with", which the marketing site rarely does.
+                  ...(firm.legalEntity?.name
+                    ? [
+                        {
+                          label: 'Registered entity',
+                          value: firm.legalEntity.registrationNumber
+                            ? `${firm.legalEntity.name} (${firm.legalEntity.registry ?? 'registry'} ${firm.legalEntity.registrationNumber})`
+                            : firm.legalEntity.name,
+                        },
+                      ]
+                    : []),
                   {
                     label: 'Trustpilot score',
-                    value:
-                      firm.trustPilotScore != null
+                    // A suppressed rating is not a missing rating, and saying
+                    // "not tracked" would hide the more interesting fact.
+                    value: publishableWarning(firm)
+                      ? 'Restricted by Trustpilot (see notice above)'
+                      : firm.trustPilotScore != null
                         ? `${firm.trustPilotScore}/5`
                         : 'Not tracked yet',
                   },

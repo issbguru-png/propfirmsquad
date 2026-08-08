@@ -39,8 +39,20 @@ export function organizationLd(): JsonLdObject {
 }
 
 /**
- * A prop firm as FinancialService. AggregateRating is attached only when we
- * actually have reviews (reviewsCount > 0) — never emit an empty rating.
+ * A prop firm as FinancialService.
+ *
+ * NO aggregateRating. This is deliberate and should not be "fixed".
+ *
+ * `firm.reviewScore` / `firm.reviewsCount` were seeded from propfirmmatch.com's
+ * API and describe reviews left on THEIR site, by THEIR users. Emitting them as
+ * our AggregateRating would tell Google we collected ratings we have never
+ * collected, which is both a structured-data policy violation (review snippets
+ * must come from reviews the site actually gathered) and a straightforward
+ * misrepresentation on a site whose whole pitch is verifiable sourcing.
+ *
+ * Restore this block only when the rating is genuinely ours: either first-party
+ * reviews, or Ayub's published subscores under a `Rating` we author. In that
+ * case the ratingCount must count real reviews, not a number copied in.
  */
 export function firmLd(firm: Firm): JsonLdObject {
   const url = absoluteUrl(`/prop-firms/${firm.slug}`)
@@ -61,15 +73,6 @@ export function firmLd(firm: Firm): JsonLdObject {
     ...(firm.dateEstablished ? { foundingDate: firm.dateEstablished } : {}),
   }
 
-  if (firm.reviewScore != null && typeof firm.reviewsCount === 'number' && firm.reviewsCount > 0) {
-    ld.aggregateRating = {
-      '@type': 'AggregateRating',
-      ratingValue: firm.reviewScore,
-      ratingCount: firm.reviewsCount,
-      bestRating: 5,
-      worstRating: 1,
-    }
-  }
 
   return ld
 }

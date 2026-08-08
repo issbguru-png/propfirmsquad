@@ -19,6 +19,7 @@ import Link from 'next/link'
 import type { Firm, Promo } from '@/payload-types'
 import type { CheapestEntry } from './profile'
 import { DRAWDOWN_LABELS, money } from './format'
+import { TrustpilotFlag } from './TrustpilotNotice'
 import { FirmMark } from './ui'
 
 const th = 'px-3 py-3 text-left text-xs font-bold tracking-wide text-ink-2 uppercase sm:px-4'
@@ -105,6 +106,7 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
                       'Not rated'
                     )}
                   </p>
+                  <TrustpilotFlag firm={firm} className="mt-1.5" />
                 </div>
               </div>
 
@@ -202,6 +204,7 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
                     ) : (
                       <span className="text-sm text-ink-3">Not rated</span>
                     )}
+                    <TrustpilotFlag firm={firm} className="mt-1" />
                   </td>
 
                   <td className={`${td} hidden sm:table-cell`}>
