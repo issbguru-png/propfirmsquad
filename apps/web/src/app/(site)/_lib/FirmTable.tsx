@@ -8,8 +8,12 @@
  * max-allocation/market/programs: those were near-identical across rows
  * (8 of 16 firms share the same max allocation), so they carried no signal.
  *
- * Responsive: columns disclose progressively, so a phone shows
- * rank / firm / rating / action and never scrolls sideways.
+ * Responsive: columns disclose progressively, so a phone shows only
+ * rank / firm / rating / action. Those four still do not fit a 375px screen
+ * (~444px at the tightest padding that stays legible), so the wrapper scrolls
+ * sideways and a mobile-only hint says so. Fitting them properly would mean
+ * dropping a column or restyling rows as cards on mobile; see
+ * docs/mobile-audit.md.
  */
 import Link from 'next/link'
 import type { Firm, Promo } from '@/payload-types'
@@ -17,8 +21,8 @@ import type { CheapestEntry } from './profile'
 import { DRAWDOWN_LABELS, money } from './format'
 import { FirmMark } from './ui'
 
-const th = 'px-4 py-3 text-left text-xs font-bold tracking-wide text-ink-2 uppercase'
-const td = 'px-4 py-4 align-middle'
+const th = 'px-3 py-3 text-left text-xs font-bold tracking-wide text-ink-2 uppercase sm:px-4'
+const td = 'px-3 py-4 align-middle sm:px-4'
 
 export type FirmTableProps = {
   firms: Firm[]
@@ -37,118 +41,129 @@ function shortSize(n: number | null | undefined): string | null {
 
 export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) {
   return (
-    <div className="relative overflow-x-auto rounded-lg border border-line bg-card">
-      <table className="w-full border-collapse text-base">
-        <caption className="sr-only">{caption}</caption>
-        <thead className="border-b border-line bg-page">
-          <tr>
-            <th scope="col" className={th}>
-              #
-            </th>
-            <th scope="col" className={th}>
-              Firm
-            </th>
-            <th scope="col" className={th}>
-              Rating
-            </th>
-            <th scope="col" className={`${th} hidden sm:table-cell`}>
-              From
-            </th>
-            <th scope="col" className={`${th} hidden md:table-cell`}>
-              Split
-            </th>
-            <th scope="col" className={`${th} hidden lg:table-cell`}>
-              Drawdown
-            </th>
-            <th scope="col" className={`${th} text-right`}>
-              <span className="sr-only">Action</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {firms.map((firm, i) => {
-            const price = cheapest.get(firm.id)
-            const promo = promos.get(firm.id)
-            const size = shortSize(price?.accountSize)
-            const split = firm.payout?.profitSplitPct
-            const dd = firm.rulesSummary?.drawdownType
-            return (
-              <tr key={firm.id} className="border-b border-line last:border-0">
-                <td className={`${td} font-bold text-ink-3`}>{i + 1}</td>
+    <div>
+      <div className="relative overflow-x-auto rounded-lg border border-line bg-card">
+        <table className="w-full border-collapse text-base">
+          <caption className="sr-only">{caption}</caption>
+          <thead className="border-b border-line bg-page">
+            <tr>
+              <th scope="col" className={th}>
+                #
+              </th>
+              <th scope="col" className={th}>
+                Firm
+              </th>
+              <th scope="col" className={th}>
+                Rating
+              </th>
+              <th scope="col" className={`${th} hidden sm:table-cell`}>
+                From
+              </th>
+              <th scope="col" className={`${th} hidden md:table-cell`}>
+                Split
+              </th>
+              <th scope="col" className={`${th} hidden lg:table-cell`}>
+                Drawdown
+              </th>
+              <th scope="col" className={`${th} text-right`}>
+                <span className="sr-only">Action</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {firms.map((firm, i) => {
+              const price = cheapest.get(firm.id)
+              const promo = promos.get(firm.id)
+              const size = shortSize(price?.accountSize)
+              const split = firm.payout?.profitSplitPct
+              const dd = firm.rulesSummary?.drawdownType
+              return (
+                <tr key={firm.id} className="border-b border-line last:border-0">
+                  <td className={`${td} font-bold text-ink-3`}>{i + 1}</td>
 
-                <th scope="row" className={`${td} text-left`}>
-                  <Link
-                    href={`/prop-firms/${firm.slug}`}
-                    className="flex items-center gap-3 font-bold text-accent-dark hover:underline"
-                  >
-                    <FirmMark firm={firm} />
-                    {firm.name}
-                  </Link>
-                </th>
-
-                <td className={td}>
-                  {firm.reviewScore != null ? (
-                    <>
-                      <span className="font-bold tabular-nums">
-                        {firm.reviewScore}
-                        <span className="text-accent"> ★</span>
-                      </span>
-                      <span className="block text-xs text-ink-3">
-                        {firm.reviewsCount
-                          ? `${firm.reviewsCount.toLocaleString('en-US')} reviews`
-                          : 'no reviews yet'}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="text-sm text-ink-3">Not rated</span>
-                  )}
-                </td>
-
-                <td className={`${td} hidden sm:table-cell`}>
-                  {price ? (
-                    <>
-                      <span className="font-bold tabular-nums">
-                        {money(price.price, price.currency)}
-                      </span>
-                      {size ? (
-                        <span className="block text-xs text-ink-3">{size} account</span>
-                      ) : null}
-                    </>
-                  ) : (
-                    <span className="text-ink-3">—</span>
-                  )}
-                </td>
-
-                <td className={`${td} hidden tabular-nums md:table-cell`}>
-                  {split != null ? `${split}%` : <span className="text-ink-3">—</span>}
-                </td>
-
-                <td className={`${td} hidden text-ink-2 lg:table-cell`}>
-                  {dd ? DRAWDOWN_LABELS[dd] : <span className="text-ink-3">—</span>}
-                </td>
-
-                <td className={`${td} text-right whitespace-nowrap`}>
-                  {promo?.discountPct ? (
-                    <Link
-                      href={`/prop-firms/${firm.slug}/promo-code`}
-                      className="inline-block rounded-sm bg-accent px-3 py-2 text-sm font-bold text-nav transition-colors hover:bg-accent-light"
-                    >
-                      Claim {promo.discountPct}% off
-                    </Link>
-                  ) : (
+                  <th scope="row" className={`${td} text-left`}>
                     <Link
                       href={`/prop-firms/${firm.slug}`}
-                      className="inline-block rounded-sm border border-line px-3 py-2 text-sm font-bold text-accent-dark transition-colors hover:border-accent"
+                      className="flex items-center gap-3 font-bold text-accent-dark hover:underline"
                     >
-                      Read review
+                      <FirmMark firm={firm} />
+                      {firm.name}
                     </Link>
-                  )}
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+                  </th>
+
+                  <td className={td}>
+                    {firm.reviewScore != null ? (
+                      <>
+                        <span className="font-bold tabular-nums">
+                          {firm.reviewScore}
+                          <span className="text-accent"> ★</span>
+                        </span>
+                        <span className="block text-xs text-ink-3">
+                          {firm.reviewsCount
+                            ? `${firm.reviewsCount.toLocaleString('en-US')} reviews`
+                            : 'no reviews yet'}
+                        </span>
+                      </>
+                    ) : (
+                      <span className="text-sm text-ink-3">Not rated</span>
+                    )}
+                  </td>
+
+                  <td className={`${td} hidden sm:table-cell`}>
+                    {price ? (
+                      <>
+                        <span className="font-bold tabular-nums">
+                          {money(price.price, price.currency)}
+                        </span>
+                        {size ? (
+                          <span className="block text-xs text-ink-3">{size} account</span>
+                        ) : null}
+                      </>
+                    ) : (
+                      <span className="text-ink-3">—</span>
+                    )}
+                  </td>
+
+                  <td className={`${td} hidden tabular-nums md:table-cell`}>
+                    {split != null ? `${split}%` : <span className="text-ink-3">—</span>}
+                  </td>
+
+                  <td className={`${td} hidden text-ink-2 lg:table-cell`}>
+                    {dd ? DRAWDOWN_LABELS[dd] : <span className="text-ink-3">—</span>}
+                  </td>
+
+                  <td className={`${td} text-right whitespace-nowrap`}>
+                    {promo?.discountPct ? (
+                      <Link
+                        href={`/prop-firms/${firm.slug}/promo-code`}
+                        className="inline-block rounded-sm bg-accent px-3 py-3 text-sm font-bold text-nav transition-colors hover:bg-accent-light sm:py-2"
+                      >
+                        Claim {promo.discountPct}% off
+                      </Link>
+                    ) : (
+                      <Link
+                        href={`/prop-firms/${firm.slug}`}
+                        className="inline-block rounded-sm border border-line px-3 py-3 text-sm font-bold text-accent-dark transition-colors hover:border-accent sm:py-2"
+                      >
+                        Read review
+                      </Link>
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+      {/*
+        The action column sits past the right edge on a phone. The sliced
+        button is a weak affordance on its own, so say it in words. Hidden
+        from assistive tech (the table reads linearly) and from desktop,
+        where every column already fits.
+      */}
+      <p aria-hidden className="mt-2 text-xs text-ink-3 sm:hidden">
+        Swipe the table sideways to see each firm&apos;s offer.
+      </p>
     </div>
   )
 }

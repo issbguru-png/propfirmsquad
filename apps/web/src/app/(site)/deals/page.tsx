@@ -298,7 +298,7 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
                   key={chip.label}
                   href={chip.value ? `/deals?type=${chip.value}` : '/deals'}
                   aria-current={active ? 'page' : undefined}
-                  className={`rounded-sm border px-3 py-1.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+                  className={`rounded-sm border px-3 py-3 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:py-1.5 ${
                     active
                       ? 'border-accent bg-accent-pale text-accent-dark'
                       : 'border-line bg-card text-ink-2 hover:border-accent hover:text-ink'

@@ -19,17 +19,23 @@ export type ButtonProps = {
   className?: string
 }
 
+// No `whitespace-nowrap`: a long CTA label ("Use code FUNDEDNEXT10 at
+// FundedNext ↗") is wider than a 320px Android screen, and a button that
+// cannot fit must wrap rather than pan the whole page sideways. Labels that
+// do fit are unaffected, so desktop is unchanged.
 const BASE =
-  'inline-flex items-center justify-center gap-1.5 rounded-sm font-bold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-50'
+  'inline-flex items-center justify-center gap-1.5 rounded-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-50'
 
 const VARIANTS: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary: 'bg-accent text-white hover:bg-accent-dark',
   secondary: 'border border-line bg-card text-ink hover:border-accent hover:text-accent-dark',
 }
 
+// Taller on phones so every CTA clears the ~44px touch-target floor; the
+// `sm:` half restores the original desktop padding exactly.
 const SIZES: Record<NonNullable<ButtonProps['size']>, string> = {
-  sm: 'px-3 py-1.5 text-sm',
-  md: 'px-4 py-2 text-base',
+  sm: 'px-3 py-2.5 text-sm sm:py-1.5',
+  md: 'px-4 py-3 text-base sm:py-2',
 }
 
 /**

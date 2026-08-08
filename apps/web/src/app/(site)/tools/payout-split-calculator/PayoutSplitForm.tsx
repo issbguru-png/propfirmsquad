@@ -82,7 +82,7 @@ export function PayoutSplitForm() {
             <button
               type="button"
               onClick={() => setTiers((prev) => [...prev, { afterPayouts: '', splitPct: '' }])}
-              className="rounded-sm bg-accent-pale px-2 py-1 text-xs font-bold text-accent-dark hover:bg-accent hover:text-white"
+              className="rounded-sm bg-accent-pale px-3 py-2 text-xs font-bold text-accent-dark hover:bg-accent hover:text-white sm:px-2 sm:py-1"
             >
               + Add tier
             </button>
@@ -110,7 +110,7 @@ export function PayoutSplitForm() {
                     type="button"
                     aria-label="Remove tier"
                     onClick={() => setTiers((prev) => prev.filter((_, j) => j !== i))}
-                    className="mb-1 rounded-sm border border-line px-3 py-2 text-sm text-ink-2 hover:border-negative hover:text-negative"
+                    className="mb-1 rounded-sm border border-line px-3 py-2.5 text-sm text-ink-2 hover:border-negative hover:text-negative sm:py-2"
                   >
                     ✕
                   </button>

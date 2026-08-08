@@ -73,7 +73,7 @@ export default async function PropFirmsPage({ searchParams }: { searchParams: Se
               key={f.label}
               href={f.value ? `/prop-firms?type=${f.value}` : '/prop-firms'}
               aria-current={active ? 'page' : undefined}
-              className={`rounded-sm border px-3 py-1.5 text-sm font-semibold transition-colors ${
+              className={`rounded-sm border px-3 py-3 text-sm font-semibold transition-colors sm:py-1.5 ${
                 active
                   ? 'border-accent bg-accent-pale text-accent-dark'
                   : 'border-line bg-card text-ink-2 hover:border-accent hover:text-ink'

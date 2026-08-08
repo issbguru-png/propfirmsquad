@@ -44,6 +44,11 @@ export function AvailabilityChecker({
           <label htmlFor="availability-country" className="mb-2 block text-sm font-bold">
             Can you trade with {firmName} from your country?
           </label>
+          {/*
+            16px text on phones: anything smaller makes mobile Safari zoom the
+            page on focus, and this select has ~200 options to scroll. Full
+            width below sm so the tap area spans the card.
+          */}
           <select
             id="availability-country"
             value={selected}
@@ -51,7 +56,7 @@ export function AvailabilityChecker({
               setSelected(e.target.value)
               setAutoDetected(false)
             }}
-            className="w-full max-w-xs rounded-sm border border-line bg-card px-3 py-2 text-sm font-semibold transition-colors hover:border-accent focus:border-accent focus:outline-none"
+            className="w-full rounded-sm border border-line bg-card px-3 py-2.5 text-base font-semibold transition-colors hover:border-accent focus:border-accent focus:outline-none sm:max-w-xs sm:py-2 sm:text-sm"
           >
             <option value="">Select your country…</option>
             {COUNTRIES.map(([iso2, label]) => (

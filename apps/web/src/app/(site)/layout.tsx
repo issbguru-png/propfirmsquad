@@ -83,7 +83,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-on-dark transition-colors hover:text-accent-light"
+                      className="inline-block py-3 text-on-dark transition-colors hover:text-accent-light sm:py-0"
                     >
                       {item.label}
                     </Link>
@@ -98,7 +98,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
         </header>
-        <main className="mx-auto max-w-(--container-page) px-4 py-10">{children}</main>
+        <main className="mx-auto max-w-(--container-page) px-4 py-6 sm:py-10">{children}</main>
         <footer className="bg-footer mt-16 text-on-dark-2">
           <div className="mx-auto max-w-(--container-page) px-4 py-12">
             {/* Brand + link columns */}
@@ -139,10 +139,20 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   <h2 className="mb-3 text-xs font-bold tracking-widest text-on-dark uppercase">
                     {col.heading}
                   </h2>
-                  <ul className="space-y-2 text-sm">
+                  {/*
+                    Footer links are the densest tap targets on the site (374 of
+                    them across the sweep, 17px tall each). Padding on the anchor
+                    plus a tighter list gap gives ~36px targets on a ~40px pitch
+                    without doubling the footer's height on a phone. Desktop keeps
+                    the original 17px/space-y-2 rhythm.
+                  */}
+                  <ul className="space-y-1 text-sm sm:space-y-2">
                     {col.links.map((link) => (
                       <li key={link.href}>
-                        <Link href={link.href} className="transition-colors hover:text-accent-light">
+                        <Link
+                          href={link.href}
+                          className="inline-block py-2 transition-colors hover:text-accent-light sm:py-0"
+                        >
                           {link.label}
                         </Link>
                       </li>

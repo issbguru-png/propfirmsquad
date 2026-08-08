@@ -29,7 +29,7 @@ export function NumberField({
           value={value}
           placeholder={placeholder}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full rounded-sm border border-line bg-card px-3 py-2 text-ink focus:border-accent focus:ring-2 focus:ring-accent-pale focus:outline-none"
+          className="w-full rounded-sm border border-line bg-card px-3 py-2.5 text-ink focus:border-accent focus:ring-2 focus:ring-accent-pale focus:outline-none sm:py-2"
         />
         {suffix ? (
           <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm text-ink-3">
@@ -59,7 +59,7 @@ export function SelectField({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-sm border border-line bg-card px-3 py-2 text-ink focus:border-accent focus:outline-none"
+        className="w-full rounded-sm border border-line bg-card px-3 py-2.5 text-ink focus:border-accent focus:outline-none sm:py-2"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value}>

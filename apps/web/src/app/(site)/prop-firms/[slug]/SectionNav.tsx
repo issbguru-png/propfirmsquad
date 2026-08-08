@@ -70,13 +70,21 @@ export function SectionNav({
         }`}
       >
         <div className="flex items-center gap-4">
-          <ul className="flex min-w-0 flex-1 gap-x-5 overflow-x-auto py-3 text-sm font-semibold whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {/*
+            The bar's vertical padding lives on each <li>, not on the <ul>, so
+            the full 46px bar height is part of every link's hit area: the
+            anchors themselves are only ~21px tall, which is a hard target to
+            hit on a phone in a bar that also scrolls sideways. The ::before
+            overlay stretches the touch area to the <li> box while the visible
+            underline stays tucked under the text, so nothing moves visually.
+          */}
+          <ul className="flex min-w-0 flex-1 gap-x-5 overflow-x-auto text-sm font-semibold whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {sections.map((s) => (
-              <li key={s.id}>
+              <li key={s.id} className="relative flex items-center py-3">
                 <a
                   href={`#${s.id}`}
                   aria-current={activeId === s.id ? 'true' : undefined}
-                  className={`border-b-2 pb-0.5 transition-colors ${
+                  className={`border-b-2 pb-0.5 transition-colors before:absolute before:inset-0 before:content-[''] ${
                     activeId === s.id
                       ? 'border-accent text-accent-dark'
                       : 'border-transparent text-ink-2 hover:text-accent-dark'
@@ -90,7 +98,7 @@ export function SectionNav({
           {promo ? (
             <Link
               href={promo.href}
-              className="my-1.5 shrink-0 rounded-sm border border-accent/30 bg-accent-pale px-2.5 py-1 text-xs font-bold whitespace-nowrap text-accent-dark transition-colors hover:border-accent"
+              className="my-1.5 shrink-0 rounded-sm border border-accent/30 bg-accent-pale px-2.5 py-2 text-xs font-bold whitespace-nowrap text-accent-dark transition-colors hover:border-accent sm:py-1"
             >
               {promo.code}
               {promo.discountPct != null ? `: ${promo.discountPct}% off` : ''} →
