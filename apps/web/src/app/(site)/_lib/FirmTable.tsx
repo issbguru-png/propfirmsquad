@@ -8,12 +8,12 @@
  * max-allocation/market/programs: those were near-identical across rows
  * (8 of 16 firms share the same max allocation), so they carried no signal.
  *
- * Responsive: columns disclose progressively, so a phone shows only
- * rank / firm / rating / action. Those four still do not fit a 375px screen
- * (~444px at the tightest padding that stays legible), so the wrapper scrolls
- * sideways and a mobile-only hint says so. Fitting them properly would mean
- * dropping a column or restyling rows as cards on mobile; see
- * docs/mobile-audit.md.
+ * Responsive: two renderings, never both visible. Below `sm` each firm is a
+ * stacked card, because even four columns measured ~444px against a 343px
+ * content width and pushed the call to action off-screen. From `sm` up it is a
+ * table with columns disclosing progressively. Tailwind `hidden` is
+ * display:none, so exactly one rendering is in the accessibility tree at a
+ * time and neither is announced twice.
  */
 import Link from 'next/link'
 import type { Firm, Promo } from '@/payload-types'
@@ -39,10 +39,105 @@ function shortSize(n: number | null | undefined): string | null {
   return n >= 1000 ? `${Math.round(n / 1000)}K` : String(n)
 }
 
+/** The one call to action per firm, shared by both renderings. */
+function FirmCta({
+  firm,
+  promo,
+  block,
+}: {
+  firm: Firm
+  promo: Promo | undefined
+  block?: boolean
+}) {
+  const base = `rounded-sm px-3 py-3 text-sm font-bold transition-colors sm:py-2 ${
+    block ? 'block text-center' : 'inline-block'
+  }`
+  return promo?.discountPct ? (
+    <Link
+      href={`/prop-firms/${firm.slug}/promo-code`}
+      className={`${base} bg-accent text-nav hover:bg-accent-light`}
+    >
+      Claim {promo.discountPct}% off
+    </Link>
+  ) : (
+    <Link
+      href={`/prop-firms/${firm.slug}`}
+      className={`${base} border border-line text-accent-dark hover:border-accent`}
+    >
+      Read review
+    </Link>
+  )
+}
+
 export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) {
   return (
     <div>
-      <div className="relative overflow-x-auto rounded-lg border border-line bg-card">
+      {/* ── Phone: stacked cards, so the CTA is never off-screen ── */}
+      <ul className="space-y-3 sm:hidden">
+        {firms.map((firm, i) => {
+          const price = cheapest.get(firm.id)
+          const size = shortSize(price?.accountSize)
+          const split = firm.payout?.profitSplitPct
+          return (
+            <li key={firm.id} className="rounded-lg border border-line bg-card p-4">
+              <div className="flex items-start gap-3">
+                <span className="mt-0.5 text-sm font-bold text-ink-3 tabular-nums">{i + 1}</span>
+                <FirmMark firm={firm} />
+                <div className="min-w-0 flex-1">
+                  <Link
+                    href={`/prop-firms/${firm.slug}`}
+                    className="font-bold text-accent-dark hover:underline"
+                  >
+                    {firm.name}
+                  </Link>
+                  <p className="mt-0.5 text-sm text-ink-2">
+                    {firm.reviewScore != null ? (
+                      <>
+                        <span className="font-bold text-ink tabular-nums">
+                          {firm.reviewScore}
+                          <span className="text-accent"> ★</span>
+                        </span>
+                        {firm.reviewsCount
+                          ? ` · ${firm.reviewsCount.toLocaleString('en-US')} reviews`
+                          : ''}
+                      </>
+                    ) : (
+                      'Not rated'
+                    )}
+                  </p>
+                </div>
+              </div>
+
+              {price || split != null ? (
+                <p className="mt-3 border-t border-line pt-3 text-sm text-ink-2">
+                  {price ? (
+                    <>
+                      From{' '}
+                      <span className="font-bold text-ink tabular-nums">
+                        {money(price.price, price.currency)}
+                      </span>
+                      {size ? ` (${size} account)` : ''}
+                    </>
+                  ) : null}
+                  {price && split != null ? ' · ' : ''}
+                  {split != null ? (
+                    <>
+                      <span className="font-bold text-ink tabular-nums">{split}%</span> split
+                    </>
+                  ) : null}
+                </p>
+              ) : null}
+
+              <div className="mt-3">
+                <FirmCta firm={firm} promo={promos.get(firm.id)} block />
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+
+      {/* ── Tablet and up: the full comparison table ── */}
+      <div className="relative hidden overflow-x-auto rounded-lg border border-line bg-card sm:block">
         <table className="w-full border-collapse text-base">
           <caption className="sr-only">{caption}</caption>
           <thead className="border-b border-line bg-page">
@@ -133,21 +228,7 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
                   </td>
 
                   <td className={`${td} text-right whitespace-nowrap`}>
-                    {promo?.discountPct ? (
-                      <Link
-                        href={`/prop-firms/${firm.slug}/promo-code`}
-                        className="inline-block rounded-sm bg-accent px-3 py-3 text-sm font-bold text-nav transition-colors hover:bg-accent-light sm:py-2"
-                      >
-                        Claim {promo.discountPct}% off
-                      </Link>
-                    ) : (
-                      <Link
-                        href={`/prop-firms/${firm.slug}`}
-                        className="inline-block rounded-sm border border-line px-3 py-3 text-sm font-bold text-accent-dark transition-colors hover:border-accent sm:py-2"
-                      >
-                        Read review
-                      </Link>
-                    )}
+                    <FirmCta firm={firm} promo={promo} />
                   </td>
                 </tr>
               )
@@ -155,15 +236,6 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
           </tbody>
         </table>
       </div>
-      {/*
-        The action column sits past the right edge on a phone. The sliced
-        button is a weak affordance on its own, so say it in words. Hidden
-        from assistive tech (the table reads linearly) and from desktop,
-        where every column already fits.
-      */}
-      <p aria-hidden className="mt-2 text-xs text-ink-3 sm:hidden">
-        Swipe the table sideways to see each firm&apos;s offer.
-      </p>
     </div>
   )
 }
