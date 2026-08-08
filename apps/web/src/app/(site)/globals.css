@@ -7,12 +7,13 @@
  */
 @theme {
   /* Accent */
-  /* Brand orange matched to WPBeginner's primary (#ff6200) and their light-orange tint.
-     -dark is derived for link/body text (4.6:1 on white, AA); -light for hover on dark. */
-  --color-accent: #ff6200;
-  --color-accent-dark: #c94e00;
-  --color-accent-light: #ff8534;
-  --color-accent-pale: #ffebdf;
+  /* Petrol blue accent. Cool ink on warm paper (FT-style), far in hue from the
+     green/red data semantics. --accent is 7.2:1 on white (AAA for body text);
+     --accent-light is the on-dark variant (dark header/footer surfaces). */
+  --color-accent: #0e5f73;
+  --color-accent-dark: #0a4757;
+  --color-accent-light: #3fa9c4;
+  --color-accent-pale: #e3f0f3;
 
   /* Surfaces — warm paper */
   --color-page: #edecea;
@@ -74,7 +75,7 @@ body {
   --color-ink: #f0ede6; /* --color-on-dark */
   --color-ink-2: #9e998f; /* --color-on-dark-2 */
   --color-ink-3: #756f66;
-  --color-accent-pale: #3d1c08; /* warm dark tint of the brand orange */
+  --color-accent-pale: #0d2b33; /* deep tint of the brand petrol */
   --color-positive-pale: #14301d;
   --color-negative-pale: #3a1a16;
 }

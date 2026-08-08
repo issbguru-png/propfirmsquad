@@ -74,7 +74,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="flex items-center gap-2.5 text-xl font-extrabold tracking-tight">
               <Logomark />
               <span>
-                PropFirm<span className="text-accent">Squad</span>
+                PropFirm<span className="text-accent-light">Squad</span>
               </span>
             </Link>
             <nav aria-label="Main">
@@ -110,7 +110,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                 >
                   <Logomark />
                   <span>
-                    PropFirm<span className="text-accent">Squad</span>
+                    PropFirm<span className="text-accent-light">Squad</span>
                   </span>
                 </Link>
                 <p className="mt-3 max-w-sm text-sm">
