@@ -39,13 +39,13 @@ describe('cheapestByFirm', () => {
       { firm: { id: 2 } as never, price: 79, currency: 'EUR' },
       { firm: 2, price: 999, currency: 'EUR' },
     ])
-    expect(map.get(1)).toEqual({ price: 47.2, currency: 'USD' })
-    expect(map.get(2)).toEqual({ price: 79, currency: 'EUR' })
+    expect(map.get(1)).toEqual({ price: 47.2, currency: 'USD', accountSize: null })
+    expect(map.get(2)).toEqual({ price: 79, currency: 'EUR', accountSize: null })
   })
 
   it('defaults currency to USD and ignores null prices', () => {
     const map = cheapestByFirm([{ firm: 3, price: 50, currency: null }])
-    expect(map.get(3)).toEqual({ price: 50, currency: 'USD' })
+    expect(map.get(3)).toEqual({ price: 50, currency: 'USD', accountSize: null })
     expect(cheapestByFirm([]).size).toBe(0)
   })
 })

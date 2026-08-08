@@ -18,14 +18,16 @@ export function computeTypeRank(
   return { rank: idx + 1, total: peers.length, type }
 }
 
-export type CheapestEntry = { price: number; currency: string }
+export type CheapestEntry = { price: number; currency: string; accountSize?: number | null }
 
 /**
  * Group challenges by firm id, keeping only the cheapest row per firm.
  * Handles both depth-0 (number) and populated (object) firm relations.
  */
 export function cheapestByFirm(
-  challenges: Pick<Challenge, 'firm' | 'price' | 'currency'>[],
+  challenges: (Pick<Challenge, 'firm' | 'price' | 'currency'> & {
+    accountSize?: number | null
+  })[],
 ): Map<number, CheapestEntry> {
   const map = new Map<number, CheapestEntry>()
   for (const c of challenges) {
@@ -33,7 +35,11 @@ export function cheapestByFirm(
     if (firmId == null || c.price == null) continue
     const prev = map.get(firmId)
     if (!prev || c.price < prev.price) {
-      map.set(firmId, { price: c.price, currency: c.currency ?? 'USD' })
+      map.set(firmId, {
+        price: c.price,
+        currency: c.currency ?? 'USD',
+        accountSize: c.accountSize ?? null,
+      })
     }
   }
   return map

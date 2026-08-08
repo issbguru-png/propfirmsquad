@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { getAllActivePromos, getFirms } from './_lib/data'
-import { CURRENT_YEAR, FIRM_TYPE_LABELS, PROGRAM_LABELS, compactMoney } from './_lib/format'
-import { EmptyNote, FirmCard, FirmMark, Score } from './_lib/ui'
+import { getAllActivePromos, getChallengesForFirms, getFirms } from './_lib/data'
+import { CURRENT_YEAR } from './_lib/format'
+import { EmptyNote, FirmCard } from './_lib/ui'
+import { FirmTable, bestPromoByFirm } from './_lib/FirmTable'
+import { cheapestByFirm } from './_lib/profile'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { personLd } from '@/lib/seo/jsonld'
 
@@ -33,6 +35,10 @@ export default async function HomePage() {
   const [firms, promos] = await Promise.all([getFirms(), getAllActivePromos()])
   const top = firms.slice(0, 10)
   const topThree = firms.slice(0, 3)
+
+  // Comparison-table data: cheapest challenge + best promo per ranked firm.
+  const cheapest = cheapestByFirm(await getChallengesForFirms(top.map((f) => f.id)))
+  const promoByFirm = bestPromoByFirm(promos)
 
   return (
     <div className="space-y-12">
@@ -173,51 +179,12 @@ export default async function HomePage() {
             No firms in the database yet. Run <code className="rounded bg-accent-pale px-1 text-accent-dark">pnpm seed</code>.
           </EmptyNote>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-line bg-card">
-            <table className="w-full min-w-[720px] border-collapse text-base">
-              <caption className="sr-only">
-                Top prop trading firms of {CURRENT_YEAR} ranked by review score
-              </caption>
-              <thead className="border-b border-line bg-page">
-                <tr>
-                  <th scope="col" className={thTop}>#</th>
-                  <th scope="col" className={thTop}>Firm</th>
-                  <th scope="col" className={thTop}>Score</th>
-                  <th scope="col" className={thTop}>Reviews</th>
-                  <th scope="col" className={thTop}>Max funding</th>
-                  <th scope="col" className={thTop}>Programs</th>
-                  <th scope="col" className={thTop}>Market</th>
-                </tr>
-              </thead>
-              <tbody>
-                {top.map((firm, i) => (
-                  <tr key={firm.id} className="border-b border-line last:border-0">
-                    <td className={`${tdTop} font-bold text-ink-3`}>{i + 1}</td>
-                    <th scope="row" className={`${tdTop} text-left`}>
-                      <Link
-                        href={`/prop-firms/${firm.slug}`}
-                        className="flex items-center gap-3 font-bold text-accent-dark hover:underline"
-                      >
-                        <FirmMark firm={firm} />
-                        {firm.name}
-                      </Link>
-                    </th>
-                    <td className={tdTop}>
-                      <Score value={firm.reviewScore} />
-                    </td>
-                    <td className={tdTop}>{firm.reviewsCount?.toLocaleString('en-US') ?? '—'}</td>
-                    <td className={`${tdTop} font-semibold`}>{compactMoney(firm.maxAllocation)}</td>
-                    <td className={`${tdTop} text-ink-2`}>
-                      {(firm.programTypes ?? []).map((p) => PROGRAM_LABELS[p]).join(', ') || '—'}
-                    </td>
-                    <td className={`${tdTop} text-ink-2`}>
-                      {(firm.firmTypes ?? []).map((t) => FIRM_TYPE_LABELS[t]).join(', ') || '—'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <FirmTable
+            firms={top}
+            cheapest={cheapest}
+            promos={promoByFirm}
+            caption={`Top prop trading firms of ${CURRENT_YEAR} ranked by review score, with entry price, profit split and drawdown type`}
+          />
         )}
         <p className="mt-3 text-sm text-ink-2">
           <Link href="/prop-firms" className="font-semibold text-accent-dark hover:underline">

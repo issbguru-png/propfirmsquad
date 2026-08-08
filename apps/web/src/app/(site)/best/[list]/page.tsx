@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getFirms } from '../../_lib/data'
-import { CURRENT_YEAR, FIRM_TYPE_LABELS, PROGRAM_LABELS, compactMoney } from '../../_lib/format'
-import { EmptyNote, FirmMark, Score, td, th } from '../../_lib/ui'
+import { getAllActivePromos, getChallengesForFirms, getFirms } from '../../_lib/data'
+import { CURRENT_YEAR, FIRM_TYPE_LABELS } from '../../_lib/format'
+import { EmptyNote } from '../../_lib/ui'
+import { FirmTable, bestPromoByFirm } from '../../_lib/FirmTable'
+import { cheapestByFirm } from '../../_lib/profile'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, itemListLd } from '@/lib/seo/jsonld'
 import { bestListMeta } from '@/lib/seo/metadata'
@@ -31,6 +33,12 @@ export default async function BestListPage({ params }: { params: Params }) {
 
   const firms = await getFirms({ firmType: cfg.filter })
   const topThree = firms.slice(0, 3)
+  const [challenges, activePromos] = await Promise.all([
+    getChallengesForFirms(firms.map((f) => f.id)),
+    getAllActivePromos(),
+  ])
+  const cheapest = cheapestByFirm(challenges)
+  const promoByFirm = bestPromoByFirm(activePromos)
   const otherLists = BEST_LISTS.filter((l) => l.slug !== cfg.slug)
   const totalReviews = firms.reduce((n, f) => n + (f.reviewsCount ?? 0), 0)
 
@@ -92,49 +100,12 @@ export default async function BestListPage({ params }: { params: Params }) {
         {firms.length === 0 ? (
           <EmptyNote>No firms in this category yet. Check back soon.</EmptyNote>
         ) : (
-          <div className="overflow-x-auto rounded-lg border border-line bg-card">
-            <table className="w-full min-w-[760px] border-collapse text-sm">
-              <caption className="sr-only">
-                {cfg.h1} ranked by review score
-              </caption>
-              <thead className="border-b border-line bg-page">
-                <tr>
-                  <th scope="col" className={th}>#</th>
-                  <th scope="col" className={th}>Firm</th>
-                  <th scope="col" className={th}>Score</th>
-                  <th scope="col" className={th}>Reviews</th>
-                  <th scope="col" className={th}>Trustpilot</th>
-                  <th scope="col" className={th}>Max funding</th>
-                  <th scope="col" className={th}>Programs</th>
-                </tr>
-              </thead>
-              <tbody>
-                {firms.map((firm, i) => (
-                  <tr key={firm.id} className="border-b border-line last:border-0">
-                    <td className={`${td} font-bold text-ink-3`}>{i + 1}</td>
-                    <th scope="row" className={`${td} text-left`}>
-                      <Link
-                        href={`/prop-firms/${firm.slug}`}
-                        className="flex items-center gap-2.5 font-bold text-accent-dark hover:underline"
-                      >
-                        <FirmMark firm={firm} size="sm" />
-                        {firm.name}
-                      </Link>
-                    </th>
-                    <td className={td}>
-                      <Score value={firm.reviewScore} />
-                    </td>
-                    <td className={td}>{firm.reviewsCount?.toLocaleString('en-US') ?? '—'}</td>
-                    <td className={td}>{firm.trustPilotScore ?? '—'}</td>
-                    <td className={td}>{compactMoney(firm.maxAllocation)}</td>
-                    <td className={`${td} text-ink-2`}>
-                      {(firm.programTypes ?? []).map((p) => PROGRAM_LABELS[p]).join(', ') || '—'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <FirmTable
+            firms={firms}
+            cheapest={cheapest}
+            promos={promoByFirm}
+            caption={`${cfg.h1} ranked by review score, with entry price, profit split and drawdown type`}
+          />
         )}
         <p className="mt-3 text-sm text-ink-2">
           Scores combine verified trader reviews, Trustpilot trend tracking, rule fairness, and
