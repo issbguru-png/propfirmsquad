@@ -1,5 +1,5 @@
 /**
- * Seed the risk register behind /firms-to-avoid.
+ * Seed the risk register shown as a compact table on the homepage.
  *
  * ── LEGAL CONTRACT (read before editing) ─────────────────────────────────────
  * Publishing a status claim about a named company is only defensible when it
@@ -42,6 +42,17 @@ type RiskEntry = {
  * Each entry below was verified against the cited source. Where a matter was
  * later dismissed or the firm resumed operating, that fact is recorded as its
  * own event — an entry is a timeline, not an accusation.
+ *
+ * SOURCING ORDER (see pickPrimaryDocument in _lib/risk.ts, which reads these
+ * URLs and picks what the homepage links): a regulator-hosted court document
+ * beats a regulator press-release page, which beats the firm's own
+ * announcement, which beats trade-press reporting. So where a court filing PDF
+ * exists we cite the PDF itself rather than the press release describing it.
+ *
+ * `riskSummary` is the one-line "what happened" cell on the homepage table, so
+ * it must survive being read alone: any qualifier that keeps the line honest
+ * ("dismissed with prejudice", "not been proven in court") belongs IN the line,
+ * not in a longer paragraph a reader may never reach.
  */
 const ENTRIES: RiskEntry[] = [
   {
@@ -51,20 +62,20 @@ const ENTRIES: RiskEntry[] = [
     country: 'CA',
     riskStatus: 'regulatory',
     riskSummary:
-      'The CFTC filed a civil complaint against operator Traders Global Group in August 2023 and the firm stopped selling challenges; in May 2025 the court dismissed the complaint with prejudice and sanctioned the CFTC.',
+      'The CFTC sued operator Traders Global Group in August 2023 and the firm stopped selling challenges; in May 2025 the court dismissed the complaint with prejudice and sanctioned the CFTC.',
     riskEvents: [
       {
-        date: '2023-09-02T00:00:00.000Z',
+        date: '2023-08-29T00:00:00.000Z',
         event:
-          'The CFTC announced a civil enforcement complaint against Traders Global Group Inc. (doing business as My Forex Funds) and its CEO Murtuza Kazmi. A statutory restraining order signed on 29 August 2023 froze the defendants’ assets, and the firm stopped selling new challenges.',
-        sourceUrl: 'https://www.cftc.gov/PressRoom/PressReleases/8771-23',
+          'Judge Robert B. Kugler of the US District Court for the District of New Jersey granted the CFTC an ex parte statutory restraining order against Traders Global Group Inc. (doing business as My Forex Funds) and its CEO Murtuza Kazmi, freezing assets and appointing a temporary receiver. The firm stopped selling new challenges.',
+        sourceUrl: 'https://www.cftc.gov/media/9191/enftradersglobalgrouporder082923/download',
       },
       {
         date: '2025-05-13T00:00:00.000Z',
         event:
-          'The US District Court for the District of New Jersey dismissed the CFTC’s complaint with prejudice, meaning it cannot be refiled, and granted the defendants’ sanctions motion, ordering the CFTC to pay legal fees. The dismissal followed a special master’s finding that the agency had misled the court.',
+          'The special master in the case, Hon. Jose L. Linares (ret.), recommended that the complaint be dismissed with prejudice, meaning it cannot be refiled, and that the defendants be awarded attorneys’ fees, finding the CFTC’s conduct had been willful and in bad faith. The court adopted the recommendation.',
         sourceUrl:
-          'https://www.financemagnates.com/forex/my-forex-funds-parent-defeats-cftc-in-court-as-judge-imposes-sanctions/',
+          'https://www.cftc.gov/media/12106/ogc_KazmiReportRecommendationSactions051325/download',
       },
       {
         date: '2025-10-06T00:00:00.000Z',
@@ -82,13 +93,13 @@ const ENTRIES: RiskEntry[] = [
     country: 'VC',
     riskStatus: 'regulatory',
     riskSummary:
-      'The CFTC filed a civil fraud action in 2024 naming Traders Domain FX Ltd and 15 other defendants; a court-appointed receivership has since run a customer claims process. The allegations have not been proven in court.',
+      'The CFTC filed a civil fraud complaint in September 2024 naming Traders Domain FX Ltd and 15 other defendants, and a court-appointed receiver now runs a customer claims process; the allegations have not been proven in court.',
     riskEvents: [
       {
-        date: '2024-10-15T00:00:00.000Z',
+        date: '2024-09-30T00:00:00.000Z',
         event:
-          'The CFTC announced a civil enforcement action in the Southern District of Florida against Traders Domain FX Ltd (doing business as The Traders Domain), its two co-founders and related entities. The CFTC alleged the defendants made material fraudulent representations and misappropriated customer funds in a scheme involving more than $283 million in customer deposits. These are allegations; they have not been proven in court.',
-        sourceUrl: 'https://www.cftc.gov/PressRoom/PressReleases/8997-24',
+          'The CFTC filed a complaint for injunctive relief, civil monetary penalties and restitution in the Southern District of Florida against Traders Domain FX Ltd (doing business as The Traders Domain) and 15 other defendants. The CFTC alleged the defendants made material fraudulent representations and misappropriated customer funds in a scheme involving more than $283 million in customer deposits. These are allegations; they have not been proven in court.',
+        sourceUrl: 'https://www.cftc.gov/media/11456/tradersdomainfxcomplaint93024/download',
       },
       {
         date: '2025-06-03T00:00:00.000Z',
@@ -104,7 +115,7 @@ const ENTRIES: RiskEntry[] = [
     firmTypes: ['futures'],
     riskStatus: 'ceased',
     riskSummary:
-      'FundingTicks, the futures brand operated by FundingPips, announced on 18 January 2026 that it was winding down, publishing a tiered refund and payout plan for existing traders.',
+      'FundingPips wound down its futures brand FundingTicks in January 2026, publishing a tiered refund and payout plan for existing traders.',
     riskEvents: [
       {
         date: '2025-12-01T00:00:00.000Z',
@@ -127,7 +138,7 @@ const ENTRIES: RiskEntry[] = [
     firmTypes: ['cfd'],
     riskStatus: 'ceased',
     riskSummary:
-      'Smart Prop Trader announced in November 2024 that it would close on 29 December 2024, publishing a payout and refund plan for existing traders ahead of the date.',
+      'Smart Prop Trader announced in November 2024 that it would stop operating on 29 December 2024, with refunds and normal payouts for existing traders up to that date.',
     riskEvents: [
       {
         date: '2024-11-28T00:00:00.000Z',
@@ -144,7 +155,7 @@ const ENTRIES: RiskEntry[] = [
     firmTypes: ['cfd'],
     riskStatus: 'ceased',
     riskSummary:
-      'Skilled Funded Traders, operated by Easton Consulting Technologies, posted a notice suspending all operations in late March 2024 and has not resumed trading.',
+      'Skilled Funded Traders, operated by Easton Consulting Technologies, posted a notice suspending all operations in March 2024 and has not resumed trading.',
     riskEvents: [
       {
         date: '2024-03-29T00:00:00.000Z',
@@ -161,7 +172,7 @@ const ENTRIES: RiskEntry[] = [
     firmTypes: ['cfd'],
     riskStatus: 'watch',
     riskSummary:
-      'The Funded Trader paused all operations and payouts in March 2024 following a platform migration, relaunched later that year, and has since reported clearing the payout backlog in tranches.',
+      'The Funded Trader paused operations and payouts in March 2024, relaunched later that year, and has since reported clearing the payout backlog in tranches.',
     riskEvents: [
       {
         date: '2024-03-28T00:00:00.000Z',
@@ -185,7 +196,7 @@ const ENTRIES: RiskEntry[] = [
     firmTypes: ['cfd'],
     riskStatus: 'rebranded',
     riskSummary:
-      'OANDA announced that its prop-trading business would transition into FTMO Group, with client migration beginning 2 March 2026; OANDA no longer directly operates a proprietary trading programme after the transition period.',
+      'OANDA moved its prop-trading clients into FTMO Group, with migration opening on 2 March 2026 and the transition period ending 31 March 2026.',
     riskEvents: [
       {
         date: '2026-03-02T00:00:00.000Z',
@@ -197,8 +208,9 @@ const ENTRIES: RiskEntry[] = [
       {
         date: '2026-03-31T00:00:00.000Z',
         event:
-          'OANDA stated the transition period would conclude on 31 March 2026, after which it would refocus on its regulated brokerage business and no longer directly operate a proprietary trading programme.',
-        sourceUrl: 'https://www.oanda.com/group/press-release/oanda-prop-trader-transition-ftmo-group/',
+          'FTMO, which had acquired OANDA, published the joint announcement that OANDA Prop Trader would conclude: migration support ran from 2 March 2026, the transition period closed on 31 March 2026, and clients who chose not to migrate were offered full refunds where applicable.',
+        sourceUrl:
+          'https://ftmo.com/en/press-release/oanda-prop-trader-to-conclude-as-ftmo-strengthens-its-modern-prop-focus/',
       },
     ],
   },
