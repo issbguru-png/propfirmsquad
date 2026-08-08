@@ -302,7 +302,7 @@ export const Firms: CollectionConfig = {
     // ── Trust & workflow ──────────────────────────────────────
     { name: 'underReview', type: 'checkbox', defaultValue: false },
     { name: 'underReviewNote', type: 'text' },
-    // ── Risk register (powers /firms-to-avoid) ────────────────
+    // ── Risk register (powers the homepage risk table) ────────
     // LEGAL: every non-`none` riskStatus MUST be backed by ≥1 riskEvents row
     // with a working public sourceUrl. Neutral, factual wording only — state
     // what happened and when; never characterise in our own voice.
