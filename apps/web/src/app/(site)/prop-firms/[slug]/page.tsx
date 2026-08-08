@@ -35,6 +35,7 @@ import { SectionNav } from './SectionNav'
 import { AuthorByline } from './AuthorByline'
 import { BackToTop } from './BackToTop'
 import { AvailabilityChecker } from './AvailabilityChecker'
+import { AvailabilityChip } from './AvailabilityChip'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, firmLd } from '@/lib/seo/jsonld'
 import { firmProfileMeta } from '@/lib/seo/metadata'
@@ -301,6 +302,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
               </a>
             </li>
           ))}
+          <AvailabilityChip restrictedIso2={restrictedIso2} />
         </ul>
       ) : null}
 
@@ -648,13 +650,35 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             </div>
           )}
           {feeNotes.length > 0 ? (
-            <ul className="mt-3 space-y-1 text-xs text-ink-2">
-              {feeNotes.map((note, idx) => (
-                <li key={note}>
-                  <sup className="font-semibold">{FOOTNOTE_MARKS[idx] ?? `*${idx + 1}`}</sup> {note}
-                </li>
-              ))}
-            </ul>
+            <div className="mt-4 rounded-sm border-l-2 border-accent bg-accent-pale/50 py-3 pr-4 pl-3.5">
+              <p className="mb-1.5 flex items-center gap-1.5 text-[11px] font-bold tracking-wide text-accent-dark uppercase">
+                <svg
+                  aria-hidden
+                  width={13}
+                  height={13}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 16v-4.5M12 8h.01" />
+                </svg>
+                Read the fine print
+              </p>
+              <ul className="space-y-1 text-xs leading-relaxed text-ink-2">
+                {feeNotes.map((note, idx) => (
+                  <li key={note} className="flex gap-1.5">
+                    <span className="font-bold text-accent-dark">
+                      {FOOTNOTE_MARKS[idx] ?? `*${idx + 1}`}
+                    </span>
+                    <span>{note}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ) : null}
         </SectionCard>
 
