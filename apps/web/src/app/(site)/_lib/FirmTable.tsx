@@ -37,7 +37,7 @@ function shortSize(n: number | null | undefined): string | null {
 
 export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-line bg-card">
+    <div className="relative overflow-x-auto rounded-lg border border-line bg-card">
       <table className="w-full border-collapse text-base">
         <caption className="sr-only">{caption}</caption>
         <thead className="border-b border-line bg-page">
