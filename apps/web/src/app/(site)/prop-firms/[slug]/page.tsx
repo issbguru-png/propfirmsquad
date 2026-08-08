@@ -33,6 +33,7 @@ import { Badge, EmptyNote, FirmCard, FirmMark, SectionCard, td, th } from '../..
 import { Button, RatingStars, SectionKicker, TrendChart, VerdictBox } from '@/components'
 import { SectionNav } from './SectionNav'
 import { AuthorByline } from './AuthorByline'
+import { BackToTop } from './BackToTop'
 import { AvailabilityChecker } from './AvailabilityChecker'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { breadcrumbLd, faqLd, firmLd } from '@/lib/seo/jsonld'
@@ -249,17 +250,19 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
 
       {/* ————— Key-facts chips ————— */}
       {keyFacts.length > 0 ? (
-        <ul className="mb-6 flex flex-wrap gap-2">
+        <ul className="mb-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
           {keyFacts.map((f) => (
-            <li key={f.label}>
+            <li key={f.label} className="sm:min-w-40">
               <a
                 href={f.href}
-                className="flex items-baseline gap-2 rounded-sm border border-line bg-card px-3 py-1.5 transition-colors hover:border-accent"
+                className="group block h-full rounded-lg border border-line bg-card px-4 py-3 transition-colors hover:border-accent"
               >
-                <span className="text-[11px] font-bold tracking-wide text-ink-3 uppercase">
+                <span className="block text-[11px] font-bold tracking-wide text-ink-3 uppercase">
                   {f.label}
                 </span>
-                <span className="text-sm font-extrabold tabular-nums">{f.value}</span>
+                <span className="mt-0.5 block text-xl leading-tight font-black tabular-nums text-ink group-hover:text-accent-dark">
+                  {f.value}
+                </span>
               </a>
             </li>
           ))}
@@ -700,6 +703,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           number={sectionNumber('trust')}
           kicker="Trust & Company"
           title={`Is ${firm.name} legit? Trust & company facts`}
+          intro={`Who runs ${firm.name}, how long they have operated, and what independent review platforms say. Check availability for your country below.`}
         >
           <div className="overflow-x-auto rounded-sm border border-line">
             <table className="w-full min-w-[480px] border-collapse text-sm">
@@ -769,6 +773,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           number={sectionNumber('platforms')}
           kicker="Platforms & Assets"
           title="Platforms & tradable assets"
+          intro={`The trading platforms ${firm.name} supports and the markets you can trade on a funded account.`}
         >
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
@@ -820,6 +825,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           number={sectionNumber('faq')}
           kicker="FAQ"
           title={`${firm.name}: frequently asked questions`}
+          intro="Short, direct answers to what traders ask most before buying a challenge here."
         >
           <div className="max-w-(--container-prose) divide-y divide-line">
             {faqs.map((f) => (
@@ -910,6 +916,8 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           </p>
         </SectionCard>
       </div>
+
+      <BackToTop />
     </div>
   )
 }
