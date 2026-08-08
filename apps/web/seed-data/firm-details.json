@@ -2,9 +2,15 @@
   "fundednext": {
     "sources": [
       "https://fundednext.com/",
+      "https://fundednext.com/general-rules",
+      "https://help.fundednext.com/en/articles/8020763-is-ea-allowed-in-fundednext",
+      "https://help.fundednext.com/en/articles/8021076-what-rules-do-i-need-to-follow-in-the-stellar-2-step-challenge",
+      "https://help.fundednext.com/en/articles/10701685-is-news-trading-allowed-in-the-stellar-2-step-account",
+      "https://help.fundednext.com/en/articles/8020084-how-can-i-withdraw-my-profits",
       "https://proptradingvibes.com/blog/fundednext-pricing",
       "https://velotrade.com/blog/fundednext-review"
     ],
+    "needsVerification": [],
     "challenges": [
       { "name": "Stellar 2-Step 6K", "steps": "2-step", "accountSize": 6000, "price": 59.99 },
       { "name": "Stellar 2-Step 15K", "steps": "2-step", "accountSize": 15000, "price": 119.99 },
@@ -32,9 +38,11 @@
     "rules": {
       "drawdownType": "static",
       "newsTradingAllowed": true,
+      "eaAllowed": true,
       "minTradingDays": 5
     },
     "payout": {
+      "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "on-demand (24h processing guarantee)",
       "profitSplitPct": 80,
       "avgPayoutDays": 2
@@ -151,9 +159,12 @@
   },
   "hola-prime": {
     "sources": [
+      "https://holaprime.com/forex/forex-trading-rules/",
+      "https://holaprime.com/",
       "https://www.fxempire.com/prop-firms/holaprime",
       "https://www.propfirmscompared.com/prop-firms/hola-prime"
     ],
+    "needsVerification": ["rules.eaAllowed"],
     "challenges": [
       { "name": "2-Step Prime 5K", "steps": "2-step", "accountSize": 5000, "price": 39 },
       { "name": "2-Step Prime 10K", "steps": "2-step", "accountSize": 10000, "price": 69 },
@@ -176,13 +187,14 @@
     ],
     "rules": {
       "drawdownType": "static",
+      "consistencyRulePct": 40,
       "newsTradingAllowed": true,
       "eaAllowed": true,
       "minTradingDays": 3
     },
     "payout": {
       "methods": ["crypto", "bank-transfer", "other"],
-      "frequency": "weekly, bi-weekly, or monthly (65/80/95% split)",
+      "frequency": "bi-weekly (80%), monthly (95%), or on-demand (80%)",
       "profitSplitPct": 80,
       "avgPayoutDays": 1
     },
@@ -191,9 +203,11 @@
   "crypto-fund-trader": {
     "sources": [
       "https://cryptofundtrader.com/",
+      "https://cryptofundtrader.com/faq",
       "https://www.propfirmscompared.com/prop-firms/crypto-fund-trader",
       "https://velotrade.com/blog/crypto-fund-trader-review"
     ],
+    "needsVerification": [],
     "challenges": [
       { "name": "Two-Phase 5K", "steps": "2-step", "accountSize": 5000, "price": 80 },
       { "name": "Two-Phase 10K", "steps": "2-step", "accountSize": 10000, "price": 90 },
@@ -224,9 +238,16 @@
   },
   "goat-funded-trader": {
     "sources": [
+      "https://help.goatfundedtrader.com/en/articles/15290379-what-is-the-consistency-rule",
+      "https://help.goatfundedtrader.com/en/articles/10749630-can-i-use-expert-advisors-eas",
+      "https://help.goatfundedtrader.com/en/articles/13860595-what-are-the-minimum-trading-days",
+      "https://help.goatfundedtrader.com/en/articles/10742084-is-news-trading-allowed",
+      "https://help.goatfundedtrader.com/en/articles/10742264-how-payouts-work-eligibility-request-processing-and-arrival",
+      "https://help.goatfundedtrader.com/en/articles/9549359-all-about-rewards-and-profit-splits",
       "https://proptradingvibes.com/prop-firms/goat-funded-trader",
       "https://velotrade.com/blog/goat-funded-trader-review"
     ],
+    "needsVerification": [],
     "challenges": [
       { "name": "2-Step GOAT 5K", "steps": "2-step", "accountSize": 5000, "price": 22 },
       { "name": "2-Step GOAT 100K", "steps": "2-step", "accountSize": 100000, "price": 263 },
@@ -237,12 +258,15 @@
     "rules": {
       "drawdownType": "static",
       "consistencyRulePct": 15,
-      "newsTradingAllowed": false
+      "newsTradingAllowed": true,
+      "eaAllowed": true,
+      "minTradingDays": 4
     },
     "payout": {
-      "methods": ["crypto", "other"],
+      "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "bi-weekly",
-      "profitSplitPct": 80
+      "profitSplitPct": 80,
+      "avgPayoutDays": 2
     },
     "verdictText": "Goat Funded Trader (founded 2023, Hong Kong) runs one of the broadest challenge menus in the space - 1-step, 2-step in GOAT/Standard/Pro variants, 3-step, and instant accounts from $5K to $400K - with 2-Step GOAT pricing from $22 (5K) to $448 (200K). The base profit split is 80% with paid upgrades toward 100%, payouts run bi-weekly via Rise, crypto, or Skrill, and challenge drawdowns are static. Funded accounts carry a 15% best-day consistency rule (20% on Instant Pro) and profit made within 5 minutes of high-impact news is capped at 1%. Reviewers also flag payout caps on early withdrawals and strict limits on third-party EAs, so read the funded-account terms closely. [Draft verdict — pending editorial review.]"
   },
@@ -279,10 +303,16 @@
   },
   "alpha-capital-group": {
     "sources": [
-      "https://thepropjournalist.com/reviews/alpha-capital/",
       "https://alphacapitalgroup.uk/",
+      "https://help.alphacapitalgroup.uk/en/articles/10102634-on-demand-performance-fee",
+      "https://help.alphacapitalgroup.uk/en/articles/6934236-can-i-use-an-expert-advisor-ea",
+      "https://help.alphacapitalgroup.uk/en/articles/6933755-how-do-i-get-paid-performance-fees",
+      "https://help.alphacapitalgroup.uk/en/articles/8420429-alpha-pro-8-10",
+      "https://help.alphacapitalgroup.uk/en/articles/9293522-can-i-trade-news",
+      "https://thepropjournalist.com/reviews/alpha-capital/",
       "https://www.fxempire.com/prop-firms/alphacapitalgroup"
     ],
+    "needsVerification": [],
     "challenges": [
       { "name": "Alpha Pro 2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 97 },
       { "name": "Alpha Pro 2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 197 },
@@ -292,22 +322,33 @@
     ],
     "rules": {
       "drawdownType": "static",
+      "consistencyRulePct": 40,
       "newsTradingAllowed": false,
+      "eaAllowed": false,
       "minTradingDays": 3
     },
     "payout": {
       "methods": ["bank-transfer", "wise", "other"],
       "frequency": "bi-weekly or on-demand",
-      "profitSplitPct": 80
+      "profitSplitPct": 80,
+      "avgPayoutDays": 2
     },
     "verdictText": "Alpha Capital Group is a UK-based prop firm whose flagship Alpha Pro 2-step evaluation runs $97 (10K) to $997 (200K), using a static 10% maximum drawdown with a 5% balance-based daily limit and 10%/5% phase targets. It also sells Alpha One (1-step, 6% trailing), Alpha Swing (weekend holding permitted), and Alpha Three (3-step) variants. The performance split is 80% (90% via paid add-on), payouts are bi-weekly or on-demand via Rise, Wise, or bank transfer, and on-demand withdrawals require a 40% best-day rule plus at least 2% profit. News trading is restricted in 2-5 minute windows on funded accounts and 3 minimum trading days apply per phase. [Draft verdict — pending editorial review.]"
   },
   "aquafunded": {
     "sources": [
+      "https://help.aquafunded.com/en/articles/15281226-2-step-standard",
+      "https://help.aquafunded.com/en/articles/15255671-are-there-minimum-trading-days",
+      "https://help.aquafunded.com/en/articles/14785740-is-news-trading-allowed",
+      "https://help.aquafunded.com/en/articles/11831659-are-eas-trade-copiers-allowed",
+      "https://help.aquafunded.com/en/articles/11875903-consistency-rule",
+      "https://help.aquafunded.com/en/articles/9250906-how-do-rewards-work",
+      "https://help.aquafunded.com/en/articles/9250960-what-platforms-are-available",
       "https://brokeranalysis.com/prop-trading-firms/aqua-funded/pricing/",
       "https://help.aquafunded.com/en/articles/10476456-2-step-models",
       "https://velotrade.com/blog/aqua-funded-review"
     ],
+    "needsVerification": [],
     "challenges": [
       { "name": "2-Step 10K", "steps": "2-step", "accountSize": 10000, "price": 99 },
       { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 199 },
@@ -316,9 +357,13 @@
       { "name": "2-Step 200K", "steps": "2-step", "accountSize": 200000, "price": 999 }
     ],
     "rules": {
-      "drawdownType": "static"
+      "drawdownType": "static",
+      "newsTradingAllowed": true,
+      "eaAllowed": true,
+      "minTradingDays": 3
     },
     "payout": {
+      "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "every 14 days",
       "profitSplitPct": 90,
       "avgPayoutDays": 2
@@ -372,8 +417,15 @@
       "https://www.brokeranalysis.com/prop-trading-firms/blue-guardian/pricing/",
       "https://help.blueguardian.com/en/articles/14061082-instant-standard-account-rules",
       "https://thetrustedprop.com/blogs/blue-guardian-max-daily-loss-and-max-drawdown-explained",
-      "https://coinspot.io/en/prop-trading-firms/blue-guardian/"
+      "https://coinspot.io/en/prop-trading-firms/blue-guardian/",
+      "https://help.blueguardian.com/en/articles/14062291-2-step-standard-rules",
+      "https://help.blueguardian.com/en/articles/14062433-2-step-pro-rules",
+      "https://help.blueguardian.com/en/articles/9660857-how-do-payouts-work",
+      "https://help.blueguardian.com/en/articles/9661525-platform-rules",
+      "https://help.blueguardian.com/en/articles/15618204-general-information-rules",
+      "https://help.blueguardian.com/en/articles/14187958-24-hours-payout-guarantee"
     ],
+    "needsVerification": ["rulesSummary.consistencyRulePct"],
     "challenges": [
       { "name": "2-Step Standard 10K", "steps": "2-step", "accountSize": 10000, "price": 112 },
       { "name": "2-Step Standard 25K", "steps": "2-step", "accountSize": 25000, "price": 229 },
@@ -388,21 +440,28 @@
     ],
     "rules": {
       "drawdownType": "hybrid",
-      "consistencyRulePct": 15
+      "consistencyRulePct": 15,
+      "newsTradingAllowed": false,
+      "eaAllowed": true,
+      "minTradingDays": 5
     },
     "payout": {
+      "methods": ["crypto", "bank-transfer", "other"],
       "frequency": "bi-weekly (weekly via add-on)",
-      "profitSplitPct": 80,
+      "profitSplitPct": 85,
       "avgPayoutDays": 1
     },
     "verdictText": "Blue Guardian offers instant, 1-step, 2-step, and 3-step accounts from $5K to $400K, with 2-Step Standard pricing from $112 (10K) to $1,162 (200K) and a cheaper Pro line from $79. Its maximum drawdown is a 6% trailing model that locks in at the starting balance (plus a 1% buffer) once the account gains 6% - effectively a hybrid - alongside a roughly 4% daily limit, and consistency rules of 15-25% apply depending on the plan. The profit split starts at 80% rising to 90%, and payouts are bi-weekly by default with a 24-hour processing guarantee that pays 100% of profits if missed. Reviewers caution that terms vary considerably across its many account models, including the Guardian Shield breach rule, so verify the plan-specific rules before buying. [Draft verdict — pending editorial review.]"
   },
   "maven-trading": {
     "sources": [
+      "https://maventrading.com/faqs",
+      "https://maventrading.com/",
       "https://dealpropfirm.com/prop-firms/maven-trading",
       "https://brokeranalysis.com/prop-trading-firms/maven-trading/",
       "https://lunefi.com/blog/maven-trading-complete-guide-to-rules-and-payouts"
     ],
+    "needsVerification": ["payout.avgPayoutDays", "payout.methods (crypto)"],
     "challenges": [
       { "name": "1-Step 2K", "steps": "1-step", "accountSize": 2000, "price": 25 },
       { "name": "1-Step 5K", "steps": "1-step", "accountSize": 5000, "price": 45 },
@@ -431,22 +490,29 @@
     ],
     "rules": {
       "drawdownType": "static",
-      "newsTradingAllowed": true,
-      "eaAllowed": true,
+      "newsTradingAllowed": false,
+      "eaAllowed": false,
       "minTradingDays": 3
     },
     "payout": {
-      "methods": ["crypto", "bank-transfer"],
-      "frequency": "bi-weekly",
+      "methods": ["crypto", "bank-transfer", "other"],
+      "frequency": "every 10 business days",
       "profitSplitPct": 80
     },
     "verdictText": "Maven Trading is one of the cheapest entry points in the funded-account market, with challenges from $15 (2K 3-step) up to $495 (100K 1-step) across 1-step, 2-step, 3-step, instant, and mini programs spanning $2K to $100K. The flagship 2-step uses a static 8% maximum loss with a 4% daily limit and 8%/5% targets, funded traders keep 80% (70% on instant, 75% on mini), and 3 minimum trading days apply. Payouts run bi-weekly with a $50 minimum via bank wire or crypto, news trading is unrestricted, and standard algorithmic strategies are allowed while HFT and latency arbitrage are banned. [Draft verdict — pending editorial review.]"
   },
   "fundedelite": {
     "sources": [
+      "https://faq.fundedelite.com/en/articles/12683226-2-step-challenge-free-retry",
+      "https://faq.fundedelite.com/en/articles/12683783-instant-challenge",
+      "https://faq.fundedelite.com/en/articles/12681766-eas-expert-advisors",
+      "https://faq.fundedelite.com/en/articles/12681858-news-trading",
+      "https://faq.fundedelite.com/en/articles/12675058-payouts-process-and-profit-split",
+      "https://faq.fundedelite.com/en/articles/12682106-strategy-risk-limits",
       "https://thetrustedprop.com/prop-firms/fundedelite",
       "https://tradingfinder.com/props/fundedelite/"
     ],
+    "needsVerification": ["payout.avgPayoutDays"],
     "challenges": [
       { "name": "2-Step 7K", "steps": "2-step", "accountSize": 7000, "price": 89 },
       { "name": "2-Step 25K", "steps": "2-step", "accountSize": 25000, "price": 219 },
@@ -462,6 +528,7 @@
     "rules": {
       "drawdownType": "static",
       "newsTradingAllowed": true,
+      "eaAllowed": false,
       "minTradingDays": 3
     },
     "payout": {
