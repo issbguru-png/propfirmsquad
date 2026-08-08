@@ -395,7 +395,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             <p className="mt-4">
               <Link
                 href={`/prop-firms/${firm.slug}/promo-code`}
-                className="inline-block rounded-sm bg-accent px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-accent-dark"
+                className="inline-block rounded-sm bg-accent px-4 py-2 text-sm font-bold text-nav transition-colors hover:bg-accent-light"
               >
                 Get {bestPromo.discountPct != null ? `${bestPromo.discountPct}% off` : 'promo code'}{' '}
                 with code {bestPromo.code} →

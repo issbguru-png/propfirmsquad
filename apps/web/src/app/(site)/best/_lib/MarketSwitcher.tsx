@@ -38,7 +38,7 @@ export function MarketSwitcher() {
                 aria-current={active ? 'page' : undefined}
                 className={`inline-block border-b-2 py-2.5 whitespace-nowrap transition-colors ${
                   active
-                    ? 'border-accent-light text-accent-light'
+                    ? 'border-accent text-accent'
                     : 'border-transparent text-on-dark-2 hover:border-line-dark hover:text-on-dark'
                 }`}
               >

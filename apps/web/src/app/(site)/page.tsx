@@ -256,7 +256,7 @@ export default async function HomePage() {
           </p>
           <Link
             href="/deals"
-            className="inline-block rounded-sm bg-accent px-5 py-2.5 font-bold text-white transition-colors hover:bg-accent-dark"
+            className="inline-block rounded-sm bg-accent px-5 py-2.5 font-bold text-nav transition-colors hover:bg-accent-light"
           >
             See all deals
           </Link>
