@@ -301,110 +301,140 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
           badge={verdictIsDraft ? <Badge>Draft: pending review</Badge> : undefined}
           className="scroll-mt-24 sm:p-7"
         >
-          <div className="mb-5 flex flex-wrap items-end gap-x-8 gap-y-3">
-            {firm.reviewScore != null ? (
-              <div>
-                <div className="text-5xl font-black tabular-nums text-accent-dark">
-                  {firm.reviewScore}
-                  <span className="text-2xl text-accent">★</span>
-                </div>
-                <RatingStars rating={firm.reviewScore} />
-                <div className="text-xs text-ink-3">
-                  {firm.reviewsCount
-                    ? `${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
-                    : 'trader review score'}
-                </div>
-              </div>
-            ) : firm.trustPilotScore != null ? (
-              <div>
-                <div className="text-5xl font-black tabular-nums text-accent-dark">
-                  {firm.trustPilotScore}
-                  <span className="text-2xl font-extrabold text-ink-3">/5</span>
-                </div>
-                <div className="text-xs text-ink-3">Trustpilot</div>
-              </div>
-            ) : (
-              <div className="text-sm text-ink-3">Not yet rated</div>
-            )}
-            {firm.reviewScore != null && firm.trustPilotScore != null ? (
-              <div>
-                <div className="text-2xl font-extrabold">{firm.trustPilotScore}/5</div>
-                <div className="text-xs text-ink-3">Trustpilot</div>
-              </div>
-            ) : null}
-            {firm.maxAllocation != null ? (
-              <div>
-                <div className="text-2xl font-extrabold">{compactMoney(firm.maxAllocation)}</div>
-                <div className="text-xs text-ink-3">max funding</div>
-              </div>
-            ) : null}
-            {payout?.profitSplitPct != null ? (
-              <div>
-                <div className="text-2xl font-extrabold">{payout.profitSplitPct}%</div>
-                <div className="text-xs text-ink-3">profit split</div>
-              </div>
-            ) : null}
-          </div>
-          {breakdown ? (
-            <div className="mb-5 max-w-md rounded-sm border border-line p-4">
-              <div className="mb-3 flex items-baseline justify-between gap-4">
-                <span className="text-xs font-bold tracking-wide text-ink-3 uppercase">
-                  Score breakdown
-                </span>
-                <span className="text-sm font-extrabold tabular-nums">
-                  Overall {breakdown.overall.toFixed(1)}
-                </span>
-              </div>
-              <dl className="space-y-2.5">
-                {breakdown.rows.map((r) => (
-                  <div key={r.key} className="flex items-center gap-3">
-                    <dt className="w-36 shrink-0 text-xs font-semibold text-ink-2">{r.label}</dt>
-                    <dd className="flex min-w-0 flex-1 items-center gap-2.5">
-                      <div aria-hidden className="h-1.5 flex-1 overflow-hidden rounded-full bg-page">
-                        <div
-                          className="h-full rounded-full bg-accent"
-                          style={{ width: `${Math.min(100, (r.value / 5) * 100)}%` }}
-                        />
-                      </div>
-                      <span className="w-8 text-right text-sm font-bold tabular-nums">
-                        {r.value.toFixed(1)}
+          {/* Scorecard beside the narrative: the numbers on the left, what they
+              mean on the right. Two different 5-point scores live here (trader
+              reviews vs our editorial score), so each is labelled explicitly. */}
+          <div className="grid gap-6 lg:grid-cols-5 lg:gap-8">
+            {/* ── Scorecard ── */}
+            <div className="lg:col-span-2">
+              <div className="rounded-lg border border-line bg-page/60 p-4">
+                <p className="text-[11px] font-bold tracking-wide text-ink-3 uppercase">
+                  Trader rating
+                </p>
+                {firm.reviewScore != null ? (
+                  <div className="mt-1 flex items-end gap-3">
+                    <span className="text-5xl leading-none font-black tabular-nums text-accent-dark">
+                      {firm.reviewScore}
+                    </span>
+                    <span className="pb-1">
+                      <RatingStars rating={firm.reviewScore} />
+                      <span className="mt-0.5 block text-xs text-ink-3">
+                        {firm.reviewsCount
+                          ? `${firm.reviewsCount.toLocaleString('en-US')} verified reviews`
+                          : 'no reviews yet'}
                       </span>
-                    </dd>
+                    </span>
                   </div>
-                ))}
-              </dl>
+                ) : firm.trustPilotScore != null ? (
+                  <div className="mt-1 flex items-end gap-3">
+                    <span className="text-5xl leading-none font-black tabular-nums text-accent-dark">
+                      {firm.trustPilotScore}
+                    </span>
+                    <span className="pb-1 text-xs text-ink-3">Trustpilot score</span>
+                  </div>
+                ) : (
+                  <p className="mt-1 text-sm text-ink-3">Not yet rated</p>
+                )}
+
+                {firm.reviewScore != null && firm.trustPilotScore != null ? (
+                  <p className="mt-3 border-t border-line pt-3 text-sm text-ink-2">
+                    Trustpilot:{' '}
+                    <span className="font-bold tabular-nums text-ink">
+                      {firm.trustPilotScore}/5
+                    </span>
+                  </p>
+                ) : null}
+
+                {breakdown ? (
+                  <div className="mt-4 border-t border-line pt-4">
+                    <div className="mb-3 flex items-baseline justify-between gap-3">
+                      <span className="text-[11px] font-bold tracking-wide text-ink-3 uppercase">
+                        Our editorial score
+                      </span>
+                      <span className="text-lg font-black tabular-nums text-ink">
+                        {breakdown.overall.toFixed(1)}
+                        <span className="text-xs font-bold text-ink-3">/5</span>
+                      </span>
+                    </div>
+                    <dl className="space-y-2.5">
+                      {breakdown.rows.map((r) => (
+                        <div key={r.key} className="flex items-center gap-3">
+                          <dt className="w-28 shrink-0 text-xs font-semibold text-ink-2">
+                            {r.label}
+                          </dt>
+                          <dd className="flex min-w-0 flex-1 items-center gap-2.5">
+                            <div
+                              aria-hidden
+                              className="h-1.5 flex-1 overflow-hidden rounded-full bg-line"
+                            >
+                              <div
+                                className="h-full rounded-full bg-accent"
+                                style={{ width: `${Math.min(100, (r.value / 5) * 100)}%` }}
+                              />
+                            </div>
+                            <span className="w-7 text-right text-sm font-bold tabular-nums">
+                              {r.value.toFixed(1)}
+                            </span>
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <p className="mt-3 text-[11px] leading-snug text-ink-3">
+                      Scored by {' '}
+                      <a href="/#author-h" className="underline hover:text-accent-dark">
+                        Ayub Rana
+                      </a>{' '}
+                      against our{' '}
+                      <Link href="/methodology" className="underline hover:text-accent-dark">
+                        published methodology
+                      </Link>
+                      .
+                    </p>
+                  </div>
+                ) : null}
+              </div>
             </div>
-          ) : null}
-          {verdictParas.length > 0 ? (
-            verdictParas.map((p, i) => (
-              <p key={i} className="mb-3 max-w-(--container-prose) leading-relaxed">
-                {p}
-              </p>
-            ))
-          ) : (
-            <p className="max-w-(--container-prose) leading-relaxed">
-              {firm.name} is a {(firm.firmTypes ?? []).map((t) => FIRM_TYPE_LABELS[t]).join(' and ')}{' '}
-              prop firm{est ? ` operating since ${est}` : ''}
-              {firm.country ? `, based in ${countryName(firm.country)}` : ''}.{' '}
-              {firm.reviewScore != null && firm.reviewsCount
-                ? `It scores ${firm.reviewScore}/5 from ${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
-                : 'It has not yet accumulated enough reviews for a rating'}
-              {firm.trustPilotScore != null ? ` and holds ${firm.trustPilotScore}/5 on Trustpilot` : ''}
-              . Our full editorial verdict is in progress; the data below is what we have verified
-              so far.
-            </p>
-          )}
-          {bestPromo?.code ? (
-            <p className="mt-4">
-              <Link
-                href={`/prop-firms/${firm.slug}/promo-code`}
-                className="inline-block rounded-sm bg-accent px-4 py-2 text-sm font-bold text-nav transition-colors hover:bg-accent-light"
-              >
-                Get {bestPromo.discountPct != null ? `${bestPromo.discountPct}% off` : 'promo code'}{' '}
-                with code {bestPromo.code} →
-              </Link>
-            </p>
-          ) : null}
+
+            {/* ── Narrative ── */}
+            <div className="lg:col-span-3">
+              {verdictParas.length > 0 ? (
+                verdictParas.map((p, i) => (
+                  <p key={i} className="mb-3 leading-relaxed">
+                    {p}
+                  </p>
+                ))
+              ) : (
+                <p className="leading-relaxed">
+                  {firm.name} is a{' '}
+                  {(firm.firmTypes ?? []).map((t) => FIRM_TYPE_LABELS[t]).join(' and ')} prop firm
+                  {est ? ` operating since ${est}` : ''}
+                  {firm.country ? `, based in ${countryName(firm.country)}` : ''}.{' '}
+                  {firm.reviewScore != null && firm.reviewsCount
+                    ? `It scores ${firm.reviewScore}/5 from ${firm.reviewsCount.toLocaleString('en-US')} trader reviews`
+                    : 'It has not yet accumulated enough reviews for a rating'}
+                  {firm.trustPilotScore != null
+                    ? ` and holds ${firm.trustPilotScore}/5 on Trustpilot`
+                    : ''}
+                  . Our full editorial verdict is in progress; the data below is what we have
+                  verified so far.
+                </p>
+              )}
+              {bestPromo?.code ? (
+                <p className="mt-5">
+                  <Link
+                    href={`/prop-firms/${firm.slug}/promo-code`}
+                    className="inline-block rounded-sm bg-accent px-4 py-2.5 text-sm font-bold text-nav transition-colors hover:bg-accent-light"
+                  >
+                    Get{' '}
+                    {bestPromo.discountPct != null
+                      ? `${bestPromo.discountPct}% off`
+                      : 'promo code'}{' '}
+                    with code {bestPromo.code} →
+                  </Link>
+                </p>
+              ) : null}
+            </div>
+          </div>
         </VerdictBox>
 
         {/* ————— Pros & Cons ————— */}
