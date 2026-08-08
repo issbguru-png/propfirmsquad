@@ -95,6 +95,34 @@ export const ASSET_LABELS: Record<NonNullable<Firm['assets']>[number], string> =
   'other-commodities': 'Commodities',
 }
 
+/** Asset labels for the leverage matrix, which also allows an account-wide row. */
+export const LEVERAGE_ASSET_LABELS: Record<string, string> = {
+  ...ASSET_LABELS,
+  all: 'All assets',
+}
+
+export const LEVERAGE_PROGRAM_LABELS: Record<string, string> = {
+  ...PROGRAM_LABELS,
+  all: 'Max leverage',
+}
+
+/** How the trader pays the firm — distinct from PAYOUT_METHOD_LABELS. */
+export const PAYMENT_METHOD_LABELS: Record<string, string> = {
+  card: 'Credit / debit card',
+  'apple-pay': 'Apple Pay',
+  'google-pay': 'Google Pay',
+  paypal: 'PayPal',
+  crypto: 'Crypto',
+  'bank-transfer': 'Bank transfer',
+  other: 'Other local methods',
+}
+
+export const WEEKEND_HOLDING_LABELS: Record<string, string> = {
+  allowed: 'Allowed',
+  'not-allowed': 'Not allowed',
+  'swing-only': 'Swing accounts only',
+}
+
 export const DRAWDOWN_LABELS: Record<string, string> = {
   static: 'Static',
   'trailing-eod': 'Trailing (end of day)',

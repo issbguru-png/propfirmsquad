@@ -13,14 +13,24 @@ import {
   getPromosForFirm,
   getRuleChangesForFirm,
 } from '../../_lib/data'
-import { cheapestByFirm, computeTypeRank, scoreBreakdown } from '../../_lib/profile'
+import {
+  cheapestByFirm,
+  computeTypeRank,
+  leverageMatrix,
+  scoreBreakdown,
+  timeLimitSummary,
+} from '../../_lib/profile'
 import {
   ASSET_LABELS,
   CURRENT_YEAR,
   DRAWDOWN_LABELS,
   FIRM_TYPE_LABELS,
+  LEVERAGE_ASSET_LABELS,
+  LEVERAGE_PROGRAM_LABELS,
+  PAYMENT_METHOD_LABELS,
   PAYOUT_METHOD_LABELS,
   PROGRAM_LABELS,
+  WEEKEND_HOLDING_LABELS,
   compactMoney,
   countryName,
   formatDate,
@@ -161,6 +171,23 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
     }
   })
 
+  // ── Trading conditions (rendered only where the firm publishes them) ──
+  const leverage = leverageMatrix(firm.trading?.leverage)
+  const commissions = (firm.trading?.commissions ?? []).filter((c) => c.asset && c.cost)
+  const broker = firm.trading?.broker
+  const hasTradingConditions = Boolean(leverage || commissions.length > 0 || broker)
+  // The platforms section covers trading conditions too once we have them, so
+  // its kicker and its sticky-nav label are driven from one place.
+  const platformsLabel = hasTradingConditions ? 'Platforms & Conditions' : 'Platforms & Assets'
+
+  // Challenge time limits are only trusted behind the firm's verified flag,
+  // and never off fixture pricing (fixtures carry no time-limit data).
+  const timeLimit = usingFixturePricing
+    ? null
+    : timeLimitSummary(firm.rulesSummary, dbChallenges)
+  const showTimeLimitColumn =
+    timeLimit != null && dbChallenges.some((c) => c.timeLimitDays != null)
+
   // ── Quick rule facts for the verdict pills ──
   // Check = trader-friendly, cross = a restriction. Only rendered where the
   // field is actually audited; unverified fields are omitted, never guessed.
@@ -192,6 +219,20 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
             ? 'No minimum trading days'
             : `${r.minTradingDays} minimum trading days`,
         ok: r.minTradingDays === 0,
+      })
+    }
+    if (timeLimit) {
+      ruleFacts.push({ label: timeLimit.label, ok: timeLimit.unlimited })
+    }
+    if (r?.weekendHolding) {
+      ruleFacts.push({
+        label:
+          r.weekendHolding === 'allowed'
+            ? 'Weekend holding allowed'
+            : r.weekendHolding === 'not-allowed'
+              ? 'No weekend holding'
+              : 'Weekend holding on swing accounts only',
+        ok: r.weekendHolding === 'allowed',
       })
     }
   }
@@ -314,7 +355,10 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
 
       {/* ————— Sticky section nav ————— */}
       <SectionNav
-        sections={SECTIONS.map((s) => ({ id: s.id, label: s.label }))}
+        sections={SECTIONS.map((s) => ({
+          id: s.id,
+          label: s.id === 'platforms' ? platformsLabel : s.label,
+        }))}
         promo={
           bestPromo?.code
             ? {
@@ -604,6 +648,9 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                     <th scope="col" className={thNum}>Max daily loss</th>
                     <th scope="col" className={thNum}>Max drawdown</th>
                     <th scope="col" className={th}>Drawdown type</th>
+                    {showTimeLimitColumn ? (
+                      <th scope="col" className={th}>Time limit</th>
+                    ) : null}
                     <th scope="col" className={thNum}>Split</th>
                     <th scope="col" className={th}>Refundable</th>
                   </tr>
@@ -639,6 +686,15 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                         {c.maxTotalDrawdownPct != null ? `${c.maxTotalDrawdownPct}%` : '—'}
                       </td>
                       <td className={td}>{c.drawdownType ? DRAWDOWN_LABELS[c.drawdownType] : '—'}</td>
+                      {showTimeLimitColumn ? (
+                        <td className={td}>
+                          {isDbChallenge(c) && c.timeLimitDays != null ? (
+                            `${c.timeLimitDays} days`
+                          ) : (
+                            <span className="font-semibold text-positive">No time limit</span>
+                          )}
+                        </td>
+                      ) : null}
                       <td className={tdNum}>{c.profitSplitPct != null ? `${c.profitSplitPct}%` : '—'}</td>
                       <td className={td}>
                         {c.refundableFee == null ? '—' : c.refundableFee ? 'Yes' : 'No'}
@@ -739,6 +795,44 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                       rules?.minTradingDays != null ? `${rules.minTradingDays} days` : 'Being verified',
                     why: 'The floor on how fast you can pass a phase, which matters if you trade infrequently or want to pass quickly.',
                   },
+                  // Rows below appear only once researched, so the table never
+                  // grows a block of "Being verified" placeholders.
+                  ...(timeLimit
+                    ? [
+                        {
+                          rule: 'Challenge time limit',
+                          value: timeLimit.label,
+                          why: 'A deadline forces you to trade whether or not your setup appears. Firms with no time limit let you sit out bad conditions.',
+                        },
+                      ]
+                    : []),
+                  ...(rules?.weekendHolding
+                    ? [
+                        {
+                          rule: 'Weekend / overnight holding',
+                          value: WEEKEND_HOLDING_LABELS[rules.weekendHolding],
+                          why: 'Swing traders need positions to survive the Friday close. Where holding is barred, open trades are closed for you and gaps cannot be traded.',
+                        },
+                      ]
+                    : []),
+                  ...(rules?.copyTradingAllowed != null
+                    ? [
+                        {
+                          rule: 'Copy trading',
+                          value: rules.copyTradingAllowed ? 'Allowed' : 'Not allowed',
+                          why: 'Decides whether you can mirror one strategy across several accounts. Most firms that allow it restrict it to accounts you own yourself.',
+                        },
+                      ]
+                    : []),
+                  ...(rules?.hftAllowed != null
+                    ? [
+                        {
+                          rule: 'High-frequency trading',
+                          value: rules.hftAllowed ? 'Allowed' : 'Not allowed',
+                          why: 'Firms police latency arbitrage and tick scalping hard, and an HFT breach is one of the most common reasons a passed account is voided.',
+                        },
+                      ]
+                    : []),
                 ].map((row) => (
                   <tr key={row.rule} className="border-b border-line last:border-0">
                     <th scope="row" className={`${td} text-left font-bold`}>{row.rule}</th>
@@ -804,6 +898,32 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                     ? (payout?.methods ?? []).map((m) => PAYOUT_METHOD_LABELS[m]).join(', ')
                     : 'Being verified',
               },
+              // Only shown once sourced, so the grid never fills with placeholders.
+              ...(payout?.firstPayoutDays != null
+                ? [
+                    {
+                      label: 'First payout after',
+                      value:
+                        payout.firstPayoutDays === 0
+                          ? 'On demand'
+                          : `${payout.firstPayoutDays} days`,
+                    },
+                  ]
+                : []),
+              ...(payout?.minPayoutAmount != null
+                ? [
+                    {
+                      label: 'Minimum payout',
+                      // Firms state withdrawal minimums in USD even when they
+                      // price challenges in another currency, so this is not
+                      // converted into firm.currency.
+                      value:
+                        payout.minPayoutAmount === 0
+                          ? 'No minimum'
+                          : money(payout.minPayoutAmount, 'USD'),
+                    },
+                  ]
+                : []),
             ].map((item) => (
               <div key={item.label} className="rounded-sm border border-line bg-page p-4">
                 <dt className="text-xs font-bold tracking-wide text-ink-3 uppercase">{item.label}</dt>
@@ -811,6 +931,16 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
               </div>
             ))}
           </dl>
+          {payout?.splitScaling ? (
+            <div className="mt-4 rounded-sm border border-line bg-page p-4">
+              <h3 className="text-xs font-bold tracking-wide text-ink-3 uppercase">
+                How the split scales
+              </h3>
+              <p className="mt-1 max-w-(--container-prose) text-sm leading-relaxed">
+                {payout.splitScaling}
+              </p>
+            </div>
+          ) : null}
           <p className="mt-4 max-w-(--container-prose) text-sm text-ink-2">
             We publish payout-speed distributions from dated community proofs rather than trusting
             advertised numbers. {firm.name}&apos;s tracker goes live once we have enough verified
@@ -833,6 +963,26 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                 {[
                   { label: 'Established', value: firm.dateEstablished ? formatDate(firm.dateEstablished) : '—' },
                   { label: 'Headquarters', value: countryName(firm.country) },
+                  // Named leadership and accepted payment methods are strong
+                  // trust signals, but only when we actually have them.
+                  ...(firm.leadership?.ceoName
+                    ? [
+                        {
+                          label: firm.leadership.ceoRole || 'CEO',
+                          value: firm.leadership.ceoName,
+                        },
+                      ]
+                    : []),
+                  ...((firm.paymentMethods ?? []).length > 0
+                    ? [
+                        {
+                          label: 'Ways to pay',
+                          value: (firm.paymentMethods ?? [])
+                            .map((m) => PAYMENT_METHOD_LABELS[m] ?? m)
+                            .join(', '),
+                        },
+                      ]
+                    : []),
                   {
                     label: 'Trustpilot score',
                     value:
@@ -892,9 +1042,17 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
         <SectionCard
           id="platforms"
           number={sectionNumber('platforms')}
-          kicker="Platforms & Assets"
-          title="Platforms & tradable assets"
-          intro={`The trading platforms ${firm.name} supports and the markets you can trade on a funded account.`}
+          kicker={platformsLabel}
+          title={
+            hasTradingConditions
+              ? 'Platforms, assets & trading conditions'
+              : 'Platforms & tradable assets'
+          }
+          intro={
+            hasTradingConditions
+              ? `The platforms ${firm.name} supports, the markets you can trade, and the leverage and commissions that set the real cost of a strategy.`
+              : `The trading platforms ${firm.name} supports and the markets you can trade on a funded account.`
+          }
         >
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
@@ -936,6 +1094,97 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                   </li>
                 ))}
               </ul>
+            </div>
+          ) : null}
+
+          {broker ? (
+            <div className="mt-6 rounded-sm border border-line bg-page p-4">
+              <h3 className="text-xs font-bold tracking-wide text-ink-3 uppercase">
+                Broker / liquidity provider
+              </h3>
+              <p className="mt-1 max-w-(--container-prose) text-sm leading-relaxed font-semibold">
+                {broker}
+              </p>
+              <p className="mt-1.5 max-w-(--container-prose) text-xs leading-relaxed text-ink-2">
+                Who actually executes your fills sets your spreads, your slippage, and how closely
+                the evaluation matches live conditions.
+              </p>
+            </div>
+          ) : null}
+
+          {leverage ? (
+            <div className="mt-6">
+              <h3 className="mb-2 text-sm font-bold tracking-wide text-ink-3 uppercase">
+                Maximum leverage
+              </h3>
+              <div className="overflow-x-auto rounded-sm border border-line">
+                <table className="w-full min-w-[420px] border-collapse text-sm">
+                  <caption className="sr-only">
+                    {firm.name} maximum leverage by asset class
+                  </caption>
+                  <thead className="border-b border-line bg-page">
+                    <tr>
+                      <th scope="col" className={th}>Asset</th>
+                      {leverage.programs.map((p) => (
+                        <th key={p} scope="col" className={thNum}>
+                          {LEVERAGE_PROGRAM_LABELS[p] ?? p}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {leverage.rows.map((row) => (
+                      <tr key={row.asset} className="border-b border-line last:border-0 odd:bg-page/40">
+                        <th scope="row" className={`${td} text-left font-bold`}>
+                          {LEVERAGE_ASSET_LABELS[row.asset] ?? row.asset}
+                        </th>
+                        {row.ratios.map((ratio, i) => (
+                          <td key={i} className={tdNum}>
+                            {ratio ?? '—'}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 max-w-(--container-prose) text-xs leading-relaxed text-ink-2">
+                Leverage caps your position size, so it decides which strategies fit this firm at
+                all. Some firms reduce it once you are funded.
+              </p>
+            </div>
+          ) : null}
+
+          {commissions.length > 0 ? (
+            <div className="mt-6">
+              <h3 className="mb-2 text-sm font-bold tracking-wide text-ink-3 uppercase">
+                Commissions
+              </h3>
+              <div className="overflow-x-auto rounded-sm border border-line">
+                <table className="w-full min-w-[420px] border-collapse text-sm">
+                  <caption className="sr-only">{firm.name} commissions by asset class</caption>
+                  <thead className="border-b border-line bg-page">
+                    <tr>
+                      <th scope="col" className={th}>Asset</th>
+                      <th scope="col" className={thNum}>Cost per trade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {commissions.map((c) => (
+                      <tr key={c.id ?? c.asset} className="border-b border-line last:border-0 odd:bg-page/40">
+                        <th scope="row" className={`${td} text-left font-bold`}>
+                          {ASSET_LABELS[c.asset] ?? c.asset}
+                        </th>
+                        <td className={tdNum}>{c.cost}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-2 max-w-(--container-prose) text-xs leading-relaxed text-ink-2">
+                Commission is the recurring cost of trading here, charged on every lot whether the
+                trade wins or loses. It matters most if you scalp or trade high volume.
+              </p>
             </div>
           ) : null}
         </SectionCard>

@@ -45,6 +45,69 @@ export function cheapestByFirm(
   return map
 }
 
+// ── Leverage matrix ────────────────────────────────────────────────
+// Firms publish leverage either as one account-wide figure or per asset,
+// and sometimes per program on top of that. The renderer wants a plain
+// grid, so collapse whatever shape we stored into rows × columns.
+
+type LeverageRow = NonNullable<NonNullable<Firm['trading']>['leverage']>[number]
+
+export type LeverageMatrix = {
+  /** Program columns in canonical order. `all` collapses to a single column. */
+  programs: string[]
+  /** One row per asset, in the order the firm's rows were stored. */
+  rows: { asset: string; ratios: (string | null)[] }[]
+}
+
+const PROGRAM_ORDER = ['all', 'instant', '1-step', '2-step', '3-step']
+
+/**
+ * Group leverage rows into an asset × program grid.
+ * Returns null when there is nothing to show, so callers can skip the block
+ * entirely rather than render an empty table.
+ */
+export function leverageMatrix(rows: LeverageRow[] | null | undefined): LeverageMatrix | null {
+  const usable = (rows ?? []).filter((r) => r?.asset && r?.ratio)
+  if (usable.length === 0) return null
+
+  const programs = PROGRAM_ORDER.filter((p) =>
+    usable.some((r) => (r.programType ?? 'all') === p),
+  )
+  // A firm that only ever publishes "all" needs no program column at all.
+  const assets: string[] = []
+  for (const r of usable) if (!assets.includes(r.asset)) assets.push(r.asset)
+
+  return {
+    programs,
+    rows: assets.map((asset) => ({
+      asset,
+      ratios: programs.map(
+        (p) =>
+          usable.find((r) => r.asset === asset && (r.programType ?? 'all') === p)?.ratio ?? null,
+      ),
+    })),
+  }
+}
+
+/**
+ * Firm-level challenge time-limit summary, or null when we have not verified
+ * time limits for this firm. `null` on a challenge means "no time limit", so
+ * it is only ever trusted behind the firm's timeLimitsVerified flag.
+ */
+export function timeLimitSummary(
+  rulesSummary: Firm['rulesSummary'],
+  challenges: { timeLimitDays?: number | null }[],
+): { label: string; unlimited: boolean } | null {
+  if (!rulesSummary?.timeLimitsVerified) return null
+  const limits = challenges.map((c) => c.timeLimitDays ?? null)
+  const withLimit = limits.filter((d): d is number => d != null)
+  if (withLimit.length === 0) return { label: 'No time limit', unlimited: true }
+  if (withLimit.length === limits.length && new Set(withLimit).size === 1) {
+    return { label: `${withLimit[0]} days`, unlimited: false }
+  }
+  return { label: 'Varies by program (see pricing)', unlimited: false }
+}
+
 export const SCORE_LABELS = {
   pricingValue: 'Pricing & value',
   rulesFairness: 'Rules fairness',

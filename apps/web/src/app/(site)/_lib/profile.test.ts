@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { cheapestByFirm, computeTypeRank, scoreBreakdown } from './profile'
+import {
+  cheapestByFirm,
+  computeTypeRank,
+  leverageMatrix,
+  scoreBreakdown,
+  timeLimitSummary,
+} from './profile'
 
 const firm = (id: number, firmTypes: string[]) =>
   ({ id, firmTypes }) as Parameters<typeof computeTypeRank>[0]
@@ -78,5 +84,74 @@ describe('scoreBreakdown', () => {
   it('returns null when nothing is set', () => {
     expect(scoreBreakdown(undefined)).toBeNull()
     expect(scoreBreakdown({})).toBeNull()
+  })
+})
+
+describe('leverageMatrix', () => {
+  it('returns null when there is nothing publishable', () => {
+    expect(leverageMatrix(null)).toBeNull()
+    expect(leverageMatrix([])).toBeNull()
+    expect(leverageMatrix([{ asset: 'fx', ratio: null } as never])).toBeNull()
+  })
+
+  it('collapses account-wide figures to a single column', () => {
+    const m = leverageMatrix([
+      { asset: 'fx', programType: 'all', ratio: '1:100' },
+      { asset: 'crypto', programType: 'all', ratio: '1:2' },
+    ] as never)
+    expect(m).toEqual({
+      programs: ['all'],
+      rows: [
+        { asset: 'fx', ratios: ['1:100'] },
+        { asset: 'crypto', ratios: ['1:2'] },
+      ],
+    })
+  })
+
+  it('orders program columns canonically and gaps missing cells', () => {
+    const m = leverageMatrix([
+      { asset: 'all', programType: '3-step', ratio: '1:30' },
+      { asset: 'all', programType: '2-step', ratio: '1:100' },
+      { asset: 'fx', programType: 'instant', ratio: '1:30' },
+    ] as never)
+    expect(m?.programs).toEqual(['instant', '2-step', '3-step'])
+    expect(m?.rows).toEqual([
+      { asset: 'all', ratios: [null, '1:100', '1:30'] },
+      { asset: 'fx', ratios: ['1:30', null, null] },
+    ])
+  })
+
+  it('treats a missing programType as account-wide', () => {
+    const m = leverageMatrix([{ asset: 'fx', ratio: '1:50' }] as never)
+    expect(m?.programs).toEqual(['all'])
+    expect(m?.rows[0].ratios).toEqual(['1:50'])
+  })
+})
+
+describe('timeLimitSummary', () => {
+  it('stays null until the firm is flagged as verified', () => {
+    expect(timeLimitSummary(undefined, [{ timeLimitDays: null }])).toBeNull()
+    expect(timeLimitSummary({ timeLimitsVerified: false }, [{ timeLimitDays: 30 }])).toBeNull()
+  })
+
+  it('reads all-null challenges as unlimited once verified', () => {
+    expect(
+      timeLimitSummary({ timeLimitsVerified: true }, [{ timeLimitDays: null }, {}]),
+    ).toEqual({ label: 'No time limit', unlimited: true })
+  })
+
+  it('reports a single shared limit, and flags mixed ones', () => {
+    expect(
+      timeLimitSummary({ timeLimitsVerified: true }, [
+        { timeLimitDays: 30 },
+        { timeLimitDays: 30 },
+      ]),
+    ).toEqual({ label: '30 days', unlimited: false })
+    expect(
+      timeLimitSummary({ timeLimitsVerified: true }, [
+        { timeLimitDays: 30 },
+        { timeLimitDays: null },
+      ])?.label,
+    ).toBe('Varies by program (see pricing)')
   })
 })
