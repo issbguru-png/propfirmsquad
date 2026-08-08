@@ -1022,9 +1022,30 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                     ? [
                         {
                           label: 'Registered entity',
-                          value: firm.legalEntity.registrationNumber
-                            ? `${firm.legalEntity.name} (${firm.legalEntity.registry ?? 'registry'} ${firm.legalEntity.registrationNumber})`
-                            : firm.legalEntity.name,
+                          // The registry line links to the filing itself, so
+                          // the claim is checkable in one click.
+                          value: (
+                            <>
+                              <span className="font-semibold">{firm.legalEntity.name}</span>
+                              {firm.legalEntity.registrationNumber ? (
+                                <span className="block text-xs text-ink-3">
+                                  {firm.legalEntity.sourceUrl ? (
+                                    <a
+                                      href={firm.legalEntity.sourceUrl}
+                                      rel="nofollow noopener"
+                                      target="_blank"
+                                      className="text-accent-dark underline"
+                                    >
+                                      {firm.legalEntity.registry ?? 'Registry'}{' '}
+                                      {firm.legalEntity.registrationNumber}
+                                    </a>
+                                  ) : (
+                                    `${firm.legalEntity.registry ?? 'Registry'} ${firm.legalEntity.registrationNumber}`
+                                  )}
+                                </span>
+                              ) : null}
+                            </>
+                          ),
                         },
                       ]
                     : []),
