@@ -73,6 +73,78 @@ export const Firms: CollectionConfig = {
       options: ['fx', 'indices', 'metals', 'energy', 'crypto', 'stocks', 'other-commodities'],
     },
     { name: 'platforms', type: 'relationship', relationTo: 'platforms', hasMany: true },
+    // ── Trading conditions ────────────────────────────────────
+    // Execution + recurring cost. These decide position sizing and the real
+    // cost of a strategy, so they only ever hold values published by the firm.
+    {
+      name: 'trading',
+      type: 'group',
+      admin: { description: 'Execution and cost conditions. Firm-published values only.' },
+      fields: [
+        {
+          name: 'broker',
+          type: 'text',
+          admin: {
+            description:
+              'Broker / liquidity provider that executes fills, e.g. "Purple Trading Seychelles"',
+          },
+        },
+        {
+          name: 'leverage',
+          type: 'array',
+          admin: {
+            description:
+              'Max leverage per asset class. Set programType when the firm publishes different leverage per program.',
+          },
+          fields: [
+            {
+              name: 'asset',
+              type: 'select',
+              required: true,
+              options: ['fx', 'indices', 'metals', 'energy', 'crypto', 'stocks', 'other-commodities'],
+            },
+            {
+              name: 'programType',
+              type: 'select',
+              defaultValue: 'all',
+              options: ['all', 'instant', '1-step', '2-step', '3-step'],
+              admin: { description: '"all" = same leverage across every program' },
+            },
+            { name: 'ratio', type: 'text', required: true, admin: { description: 'e.g. "1:100"' } },
+          ],
+        },
+        {
+          name: 'commissions',
+          type: 'array',
+          admin: { description: 'Round-turn commission per asset class, as the firm states it' },
+          fields: [
+            {
+              name: 'asset',
+              type: 'select',
+              required: true,
+              options: ['fx', 'indices', 'metals', 'energy', 'crypto', 'stocks', 'other-commodities'],
+            },
+            {
+              name: 'cost',
+              type: 'text',
+              required: true,
+              admin: { description: 'e.g. "$3 per lot per side", "0.05% of volume", "None"' },
+            },
+          ],
+        },
+      ],
+    },
+    // How the trader PAYS for a challenge — distinct from payout.methods
+    {
+      name: 'paymentMethods',
+      type: 'select',
+      hasMany: true,
+      options: ['card', 'apple-pay', 'google-pay', 'paypal', 'crypto', 'bank-transfer', 'other'],
+      admin: {
+        description:
+          'Accepted checkout methods (how the trader pays the firm). Not the same as payout.methods.',
+      },
+    },
     // ── Social proof ──────────────────────────────────────────
     { name: 'reviewScore', type: 'number', min: 0, max: 5 },
     { name: 'reviewsCount', type: 'number', defaultValue: 0 },
@@ -102,6 +174,38 @@ export const Firms: CollectionConfig = {
         { name: 'newsTradingAllowed', type: 'checkbox' },
         { name: 'eaAllowed', type: 'checkbox' },
         { name: 'minTradingDays', type: 'number' },
+        {
+          name: 'weekendHolding',
+          type: 'select',
+          options: [
+            { label: 'Allowed', value: 'allowed' },
+            { label: 'Not allowed', value: 'not-allowed' },
+            { label: 'Swing / add-on accounts only', value: 'swing-only' },
+          ],
+          admin: {
+            description:
+              'Holding positions through the weekend close on the firm\'s standard program. Leave empty when unverified.',
+          },
+        },
+        {
+          name: 'timeLimitsVerified',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description:
+              'Tick ONLY after checking every challenge time limit against the firm\'s own site. This enables the "Time limit" column, where an empty challenges.timeLimitDays renders as "No time limit" — leaving it off keeps us from claiming "unlimited" for a firm we have not researched.',
+          },
+        },
+        {
+          name: 'copyTradingAllowed',
+          type: 'checkbox',
+          admin: { description: 'Copying your own or a third party\'s trades across accounts' },
+        },
+        {
+          name: 'hftAllowed',
+          type: 'checkbox',
+          admin: { description: 'High-frequency / latency-arbitrage style strategies' },
+        },
       ],
     },
     {
@@ -117,6 +221,39 @@ export const Firms: CollectionConfig = {
         { name: 'frequency', type: 'text', admin: { description: 'e.g. "bi-weekly", "on-demand after 14d"' } },
         { name: 'profitSplitPct', type: 'number', min: 0, max: 100 },
         { name: 'avgPayoutDays', type: 'number', admin: { description: 'Tracked from community proofs' } },
+        {
+          name: 'firstPayoutDays',
+          type: 'number',
+          admin: {
+            description:
+              'Days from funding until the FIRST withdrawal can be requested (the cycle after that is `frequency`).',
+          },
+        },
+        {
+          name: 'minPayoutAmount',
+          type: 'number',
+          admin: { description: 'Minimum withdrawable amount, in the firm currency. null = none stated.' },
+        },
+        {
+          name: 'splitScaling',
+          type: 'text',
+          localized: true,
+          admin: {
+            description:
+              'How the split grows, e.g. "80% base, 90% after 3 consecutive payouts". Leave empty when the split is flat.',
+          },
+        },
+      ],
+    },
+    // ── Leadership (named accountable humans = trust signal) ──
+    {
+      name: 'leadership',
+      type: 'group',
+      admin: { description: 'Only publicly named, firm-confirmed people.' },
+      fields: [
+        { name: 'ceoName', type: 'text' },
+        { name: 'ceoRole', type: 'text', admin: { description: 'Defaults to "CEO" when empty' } },
+        { name: 'ceoLinkedinUrl', type: 'text' },
       ],
     },
     {

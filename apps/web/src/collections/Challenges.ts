@@ -40,6 +40,14 @@ export const Challenges: CollectionConfig = {
       options: ['static', 'trailing-eod', 'trailing-intraday', 'hybrid'],
     },
     { name: 'profitSplitPct', type: 'number' },
+    {
+      name: 'timeLimitDays',
+      type: 'number',
+      admin: {
+        description:
+          'Calendar days allowed to complete this challenge. LEAVE EMPTY (null) when the firm advertises NO time limit / unlimited — empty is rendered as "No time limit", so only leave it empty once verified.',
+      },
+    },
     { name: 'refundableFee', type: 'checkbox', defaultValue: false },
     {
       name: 'feeNote',

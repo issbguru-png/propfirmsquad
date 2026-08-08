@@ -162,6 +162,49 @@ export interface Firm {
   programTypes?: ('instant' | '1-step' | '2-step' | '3-step')[] | null;
   assets?: ('fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities')[] | null;
   platforms?: (number | Platform)[] | null;
+  /**
+   * Execution and cost conditions. Firm-published values only.
+   */
+  trading?: {
+    /**
+     * Broker / liquidity provider that executes fills, e.g. "Purple Trading Seychelles"
+     */
+    broker?: string | null;
+    /**
+     * Max leverage per asset class. Set programType when the firm publishes different leverage per program.
+     */
+    leverage?:
+      | {
+          asset: 'fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities';
+          /**
+           * "all" = same leverage across every program
+           */
+          programType?: ('all' | 'instant' | '1-step' | '2-step' | '3-step') | null;
+          /**
+           * e.g. "1:100"
+           */
+          ratio: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Round-turn commission per asset class, as the firm states it
+     */
+    commissions?:
+      | {
+          asset: 'fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities';
+          /**
+           * e.g. "$3 per lot per side", "0.05% of volume", "None"
+           */
+          cost: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Accepted checkout methods (how the trader pays the firm). Not the same as payout.methods.
+   */
+  paymentMethods?: ('card' | 'apple-pay' | 'google-pay' | 'paypal' | 'crypto' | 'bank-transfer' | 'other')[] | null;
   reviewScore?: number | null;
   reviewsCount?: number | null;
   trustPilotScore?: number | null;
@@ -200,6 +243,22 @@ export interface Firm {
     newsTradingAllowed?: boolean | null;
     eaAllowed?: boolean | null;
     minTradingDays?: number | null;
+    /**
+     * Holding positions through the weekend close on the firm's standard program. Leave empty when unverified.
+     */
+    weekendHolding?: ('allowed' | 'not-allowed' | 'swing-only') | null;
+    /**
+     * Tick ONLY after checking every challenge time limit against the firm's own site. This enables the "Time limit" column, where an empty challenges.timeLimitDays renders as "No time limit" — leaving it off keeps us from claiming "unlimited" for a firm we have not researched.
+     */
+    timeLimitsVerified?: boolean | null;
+    /**
+     * Copying your own or a third party's trades across accounts
+     */
+    copyTradingAllowed?: boolean | null;
+    /**
+     * High-frequency / latency-arbitrage style strategies
+     */
+    hftAllowed?: boolean | null;
   };
   payout?: {
     methods?: ('crypto' | 'bank-transfer' | 'wise' | 'paypal' | 'other')[] | null;
@@ -212,6 +271,29 @@ export interface Firm {
      * Tracked from community proofs
      */
     avgPayoutDays?: number | null;
+    /**
+     * Days from funding until the FIRST withdrawal can be requested (the cycle after that is `frequency`).
+     */
+    firstPayoutDays?: number | null;
+    /**
+     * Minimum withdrawable amount, in the firm currency. null = none stated.
+     */
+    minPayoutAmount?: number | null;
+    /**
+     * How the split grows, e.g. "80% base, 90% after 3 consecutive payouts". Leave empty when the split is flat.
+     */
+    splitScaling?: string | null;
+  };
+  /**
+   * Only publicly named, firm-confirmed people.
+   */
+  leadership?: {
+    ceoName?: string | null;
+    /**
+     * Defaults to "CEO" when empty
+     */
+    ceoRole?: string | null;
+    ceoLinkedinUrl?: string | null;
   };
   /**
    * Editorial pros & cons shown on the profile page
@@ -368,6 +450,10 @@ export interface Challenge {
   maxTotalDrawdownPct?: number | null;
   drawdownType?: ('static' | 'trailing-eod' | 'trailing-intraday' | 'hybrid') | null;
   profitSplitPct?: number | null;
+  /**
+   * Calendar days allowed to complete this challenge. LEAVE EMPTY (null) when the firm advertises NO time limit / unlimited — empty is rendered as "No time limit", so only leave it empty once verified.
+   */
+  timeLimitDays?: number | null;
   refundableFee?: boolean | null;
   /**
    * Fine-print note rendered as a footnote on the pricing table, e.g. staged fees where total cost differs from the entry price
@@ -616,6 +702,27 @@ export interface FirmsSelect<T extends boolean = true> {
   programTypes?: T;
   assets?: T;
   platforms?: T;
+  trading?:
+    | T
+    | {
+        broker?: T;
+        leverage?:
+          | T
+          | {
+              asset?: T;
+              programType?: T;
+              ratio?: T;
+              id?: T;
+            };
+        commissions?:
+          | T
+          | {
+              asset?: T;
+              cost?: T;
+              id?: T;
+            };
+      };
+  paymentMethods?: T;
   reviewScore?: T;
   reviewsCount?: T;
   trustPilotScore?: T;
@@ -636,6 +743,10 @@ export interface FirmsSelect<T extends boolean = true> {
         newsTradingAllowed?: T;
         eaAllowed?: T;
         minTradingDays?: T;
+        weekendHolding?: T;
+        timeLimitsVerified?: T;
+        copyTradingAllowed?: T;
+        hftAllowed?: T;
       };
   payout?:
     | T
@@ -644,6 +755,16 @@ export interface FirmsSelect<T extends boolean = true> {
         frequency?: T;
         profitSplitPct?: T;
         avgPayoutDays?: T;
+        firstPayoutDays?: T;
+        minPayoutAmount?: T;
+        splitScaling?: T;
+      };
+  leadership?:
+    | T
+    | {
+        ceoName?: T;
+        ceoRole?: T;
+        ceoLinkedinUrl?: T;
       };
   prosCons?:
     | T
@@ -717,6 +838,7 @@ export interface ChallengesSelect<T extends boolean = true> {
   maxTotalDrawdownPct?: T;
   drawdownType?: T;
   profitSplitPct?: T;
+  timeLimitDays?: T;
   refundableFee?: T;
   feeNote?: T;
   isActive?: T;
