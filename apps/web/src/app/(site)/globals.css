@@ -7,10 +7,12 @@
  */
 @theme {
   /* Accent */
-  --color-accent: #f98d00;
-  --color-accent-dark: #d97500;
-  --color-accent-light: #ffa82e;
-  --color-accent-pale: #fff3e0;
+  /* Brand orange matched to WPBeginner's primary (#ff6200) and their light-orange tint.
+     -dark is derived for link/body text (4.6:1 on white, AA); -light for hover on dark. */
+  --color-accent: #ff6200;
+  --color-accent-dark: #c94e00;
+  --color-accent-light: #ff8534;
+  --color-accent-pale: #ffebdf;
 
   /* Surfaces — warm paper */
   --color-page: #edecea;
@@ -72,7 +74,7 @@ body {
   --color-ink: #f0ede6; /* --color-on-dark */
   --color-ink-2: #9e998f; /* --color-on-dark-2 */
   --color-ink-3: #756f66;
-  --color-accent-pale: #3b2a12; /* warm dark orange tint */
+  --color-accent-pale: #3d1c08; /* warm dark tint of the brand orange */
   --color-positive-pale: #14301d;
   --color-negative-pale: #3a1a16;
 }
