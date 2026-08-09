@@ -195,9 +195,12 @@ export interface Firm {
      */
     commissions?:
       | {
-          asset: 'fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities';
           /**
-           * e.g. "$3 per lot per side", "0.05% of volume", "None"
+           * "all" = the firm quotes one commission across every instrument
+           */
+          asset: 'all' | 'fx' | 'indices' | 'metals' | 'energy' | 'crypto' | 'stocks' | 'other-commodities';
+          /**
+           * e.g. "$3 per lot per side", "0.05% of volume", "None". Name the contract here when it is per-contract, e.g. "$5.76 round turn (ES)".
            */
           cost: string;
           id?: string | null;
@@ -266,9 +269,17 @@ export interface Firm {
   rulesSummary?: {
     drawdownType?: ('static' | 'trailing-eod' | 'trailing-intraday' | 'hybrid') | null;
     /**
-     * null = no consistency rule
+     * null = no consistency rule, but ONLY when consistencyRuleVerified is ticked. Leave both empty when unresearched.
      */
     consistencyRulePct?: number | null;
+    /**
+     * Use when the rule VARIES BY PROGRAM, which the 2026-08 audit found is the norm rather than the exception: five of the six firms whose rule we verified have different caps per plan, or a cap that only bites on the funded stage. One percentage cannot say that, and leaving it empty renders "None", which is both wrong and flattering to the firm. e.g. "25% on 2-Step Pro funded accounts, none on Standard".
+     */
+    consistencyRuleNote?: string | null;
+    /**
+     * Tick ONLY after checking the firm's own docs. Same trap as timeLimitsVerified: an empty consistencyRulePct means "no rule" to a reader, so without this gate every unresearched firm advertises a rule it may well have. Also leave the percentage empty when the rule varies by program (several firms do) and record the per-plan values on the challenges.
+     */
+    consistencyRuleVerified?: boolean | null;
     newsTradingAllowed?: boolean | null;
     eaAllowed?: boolean | null;
     minTradingDays?: number | null;
@@ -823,6 +834,8 @@ export interface FirmsSelect<T extends boolean = true> {
     | {
         drawdownType?: T;
         consistencyRulePct?: T;
+        consistencyRuleNote?: T;
+        consistencyRuleVerified?: T;
         newsTradingAllowed?: T;
         eaAllowed?: T;
         minTradingDays?: T;

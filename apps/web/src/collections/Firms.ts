@@ -135,13 +135,29 @@ export const Firms: CollectionConfig = {
               name: 'asset',
               type: 'select',
               required: true,
-              options: ['fx', 'indices', 'metals', 'energy', 'crypto', 'stocks', 'other-commodities'],
+              options: [
+                // Mirrors the leverage array: futures firms quote one commission
+                // per contract regardless of underlying, so they need an
+                // account-wide row rather than a fabricated asset class.
+                { label: 'All assets', value: 'all' },
+                'fx',
+                'indices',
+                'metals',
+                'energy',
+                'crypto',
+                'stocks',
+                'other-commodities',
+              ],
+              admin: { description: '"all" = the firm quotes one commission across every instrument' },
             },
             {
               name: 'cost',
               type: 'text',
               required: true,
-              admin: { description: 'e.g. "$3 per lot per side", "0.05% of volume", "None"' },
+              admin: {
+                description:
+                  'e.g. "$3 per lot per side", "0.05% of volume", "None". Name the contract here when it is per-contract, e.g. "$5.76 round turn (ES)".',
+              },
             },
           ],
         },
@@ -234,7 +250,32 @@ export const Firms: CollectionConfig = {
           type: 'select',
           options: ['static', 'trailing-eod', 'trailing-intraday', 'hybrid'],
         },
-        { name: 'consistencyRulePct', type: 'number', admin: { description: 'null = no consistency rule' } },
+        {
+          name: 'consistencyRulePct',
+          type: 'number',
+          admin: {
+            description:
+              'null = no consistency rule, but ONLY when consistencyRuleVerified is ticked. Leave both empty when unresearched.',
+          },
+        },
+        {
+          name: 'consistencyRuleNote',
+          type: 'text',
+          localized: true,
+          admin: {
+            description:
+              'Use when the rule VARIES BY PROGRAM, which the 2026-08 audit found is the norm rather than the exception: five of the six firms whose rule we verified have different caps per plan, or a cap that only bites on the funded stage. One percentage cannot say that, and leaving it empty renders "None", which is both wrong and flattering to the firm. e.g. "25% on 2-Step Pro funded accounts, none on Standard".',
+          },
+        },
+        {
+          name: 'consistencyRuleVerified',
+          type: 'checkbox',
+          defaultValue: false,
+          admin: {
+            description:
+              'Tick ONLY after checking the firm\'s own docs. Same trap as timeLimitsVerified: an empty consistencyRulePct means "no rule" to a reader, so without this gate every unresearched firm advertises a rule it may well have. Also leave the percentage empty when the rule varies by program (several firms do) and record the per-plan values on the challenges.',
+          },
+        },
         { name: 'newsTradingAllowed', type: 'checkbox' },
         { name: 'eaAllowed', type: 'checkbox' },
         { name: 'minTradingDays', type: 'number' },

@@ -834,11 +834,17 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                   {
                     rule: 'Consistency rule',
                     value:
+                      // Three states, and the middle one is the common case:
+                      // a single percentage, a per-program note, or nothing
+                      // sayable yet. "None" is the narrowest claim and needs
+                      // both the verified gate and the absence of a note.
                       rules?.consistencyRulePct != null
                         ? `${rules.consistencyRulePct}% cap per day`
-                        : rules && rules.consistencyRulePct === null && rules.drawdownType
-                          ? 'None'
-                          : 'Being verified',
+                        : rules?.consistencyRuleNote
+                          ? rules.consistencyRuleNote
+                          : rules?.consistencyRuleVerified
+                            ? 'None'
+                            : 'Being verified',
                     why: 'Caps how much of your total profit can come from a single day. A strict cap can delay or void payouts for traders with a few big wins.',
                   },
                   {
@@ -1284,7 +1290,7 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                     {commissions.map((c) => (
                       <tr key={c.id ?? c.asset} className="border-b border-line last:border-0 odd:bg-page/40">
                         <th scope="row" className={`${td} text-left font-bold`}>
-                          {ASSET_LABELS[c.asset] ?? c.asset}
+                          {LEVERAGE_ASSET_LABELS[c.asset] ?? c.asset}
                         </th>
                         <td className={tdNum}>{c.cost}</td>
                       </tr>
