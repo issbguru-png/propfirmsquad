@@ -12,3 +12,8 @@ dist
 .DS_Store
 .claude/
 apps/web/test-results/
+
+# Database dumps. pg_dump includes the users table, i.e. admin emails and
+# password salt/hash, which must never reach a public repo. Restore artefacts
+# are generated on demand, not versioned.
+ops/
