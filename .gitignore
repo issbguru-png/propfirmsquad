@@ -4,7 +4,11 @@ node_modules
 .env.local
 dist
 *.tsbuildinfo
-apps/web/media
+# apps/web/media is deliberately NOT ignored. Payload writes uploads there via
+# Media.upload.staticDir, and the 20 firm logos are the only contents. Ignoring
+# them meant a deploy from this repo rendered every logo as a broken image.
+# Once an S3/R2 storage adapter is configured, ignore this directory again and
+# let the bucket own it.
 .DS_Store
 .claude/
 apps/web/test-results/
