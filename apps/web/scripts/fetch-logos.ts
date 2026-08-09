@@ -32,6 +32,25 @@ const DOMAINS: Record<string, string> = {
   'maven-trading': 'maventrading.com',
   fundedelite: 'fundedelite.com',
   ftmo: 'ftmo.com',
+  // Futures vertical, added Aug 2026.
+  topstep: 'topstep.com',
+  'take-profit-trader': 'takeprofittrader.com',
+  tradeify: 'tradeify.co',
+  myfundedfutures: 'myfundedfutures.com',
+}
+
+/**
+ * Explicit asset URLs for sites the discovery path cannot reach.
+ *
+ * Topstep serves no icon from its own domain (every /apple-touch-icon.png,
+ * /favicon.ico and /favicon-32x32.png returns 404) and publishes them from a
+ * Webflow CDN instead, which the homepage-parsing step could not reach. The URL
+ * below is the 192px icon taken from Topstep's own <link rel="icon"> tag, so it
+ * is still the firm's own published mark, just reached directly.
+ */
+const DIRECT: Record<string, string> = {
+  topstep:
+    'https://cdn.prod.website-files.com/69e902b0a74d3d99a517f56d/6a0b4dd7378bf90b37fc59b5_favicon.ico',
 }
 
 const HEADERS = {
@@ -147,7 +166,8 @@ for (const [slug, domain] of Object.entries(DOMAINS)) {
     continue
   }
 
-  const img = await findLogo(domain)
+  const img = (DIRECT[slug] ? await fetchImage(DIRECT[slug], 'direct override') : null)
+    ?? (await findLogo(domain))
   if (!img) {
     console.warn(`[fetch-logos] ${slug}: no logo found on ${domain} — skipped`)
     failed.push(`${slug} (${domain})`)
