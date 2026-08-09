@@ -26,9 +26,11 @@ jobs:
       PAYLOAD_SECRET: ci-secret
     steps:
       - uses: actions/checkout@v4
+      # No `version:` here on purpose. package.json declares
+      # "packageManager": "pnpm@11.20.0", and specifying both makes
+      # action-setup fail with ERR_PNPM_BAD_PM_VERSION. Letting it read
+      # packageManager also keeps CI on the exact version used locally.
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
       - uses: actions/setup-node@v4
         with:
           node-version: 24
