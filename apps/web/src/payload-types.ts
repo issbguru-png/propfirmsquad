@@ -543,6 +543,10 @@ export interface Promo {
   description?: string | null;
   discountPct?: number | null;
   exclusive?: boolean | null;
+  /**
+   * Tick ONLY after the firm confirms this exact code is live. Unverified codes must never ship to production.
+   */
+  codeVerified?: boolean | null;
   endDate?: string | null;
   active?: boolean | null;
   /**
@@ -949,6 +953,7 @@ export interface PromosSelect<T extends boolean = true> {
   description?: T;
   discountPct?: T;
   exclusive?: T;
+  codeVerified?: T;
   endDate?: T;
   active?: T;
   extraPerks?: T;

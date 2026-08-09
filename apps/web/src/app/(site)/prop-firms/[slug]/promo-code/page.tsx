@@ -26,8 +26,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const [best] = rankPromos(await getPromosForFirm(firm.id))
   if (best) return promoPageMeta(firm, best)
   return {
-    title: `${firm.name} Promo Code ${monthYear()} (Verified)`,
-    description: `Looking for a ${firm.name} promo code? We track and verify every active discount; see current status for ${monthYear()}.`,
+    // No active promo at all, so there is nothing to call verified.
+    title: `${firm.name} Promo Code ${monthYear()}`,
+    description: `Looking for a ${firm.name} promo code? We track every active discount; see current status for ${monthYear()}.`,
     alternates: { canonical: `/prop-firms/${firm.slug}/promo-code` },
     robots: { index: false, follow: true },
   }

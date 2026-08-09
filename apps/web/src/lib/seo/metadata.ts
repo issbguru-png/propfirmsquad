@@ -5,7 +5,8 @@
  *
  * Title templates (frozen, founder-approved):
  *   Profile:    {Firm} Review {Year}: Rules, Payouts & Real Trader Data ({squad score}★)
- *   Promo page: {Firm} Promo Code {Month} {Year}: {X}% Off (Verified)
+ *   Promo page: {Firm} Promo Code {Month} {Year}: {X}% Off  [+ " (Verified)"
+ *               ONLY when promo.codeVerified is true]
  */
 
 import type { Metadata } from 'next'
@@ -93,11 +94,18 @@ export function firmProfileMeta(firm: Firm, now: Date = new Date()): Metadata {
 export function promoPageMeta(firm: Firm, promo: Promo, now: Date = new Date()): Metadata {
   const month = MONTHS[now.getMonth()]
   const year = now.getFullYear()
-  const off = promo.discountPct != null ? `: ${promo.discountPct}% Off (Verified)` : ' (Verified)'
-  const title = `${firm.name} Promo Code ${month} ${year}${off}`
-  const description = `Working ${firm.name} promo code for ${month} ${year}: code "${promo.code}"${
-    promo.discountPct != null ? ` for ${promo.discountPct}% off` : ''
-  }. Verified by ${SITE_NAME}${promo.exclusive ? ', exclusive to our readers' : ''}.`
+  // "Verified" is a claim about this exact code working at the firm's
+  // checkout, so it is gated on `promo.codeVerified` rather than printed
+  // unconditionally. The house PFSQUAD placeholders are all unverified, and a
+  // title promising a verified code that then fails is worse than no title.
+  const verified = promo.codeVerified === true
+  const off = promo.discountPct != null ? `: ${promo.discountPct}% Off` : ''
+  const title = `${firm.name} Promo Code ${month} ${year}${off}${verified ? ' (Verified)' : ''}`
+  const description = verified
+    ? `Working ${firm.name} promo code for ${month} ${year}: code "${promo.code}"${
+        promo.discountPct != null ? ` for ${promo.discountPct}% off` : ''
+      }. Verified by ${SITE_NAME}${promo.exclusive ? ', exclusive to our readers' : ''}.`
+    : `Current ${firm.name} discount status for ${month} ${year}, plus pricing, rules and payout terms checked against the firm's own documents.`
   return build({
     title,
     description,
