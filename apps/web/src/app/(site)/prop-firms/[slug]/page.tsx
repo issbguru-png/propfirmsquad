@@ -737,7 +737,11 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                                   ) ?? '—',
                               )
                               .join(' / ')
-                          : 'None'}
+                          : // NOT "None": an empty array means we have not
+                            // captured the targets, and every evaluation
+                            // program has one. Claiming otherwise invented a
+                            // selling point the firm never offered.
+                            '—'}
                       </td>
                       <td className={tdNum}>
                         {limitLabel(
