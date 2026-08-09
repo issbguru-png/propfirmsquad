@@ -737,11 +737,16 @@ export default async function FirmProfilePage({ params }: { params: Params }) {
                                   ) ?? '—',
                               )
                               .join(' / ')
-                          : // NOT "None": an empty array means we have not
-                            // captured the targets, and every evaluation
-                            // program has one. Claiming otherwise invented a
+                          : // An empty list means two different things. On an
+                            // instant account it is the product working as
+                            // sold: no evaluation, so no target, which is the
+                            // reason to buy one. On an evaluation program it
+                            // only ever means we have not captured the target
+                            // yet, and printing "None" there would invent a
                             // selling point the firm never offered.
-                            '—'}
+                            c.steps === 'instant'
+                            ? 'None'
+                            : '—'}
                       </td>
                       <td className={tdNum}>
                         {limitLabel(
