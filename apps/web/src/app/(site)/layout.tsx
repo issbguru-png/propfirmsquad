@@ -4,6 +4,7 @@ import React from 'react'
 import { JsonLd } from '@/lib/seo/json-ld'
 import { organizationLd } from '@/lib/seo/jsonld'
 import { MarketSwitcher } from './best/_lib/MarketSwitcher'
+import { Analytics } from './_lib/Analytics'
 import { Logomark } from '@/components/Logo'
 import './globals.css'
 
@@ -69,6 +70,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <JsonLd data={organizationLd()} />
+        <Analytics />
         <header className="bg-nav text-on-dark">
           <div className="mx-auto flex max-w-(--container-page) flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4">
             <Link href="/" className="flex items-center gap-2.5 text-xl font-extrabold tracking-tight">

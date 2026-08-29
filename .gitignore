@@ -17,3 +17,5 @@ apps/web/test-results/
 # password salt/hash, which must never reach a public repo. Restore artefacts
 # are generated on demand, not versioned.
 ops/
+.vercel
+.env*
