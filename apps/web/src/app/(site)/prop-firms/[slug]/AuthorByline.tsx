@@ -7,7 +7,7 @@ export function AuthorByline({ verifiedAt }: { verifiedAt?: string | null }) {
   return (
     <aside
       aria-label="About the reviewer"
-      className="mb-8 flex flex-wrap items-center gap-x-4 gap-y-3 rounded-lg border border-line bg-card px-4 py-3.5"
+      className="mb-8 flex flex-wrap items-start gap-x-4 gap-y-2 rounded-lg border border-line bg-card px-4 py-3.5 sm:items-center"
     >
       <img
         src="/ayub-rana.png"
@@ -16,7 +16,12 @@ export function AuthorByline({ verifiedAt }: { verifiedAt?: string | null }) {
         height={48}
         className="h-12 w-12 shrink-0 rounded-full bg-accent-pale object-cover"
       />
-      <div className="min-w-0 flex-1 text-sm leading-snug">
+      {/* A floor, not min-w-0. With min-w-0 this column was free to shrink to
+          whatever was left after the avatar and the link, which on a 375px
+          screen was about 110px: every line broke after two or three words and
+          the card became a tall ladder of fragments. Giving it a real minimum
+          makes flex-wrap do its job and drop the link to its own line instead. */}
+      <div className="min-w-[15rem] flex-1 text-sm leading-snug">
         <p className="font-bold">
           Reviewed by Ayub Rana{' '}
           <span className="font-semibold text-ink-2">

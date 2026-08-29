@@ -50,8 +50,14 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-12">
-      {/* Hero: direct answer for "best prop firms" */}
-      <section className="flex flex-wrap items-start justify-between gap-x-10 gap-y-6">
+      {/* Hero: direct answer for "best prop firms".
+          The white surface lifts the hero off the warm page background: on a
+          phone the headline, the mantra pill and the author card were three
+          separate objects floating on bare paper with nothing tying them
+          together. `justify-center` only bites once the card wraps below the
+          text, which is exactly the mobile case, so the desktop two-column
+          layout is untouched. */}
+      <section className="flex flex-wrap items-start justify-center gap-x-10 gap-y-6 rounded-lg border border-line bg-card p-5 sm:justify-between sm:p-8">
         <div className="min-w-0 flex-1 basis-[36rem]">
         <p className="mb-2 text-xs font-bold tracking-widest text-accent uppercase">
           Updated{' '}
@@ -89,7 +95,9 @@ export default async function HomePage() {
 
         {/* Trust strip: core mantra + author signature */}
         <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-4">
-          <p className="flex items-center gap-2.5 rounded-full border border-line bg-card py-2 pr-4 pl-3 text-sm font-semibold">
+          {/* bg-page, not bg-card: the hero surface is now white, so a white
+              pill on it would have no edge beyond its border. */}
+          <p className="flex items-center gap-2.5 rounded-full border border-line bg-page py-2 pr-4 pl-3 text-sm font-semibold">
             <span
               aria-hidden
               className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent-pale text-accent-dark"
