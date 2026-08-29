@@ -83,14 +83,18 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
           const split = firm.payout?.profitSplitPct
           const score = squadScore(firm)
           return (
-            <li key={firm.id} className="rounded-lg border border-line bg-card p-4">
+            /* `relative` anchors the name link's stretched overlay below, which
+               turns the whole card into one tap target. The card is ~140px tall
+               and the name alone measured 19px, so on a phone the primary way
+               into a profile was a text link a thumb keeps missing. */
+            <li key={firm.id} className="relative rounded-lg border border-line bg-card p-4">
               <div className="flex items-start gap-3">
                 <span className="mt-0.5 text-sm font-bold text-ink-3 tabular-nums">{i + 1}</span>
                 <FirmMark firm={firm} />
                 <div className="min-w-0 flex-1">
                   <Link
                     href={`/prop-firms/${firm.slug}`}
-                    className="font-bold text-accent-dark hover:underline"
+                    className="font-bold text-accent-dark before:absolute before:inset-0 before:content-[''] hover:underline"
                   >
                     {firm.name}
                   </Link>
@@ -131,7 +135,10 @@ export function FirmTable({ firms, cheapest, promos, caption }: FirmTableProps) 
                 </p>
               ) : null}
 
-              <div className="mt-3">
+              {/* z-10 keeps the call to action above the card-wide overlay:
+                  without it the whole card would resolve to the profile link and
+                  the promo CTA would be unreachable. */}
+              <div className="relative z-10 mt-3">
                 <FirmCta firm={firm} promo={promos.get(firm.id)} block />
               </div>
             </li>

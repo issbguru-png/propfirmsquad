@@ -161,6 +161,11 @@ export async function getAllActivePromos(): Promise<Promo[]> {
     })
     return res.docs
       .filter(promoIsLive)
+      // A promo must not outlive its firm's listing. Unlisting a firm removes it
+      // from the rankings, the hubs and the directory, but /deals queries promos
+      // rather than firms, so without this every unlisted firm walked straight
+      // back onto the site through its discount code.
+      .filter((p) => typeof p.firm === 'object' && p.firm !== null && p.firm.listingType === 'listed')
       .sort((a, b) => (b.discountPct ?? 0) - (a.discountPct ?? 0))
   } catch {
     return []

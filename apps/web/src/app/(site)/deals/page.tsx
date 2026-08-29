@@ -75,13 +75,13 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 
   return staticPageMeta(
-    `Prop Firm Promo Codes ${monthYear()}: ${deals.length} Verified Discounts${
+    `Prop Firm Promo Codes ${monthYear()}: ${deals.length} Discount${deals.length === 1 ? '' : 's'}${
       best != null ? ` (Up To ${best}% Off)` : ''
     }`,
     '/deals',
-    `${deals.length} working prop firm discount codes for ${monthYear()}${
+    `${deals.length} prop firm discount codes for ${monthYear()}${
       best != null ? `, up to ${best}% off` : ''
-    }. Every code is checked before it is listed and pulled the moment it stops working, with the challenge price it applies to.`,
+    }, each shown against the challenge price it applies to. Codes we have run ourselves are marked verified.`,
   )
 }
 
@@ -205,6 +205,10 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
 
   const best = bestDiscountPct(allDeals.map((d) => d.promo))
   const firmCount = new Set(allDeals.map((d) => d.firm.id)).size
+  // The page's promise is that a listed code has been run at a real checkout.
+  // Until a code carries codeVerified it has not, and saying otherwise is the
+  // one claim on this site a reader can disprove by simply trying it.
+  const verifiedCount = allDeals.filter((d) => d.promo.codeVerified).length
   const checked = lastCheckedIso(allDeals)
   const monetised = allDeals.some((d) => isAffiliateLink(d.firm))
 
@@ -248,11 +252,25 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
       <p className="mb-6 max-w-(--container-prose) text-lg text-ink-2">
         {allDeals.length > 0 ? (
           <>
-            {allDeals.length} verified {allDeals.length === 1 ? 'code is' : 'codes are'} live right
-            now across {firmCount} {firmCount === 1 ? 'firm' : 'firms'}
-            {best != null ? `, the largest is ${best}% off` : ''}. Every one was applied at
-            checkout before it went on this page, and comes down the day it stops working. Short
-            list, no dead coupons.
+            {verifiedCount > 0 ? (
+              <>
+                {verifiedCount} verified {verifiedCount === 1 ? 'code is' : 'codes are'} live right
+                now across {firmCount} {firmCount === 1 ? 'firm' : 'firms'}
+                {best != null ? `, the largest is ${best}% off` : ''}. Every one was applied at
+                checkout before it went on this page, and comes down the day it stops working.
+              </>
+            ) : (
+              <>
+                {allDeals.length} house {allDeals.length === 1 ? 'code' : 'codes'} across{' '}
+                {firmCount} {firmCount === 1 ? 'firm' : 'firms'}
+                {best != null ? `, the largest is ${best}% off` : ''}.{' '}
+                <strong className="text-ink">
+                  None have been confirmed with the firms yet
+                </strong>
+                , so treat them as a starting point rather than a promise: a code may not apply at
+                checkout. We will mark each one verified here once we have run it ourselves.
+              </>
+            )}
           </>
         ) : (
           <>
@@ -266,7 +284,10 @@ export default async function DealsPage({ searchParams }: { searchParams: Search
       {allDeals.length > 0 ? (
         <dl className="mb-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-4">
           {[
-            { label: 'Verified codes live', value: String(allDeals.length) },
+            {
+              label: verifiedCount > 0 ? 'Verified codes live' : 'House codes live',
+              value: String(verifiedCount > 0 ? verifiedCount : allDeals.length),
+            },
             { label: 'Best discount', value: best != null ? `${best}% off` : 'Varies' },
             { label: 'Firms covered', value: String(firmCount) },
             {
