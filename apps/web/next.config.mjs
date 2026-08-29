@@ -12,16 +12,17 @@ const nextConfig = {
   // Tracing it into the Payload catch-all route fixes the read path. It does
   // NOT make uploads work: a serverless filesystem is read-only, so anything
   // added through the admin panel still needs an S3 or R2 storage adapter.
-  // Key is a glob over Next's internal route names, which keep the (payload)
-  // route group, so '/api/[...slug]' never matched. Tracing it onto every route
-  // is the reliable form and costs 188KB, the total size of the 20 logos.
-  outputFileTracingIncludes: {
-    '/**/*': ['./media/**/*'],
+  // The logos are ALSO committed to public/media and served straight off the
+  // CDN. File tracing alone kept failing in production because the bundle
+  // layout differs from a local build, and a logo is a static asset that has no
+  // business going through a serverless function on every request anyway.
+  //
+  // Payload mints upload URLs as /api/media/file/<filename>, and those URLs are
+  // baked into rendered HTML, so rewriting is what lets existing markup and the
+  // admin panel keep working untouched while the bytes come from the edge.
+  async rewrites() {
+    return [{ source: '/api/media/file/:name', destination: '/media/:name' }]
   },
-
-  // pnpm workspace: without this Next infers the trace root from the lockfile
-  // at the repo root and resolves the glob above against the wrong directory.
-  outputFileTracingRoot: import.meta.dirname,
 }
 
 export default withPayload(nextConfig)
