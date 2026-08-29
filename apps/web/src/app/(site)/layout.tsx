@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   },
   description:
     'Compare prop trading firms with verified data: rules, payouts, rule-change history, and real trader reviews.',
+  // Search Console ownership. Next renders this as the google-site-verification
+  // meta tag; keep it even after verification passes, because removing it makes
+  // Google drop the property and the history with it.
+  verification: { google: 'KGAZ_Y2K_OMyTkfSFHfCVZ33hE3BoX2V4AD20a2CvGQ' },
 }
 
 /** Footer sitemap. Every href must be a route that exists (no dead links). */
