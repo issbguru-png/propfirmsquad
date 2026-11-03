@@ -5,6 +5,8 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp'
 
+import { FLY_DB_CA } from './fly-db-ca'
+
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Platforms } from './collections/Platforms'
@@ -53,6 +55,11 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || 'postgres://localhost:5432/propfirmsquad',
+      // The self-hosted Fly Postgres (leavecast-db) uses a self-signed cert
+      // pinned here for full verification. localhost dev uses no TLS.
+      ssl: (process.env.DATABASE_URI || '').includes('leavecast-db.fly.dev')
+        ? { ca: FLY_DB_CA }
+        : undefined,
     },
   }),
   sharp,
